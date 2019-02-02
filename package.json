@@ -6,6 +6,7 @@
     "antd": "^3.13.0",
     "babel-plugin-import": "^1.11.0",
     "customize-cra": "^0.2.11",
+    "less": "^3.9.0",
     "react": "^16.7.0",
     "react-app-rewired": "^2.0.3",
     "react-dom": "^16.7.0",
@@ -25,5 +26,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "less-loader": "^4.1.0"
+  }
 }
