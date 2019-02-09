@@ -1,17 +1,19 @@
+const proxy = require('http-proxy-middleware')
 const { override, fixBabelImports, addLessLoader } = require('customize-cra');
 
-module.exports = function override(config, env) {
-    // do stuff with the webpack config...
-    return config;
-};
-module.exports = override(
-    fixBabelImports('import', {
-        libraryName: 'antd',
-        libraryDirectory: 'es',
-        style: 'css',
+const antdOverride = override(
+    fixBabelImports("import", {
+        libraryName: "antd",
+        libraryDirectory: "es",
+        style: 'css'
     }),
     addLessLoader({
-        javacriptEnables: true,
-        modifyVars: { '@primary-color': '#1DA57A' }
+        javascriptEnabled: true,
+        modifyVars: { "@primary-color": "#1DA57A" }
     })
 );
+
+module.exports = function override(config, env) {
+    config = antdOverride(config);
+    return config;
+}
