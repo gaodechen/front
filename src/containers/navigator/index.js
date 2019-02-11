@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import NavigatorContainer from './navigator'
+import NavigatorContainer from './Navigator'
 
 const Navigator = connect()(NavigatorContainer)
 

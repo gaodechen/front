@@ -6,25 +6,25 @@ import Navigator from './components'
 
 class WrappedNavigator extends Component {
     render() {
+        const {userInfo, isLoggedIn, showForm} = this.props;
         return (
             // 根据用户状态渲染菜单
-            <Navigator
-                userInfo={this.props.userInfo}
-                showForm={this.props.showForm}
-            />
+            <Navigator userInfo={userInfo} isLoggedIn={isLoggedIn} showForm={showForm} />
         )
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        userInfo: state.userInfo,
+        userInfo: state.home.userInfo,
+        isLoggedIn: state.home.isLoggedIn
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        showForm: (form) => {
+        // Currying!
+        showForm: (form) => () => {
             dispatch(formActions.showForm(form))
         }
     }

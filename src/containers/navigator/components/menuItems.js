@@ -9,7 +9,7 @@ export const mainMenus = [
 export const guestMenus = [
     // form是对应需要展示的modal表单名称
     { url: '/login', name: '登陆', iconType: 'login', form: 'loginForm' },
-    { url: '/register', name: '注册', iconType: 'user', form: 'registerForm' }
+    { url: '/register', name: '注册', iconType: 'user-add', form: 'registerForm' }
 ]
 
 // user可以访问的用户菜单(secondary)

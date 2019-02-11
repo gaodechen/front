@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 
 import { Form, Icon, Input, Button, Checkbox, Modal } from 'antd';
 
@@ -15,6 +14,12 @@ class LoginForm extends Component {
                 this.props.handleLogin(email, password, remember);
             }
         });
+    }
+
+    handleGoRegister = (e) => {
+        e.preventDefault();
+        this.props.onCancel();
+        this.props.goRegister();
     }
 
     render() {
@@ -58,8 +63,8 @@ class LoginForm extends Component {
                         <Button type="primary" htmlType="submit" className="login-button">
                             登陆
                     </Button>
-                        <Button type="default" className="go-register-button">
-                            <Link to="/register">立即注册</Link>
+                        <Button type="default" className="go-register-button" onClick={this.handleGoRegister}>
+                            立即注册
                         </Button>
                     </Form.Item>
                 </Form>

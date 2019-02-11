@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 
-class Music extends Component {
+class NotFound extends Component {
     render() {
         return (
-            <div>Hello, Music!</div>
+            <div>Not Found</div>
         )
     }
 }
 
-export default Music
+export default NotFound;

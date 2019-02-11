@@ -1,17 +1,5 @@
-import { message, Alert } from 'antd'
+import { message, Alert, Modal } from 'antd'
 import React from 'react'
-
-const successBox = (msg) => {
-    message.success(msg)
-}
-
-const errorBox = (msg) => {
-    message.error(msg)
-}
-
-const warningBox = (msg) => {
-    message.warning(msg)
-}
 
 const Tip = (type, msg, content, callback) => {
     return (
@@ -24,4 +12,4 @@ const Tip = (type, msg, content, callback) => {
     )
 }
 
-export { successBox, errorBox, warningBox, Tip }
+export { message, Modal, Tip }

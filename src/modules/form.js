@@ -5,7 +5,7 @@ const action_types = {
 }
 
 const initialState = {
-    visible: { loginForm: false, registerForm: false }
+    visible: { loginForm: true, registerForm: true }
 }
 
 // Reducer

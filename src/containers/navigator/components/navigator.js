@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Menu, Icon } from 'antd'
 import { NavLink } from 'react-router-dom'
 
-import { mainMenus, guestMenus, userMenus } from './menuItems'
+import { mainMenus, guestMenus, userMenus } from './MenuItems'
 
 const MenuItem = (item) => {
     return (
@@ -20,10 +20,14 @@ const MenuList = (items) => {
 }
 
 class Navigator extends Component {
+    componentWillMount() {
+        const { showForm } = this.props;
+        // Currying!!!
+        guestMenus.forEach(item => {item.onClick = showForm(item.form)})
+    }
+
     render() {
-        const { url, userInfo, showForm } = this.props;
-        // 巧妙!
-        guestMenus.map((item) => ({...item, onClick: showForm(item.form)}))
+        const { url, isLoggedIn } = this.props;
         // 根据登陆状态渲染
         return (
             <Menu mode="horizontal" selectedKeys={url} theme="dark">
@@ -31,9 +35,9 @@ class Navigator extends Component {
                     // 渲染一级菜单
                     MenuList(mainMenus)
                 }
-                <Menu.SubMenu title={<span><Icon type="setting" />用户</span>}>
+                <Menu.SubMenu title={<span><Icon type="user" />用户</span>}>
                     {
-                        userInfo
+                        isLoggedIn
                             // 登陆后调用用户菜单
                             ?
                             MenuList(userMenus)

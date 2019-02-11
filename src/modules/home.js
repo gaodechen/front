@@ -1,9 +1,11 @@
 // 用户状态，异步操作状态
+// userInfo用于登陆态
 const action_types = {
-    FETCH_START: 'fetch/START',     // 异步操作开始
-    FETCH_END: 'fetch/END',         // 异步操作结束
-    SET_MSG: 'fetch/SET',           // 设置异步操作返回值
-    SET_USERINFO: 'user/SET',       // 设置用户信息
+    FETCH_START: 'fetch/START',         // 异步操作开始
+    FETCH_END: 'fetch/END',             // 异步操作结束
+    SET_MSG: 'fetch/SET',               // 设置异步操作返回值
+    SET_USERINFO: 'userInfo/SET',       // 设置本地用户信息
+    USER_AUTH: 'user/AUTH',             // 更新前端用户状态
     USER_LOGIN: 'user/LOGIN',
     USER_LOGOUT: 'user/LOGOUT',
     USER_REGISTER: 'user/REGISTER'
@@ -20,6 +22,7 @@ const initialState = {
         type: fetch_types.SUCCEED,
         content: ''
     },
+    isLoggedIn: false,
     userInfo: {}
 }
 
@@ -48,7 +51,8 @@ const Reducer = (state = initialState, action = {}) => {
         case action_types.SET_USERINFO:
             return {
                 ...state,
-                userInfo: action.userInfo
+                userInfo: action.userInfo,
+                isLoggedIn: action.isLoggedIn
             }
         default:
             return state;
@@ -65,6 +69,9 @@ const actions = {
     }),
     userLogout: () => ({
         type: action_types.USER_LOGOUT
+    }),
+    userAuth: () => ({
+        type: action_types.USER_AUTH
     })
 }
 

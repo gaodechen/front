@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { Layout } from 'antd'
 
-import { Navigator } from '../containers/navigator'
-import { LoginForm, RegisterForm, Logout } from '../containers/user'
+import { LoginForm, RegisterForm, Logout } from '../containers/User'
+import { Navigator } from '../containers/Navigator'
+import { AuthRoute } from '../containers/AuthRoute'
+import { NotFound } from '../components/NotFound'
+import Music from '../containers/Music'
 
 const { Header, Footer, Content } = Layout;
 
@@ -17,10 +20,13 @@ class IndexLayout extends Component {
 
                 <Content>
                     <Switch>
-                        <Route path="/login" component={LoginForm} />
-                        <Route path="/register" component={RegisterForm} />
-                        <Route path="/logout" component={Logout} />
+                        <AuthRoute path="/login" check="notLogin" component={LoginForm} />
+                        <AuthRoute path="/register" check="notLogin" component={RegisterForm} />
+                        <AuthRoute path="/logout" check="login" component={Logout} />
+                        <Route path="/music" component={Music} />
+                        <Route path="/404" component={NotFound} />
                     </Switch>
+                    asdfasdfasfasdf
                 </Content>
 
                 <Footer style={{ textAlign: "center" }}>

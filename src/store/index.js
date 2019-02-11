@@ -1,24 +1,6 @@
-import Reducer from '../modules'
-import { createStore, applyMiddleware } from 'redux'
-import createSagaMiddleware from 'redux-saga'
+import store from './configureStore'
+import { persistStore } from 'redux-persist'
 
-// Logger Middleware
-import { createLogger } from 'redux-logger'
-// DevTools Extension Middleware
-import { composeWithDevTools } from 'redux-devtools-extension'
+const persistor = persistStore(store)
 
-import rootSaga from '../sagas'
-
-// Redux-Saga Middleware
-const sagaMiddleware = createSagaMiddleware(rootSaga);
-// Redux-Logger Middleware
-const loggerMiddleware = createLogger({ collapsed: true });
-
-const store = createStore(
-    Reducer,
-    composeWithDevTools(applyMiddleware(sagaMiddleware, loggerMiddleware))
-);
-
-sagaMiddleware.run(rootSaga)
-
-export default store
+export { store, persistor }

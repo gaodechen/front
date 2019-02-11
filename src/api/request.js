@@ -1,7 +1,8 @@
 import axios from 'axios';
+import config from '../config'
 
 // 被代理地址
-const basicRequestLink = 'http://localhost:3001/'
+const basicRequestLink = config.FRONT_ADDR
 const basicHost = basicRequestLink;
 
 // 带cookie请求

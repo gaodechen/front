@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { actions as homeActions } from '../../modules/home'
 import { actions as formActions } from '../../modules/form'
-import RegisterForm from './components/registerForm'
+import RegisterForm from './components/RegisterForm'
 
 class WrappedRegisterContainer extends Component {
     render() {
