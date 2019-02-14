@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { Form, Input, Tooltip, Icon, Button, Modal } from 'antd';
+import { Form, Input, Tooltip, Icon, Button } from 'antd';
 
 import './style.css'
 
@@ -72,72 +72,63 @@ class RegisterForm extends Component {
 
 
         return (
-            <Modal
-                title="注册"
-                visible={this.props.visible}
-                onCancel={this.props.onCancel}
-                footer={null}
-            >
-                <Form onSubmit={this.handleSubmit} className="register-form">
-                    <Form.Item {...formItemLayout} label="邮箱">
-                        {getFieldDecorator('email', {
-                            rules: [{
-                                type: 'email', message: '邮箱无效！',
-                            }, {
-                                required: true, message: '请输入邮箱！',
-                            }],
-                        })(
-                            <Input prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />} />
-                        )}
-                    </Form.Item>
-                    <Form.Item {...formItemLayout} label="密码">
-                        {getFieldDecorator('password', {
-                            rules: [{
-                                required: true, message: '请输入密码！',
-                            }, {
-                                validator: this.validateToNextPassword,
-                            }],
-                        })(
-                            <Input type="password" prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} />
-                        )}
-                    </Form.Item>
-                    <Form.Item {...formItemLayout} label="确认密码">
-                        {getFieldDecorator('confirm', {
-                            rules: [{
-                                required: true, message: '请确认您的密码！',
-                            }, {
-                                validator: this.compareToFirstPassword,
-                            }],
-                        })(
-                            <Input type="password" onBlur={this.handleConfirmBlur} prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} />
-                        )}
-                    </Form.Item>
-                    <Form.Item
-                        {...formItemLayout}
-                        label={(
-                            <span>
-                                用户名&nbsp;
+            <Form onSubmit={this.handleSubmit} className="register-form">
+                <Form.Item {...formItemLayout} label="邮箱">
+                    {getFieldDecorator('email', {
+                        rules: [{
+                            type: 'email', message: '邮箱无效！',
+                        }, {
+                            required: true, message: '请输入邮箱！',
+                        }],
+                    })(
+                        <Input prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />} />
+                    )}
+                </Form.Item>
+                <Form.Item {...formItemLayout} label="密码">
+                    {getFieldDecorator('password', {
+                        rules: [{
+                            required: true, message: '请输入密码！',
+                        }, {
+                            validator: this.validateToNextPassword,
+                        }],
+                    })(
+                        <Input type="password" prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} />
+                    )}
+                </Form.Item>
+                <Form.Item {...formItemLayout} label="确认密码">
+                    {getFieldDecorator('confirm', {
+                        rules: [{
+                            required: true, message: '请确认您的密码！',
+                        }, {
+                            validator: this.compareToFirstPassword,
+                        }],
+                    })(
+                        <Input type="password" onBlur={this.handleConfirmBlur} prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} />
+                    )}
+                </Form.Item>
+                <Form.Item
+                    {...formItemLayout}
+                    label={(
+                        <span>
+                            用户名&nbsp;
                             <Tooltip title="输入您用于显示的昵称">
-                                    <Icon type="question-circle-o" />
-                                </Tooltip>
-                            </span>
-                        )}
-                    >
-                        {getFieldDecorator('username', {
-                            rules: [{ required: true, message: '请输入您的用户名!', whitespace: true }],
-                        })(
-                            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} />
-                        )}
-                    </Form.Item>
-                    <Form.Item {...tailFormItemLayout}>
-                        <Button type="primary" htmlType="submit" block>注册</Button>
-                    </Form.Item>
-                </Form>
-            </Modal>
+                                <Icon type="question-circle-o" />
+                            </Tooltip>
+                        </span>
+                    )}
+                >
+                    {getFieldDecorator('username', {
+                        rules: [{ required: true, message: '请输入您的用户名!', whitespace: true }],
+                    })(
+                        <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} />
+                    )}
+                </Form.Item>
+                <Form.Item {...tailFormItemLayout}>
+                    <Button type="primary" htmlType="submit" block>注册</Button>
+                </Form.Item>
+            </Form>
         );
     }
 }
 
-const WrappedRegisterForm = Form.create({ name: 'register' })(RegisterForm);
-
-export default WrappedRegisterForm
+export default Form.create({ name: 'register' })(RegisterForm);

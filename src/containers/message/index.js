@@ -1,15 +1,7 @@
-import { message, Alert, Modal } from 'antd'
-import React from 'react'
+import { message } from 'antd'
 
-const Tip = (type, msg, content, callback) => {
-    return (
-        <Alert
-            message={msg}
-            description={content}
-            type={type}
-            showIcon
-        />
-    )
+const showMessage = (type, content) => {
+    message[type](content)
 }
 
-export { message, Modal, Tip }
+export { showMessage }

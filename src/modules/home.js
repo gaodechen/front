@@ -17,9 +17,9 @@ const fetch_types = {
 }
 
 const initialState = {
-    isFetching: true,
+    isFetching: false,
     msg: {
-        type: fetch_types.SUCCEED,
+        type: undefined,
         content: ''
     },
     isLoggedIn: false,

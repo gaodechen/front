@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
-import { actions as formActions } from '../../modules/form'
 import Navigator from './components'
 
 class WrappedNavigator extends Component {
     render() {
-        const {userInfo, isLoggedIn, showForm} = this.props;
+        const {userInfo, isLoggedIn } = this.props;
         return (
             // 根据用户状态渲染菜单
-            <Navigator userInfo={userInfo} isLoggedIn={isLoggedIn} showForm={showForm} />
+            <Navigator userInfo={userInfo} isLoggedIn={isLoggedIn} />
         )
     }
 }
@@ -21,15 +20,6 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        // Currying!
-        showForm: (form) => () => {
-            dispatch(formActions.showForm(form))
-        }
-    }
-}
-
-const NavigatorContainer = connect(mapStateToProps, mapDispatchToProps)(WrappedNavigator)
+const NavigatorContainer = connect(mapStateToProps)(WrappedNavigator)
 
 export default NavigatorContainer

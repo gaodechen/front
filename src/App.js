@@ -1,25 +1,22 @@
 // App Entrance
 import React, { Component } from 'react';
 import { Provider } from 'react-redux'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { PersistGate } from 'redux-persist/integration/react'
 
 import { store, persistor } from './store'
-import IndexLayout from './views/layout'
+import Index from './views/index'
 
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
-        <Provider store={store}>
+      <Provider store={store}>
+        <BrowserRouter>
           <PersistGate loading={null} persistor={persistor}>
-            <Switch>
-              <Route path='/home' component={IndexLayout} />
-              <Route path='/' component={IndexLayout} />
-            </Switch>
+            <Index />
           </PersistGate>
-        </Provider>
-      </BrowserRouter>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }

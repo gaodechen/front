@@ -6,7 +6,7 @@ import { mainMenus, guestMenus, userMenus } from './MenuItems'
 
 const MenuItem = (item) => {
     return (
-        <Menu.Item key={item.url} onClick={item.onClick}>
+        <Menu.Item key={item.url}>
             <NavLink to={item.url}>
                 <Icon type={item.iconType} />
                 <span>{item.name}</span>
@@ -20,12 +20,6 @@ const MenuList = (items) => {
 }
 
 class Navigator extends Component {
-    componentWillMount() {
-        const { showForm } = this.props;
-        // Currying!!!
-        guestMenus.forEach(item => {item.onClick = showForm(item.form)})
-    }
-
     render() {
         const { url, isLoggedIn } = this.props;
         // 根据登陆状态渲染

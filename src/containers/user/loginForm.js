@@ -1,28 +1,40 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
-import { actions as homeActions } from '../../modules/home'
-import { actions as formActions } from '../../modules/form'
+import { actions as homeActions, fetch_types } from '../../modules/home'
 import { LoginForm } from './components'
+import { Loading } from '../Loading'
+import { showMessage } from '../Message'
 
-class WrappedLoginContainer extends Component {
+class LoginContainer extends Component {
+    componentWillReceiveProps(nextProps) {
+        const { isFetching, msg } = nextProps;
+        // FETCH_END -> SET_MSG
+        if (!this.props.isFetching && !isFetching && msg && msg.content) {
+            if (msg.type === fetch_types.SUCCEED) {
+                showMessage('success', msg.content)
+            } else {
+                showMessage('error', msg.content)
+            }
+        }
+    }
+
     render() {
-        const { visible, onCancel, goRegister, handleLogin } = this.props;
+        const { handleLogin, isFetching } = this.props;
         return (
-            <LoginForm
-                visible={visible}
-                onCancel={onCancel}
-                goRegister={goRegister}
-                handleLogin={handleLogin}
-            />
+            <div>
+                {isFetching && <Loading />}
+                <LoginForm handleLogin={handleLogin} history={this.props.history} />
+            </div>
         )
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        visible: state.form.visible.loginForm,
-        isLoggedIn: state.home.isLoggedIn
+        isFetching: state.home.isFetching,
+        msg: state.home.msg
     }
 }
 
@@ -31,15 +43,9 @@ const mapDispatchToProps = (dispatch) => {
         handleLogin: (email, password, remember) => {
             dispatch(homeActions.userLogin(email, password, remember))
         },
-        onCancel: () => {
-            dispatch(formActions.hideForm("loginForm"))
-        },
-        goRegister: () => {
-            dispatch(formActions.showForm("registerForm"))
-        }
     }
 }
 
-const LoginContainer = connect(mapStateToProps, mapDispatchToProps)(WrappedLoginContainer)
-
-export default LoginContainer
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(LoginContainer)
+)

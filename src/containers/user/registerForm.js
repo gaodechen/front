@@ -1,19 +1,31 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
 
-import { actions as homeActions } from '../../modules/home'
-import { actions as formActions } from '../../modules/form'
-import RegisterForm from './components/RegisterForm'
+import { actions as homeActions, fetch_types } from '../../modules/home'
+import { RegisterForm } from './components'
+import { Loading } from '../Loading'
+import { showMessage } from '../Message'
 
-class WrappedRegisterContainer extends Component {
+class RegisterContainer extends Component {
+    componentWillReceiveProps(nextProps) {
+        const { isFetching, msg } = nextProps;
+        // FETCH_END之后才会SET_MSG
+        if (!this.props.isFetching && !isFetching && msg && msg.content) {
+            if (msg.type === fetch_types.SUCCEED) {
+                showMessage('success', msg.content)
+            } else {
+                showMessage('error', msg.content)
+            }
+        }
+    }
+
     render() {
+        const { handleRegister, isFetching } = this.props;
         return (
             <div>
-                <RegisterForm
-                    visible={this.props.visible}
-                    onCancel={this.props.onCancel}
-                    handleRegister={this.props.handleRegister}
-                />
+                {isFetching && <Loading />}
+                <RegisterForm handleRegister={handleRegister} isFetching={isFetching} />
             </div>
         )
     }
@@ -21,7 +33,8 @@ class WrappedRegisterContainer extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        visible: state.form.visible.registerForm,
+        isFetching: state.home.isFetching,
+        msg: state.home.msg
     }
 }
 
@@ -30,12 +43,9 @@ const mapDispatchToProps = (dispatch) => {
         handleRegister: (email, username, password) => {
             dispatch(homeActions.userRegister(email, username, password))
         },
-        onCancel: () => {
-            dispatch(formActions.hideForm("registerForm"))
-        }
     }
 }
 
-const RegisterFormContainer = connect(mapStateToProps, mapDispatchToProps)(WrappedRegisterContainer)
-
-export default RegisterFormContainer
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(RegisterContainer)
+)
