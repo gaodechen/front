@@ -25,11 +25,13 @@ class Index extends Component {
                         <AuthRoute path="/logout" check="login" component={Logout} />
                         <Route path="/music" component={Music} />
                         <Route path="/404" component={NotFound} />
+                        <Route path="/" component={Music} />
                     </Switch>
+                    asdf
                 </Content>
 
-                <Footer style={{ textAlign: "center" }}>
-                    Footer
+                <Footer style={{ textAlign: 'center' }}>
+                    Musicine ©2019 Created by Code & Note
                 </Footer>
             </Layout>
         )

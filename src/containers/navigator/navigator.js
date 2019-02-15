@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 import Navigator from './components'
 
 class WrappedNavigator extends Component {
     render() {
-        const {userInfo, isLoggedIn } = this.props;
+        const { userInfo, isLoggedIn, location } = this.props;
         return (
             // 根据用户状态渲染菜单
-            <Navigator userInfo={userInfo} isLoggedIn={isLoggedIn} />
+            <Navigator userInfo={userInfo} isLoggedIn={isLoggedIn} location={location} />
         )
     }
 }
@@ -20,6 +21,6 @@ const mapStateToProps = (state) => {
     }
 }
 
-const NavigatorContainer = connect(mapStateToProps)(WrappedNavigator)
-
-export default NavigatorContainer
+export default withRouter(
+    connect(mapStateToProps)(WrappedNavigator)
+)

@@ -1,15 +1,11 @@
 import React, { Component } from 'react'
-import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
+import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { Link } from 'react-router-dom'
 
 import './style.css'
 
 // Login Form
 class LoginForm extends Component {
-    showMessage = (type, content) => {
-        message[type](content)
-    }
-
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
@@ -51,7 +47,7 @@ class LoginForm extends Component {
                             <Checkbox>记住密码</Checkbox>
                         )
                     }
-                    <a className="login-form-forgot" href="/music">忘记密码</a>
+                    <Link className="login-form-forgot" to="/music">忘记密码</Link>
                     <Button type="primary" htmlType="submit" className="login-button">
                         登陆
                     </Button>

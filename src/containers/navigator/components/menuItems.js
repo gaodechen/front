@@ -1,6 +1,5 @@
 // 一级导航菜单项
 export const mainMenus = [
-    { url: '/', name: '首页', iconType: 'home' },
     { url: '/music', name: '音乐', iconType: 'star' },
     { url: '/composition', name: '创作', iconType: 'copy' },
 ];

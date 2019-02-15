@@ -21,10 +21,10 @@ const MenuList = (items) => {
 
 class Navigator extends Component {
     render() {
-        const { url, isLoggedIn } = this.props;
+        const { location, isLoggedIn } = this.props;
         // 根据登陆状态渲染
         return (
-            <Menu mode="horizontal" selectedKeys={url} theme="dark">
+            <Menu mode="horizontal" selectedKeys={[location.pathname]} theme="dark" style={{lineHeight: '64px'}}>
                 {
                     // 渲染一级菜单
                     MenuList(mainMenus)

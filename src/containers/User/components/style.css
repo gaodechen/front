@@ -1,0 +1,15 @@
+.login-form-forgot {
+    float: right;
+}
+
+.login-button {
+    width: 100%;
+}
+
+.go-register-button {
+    width: 100%;
+}
+
+.prefix-icon {
+    color: rgba(0,0,0,.25);
+}

@@ -11,11 +11,11 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <BrowserRouter>
-          <PersistGate loading={null} persistor={persistor}>
+        <PersistGate loading={null} persistor={persistor}>
+          <BrowserRouter>
             <Index />
-          </PersistGate>
-        </BrowserRouter>
+          </BrowserRouter>
+        </PersistGate>
       </Provider>
     );
   }

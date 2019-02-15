@@ -1,3 +1,4 @@
+// 路由权限保护
 import React from 'react'
 import { Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
@@ -15,7 +16,7 @@ class WrappedAuthRoute extends React.Component {
         // const { pathname } = this.props.location;
         const { check, login, redirectUrl = "/", ...rest } = this.props;
         // 检查check是否为真
-        let condition = (check === "login") ? login : !login; 
+        let condition = (check === "login") ? login : !login;
 
         if (condition) {
             // 如果为真，渲染组件
@@ -40,11 +41,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getAuth: () => {
-            dispatch(actions.userAuth(0))
+            dispatch(actions.userAuth())
         }
     }
 }
 
-const AuthRoute = withRouter(connect(mapStateToProps, mapDispatchToProps)(WrappedAuthRoute))
+const AuthRoute = withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(WrappedAuthRoute)
+)
 
 export default AuthRoute
