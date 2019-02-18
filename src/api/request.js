@@ -1,13 +1,30 @@
 import axios from 'axios';
 import config from '../config'
+import '../components/Loading'
 
 // 被代理地址
 const basicRequestLink = config.FRONT_ADDR
 const basicHost = basicRequestLink;
 
-// 带cookie请求
-axios.defaults.withCredentials = true;
-axios.defaults.crossDomain = true
+// 请求拦截器
+axios.interceptors.request.use(
+    config => {
+        return config;
+    },
+    error => {
+        return Promise.reject(error);
+    }
+)
+
+// 响应拦截器
+axios.interceptors.response.use(
+    config => {
+        return config;
+    },
+    error => {
+        return Promise.reject(error);
+    }
+)
 
 // 删除底部 '/'
 function deleteSlash(host) {
@@ -47,7 +64,8 @@ export default function request(config) {
         ? `${deleteSlash(host)}${addSlash(path)}`
         : `${deleteSlash(basicHost)}${addSlash(path)}`;
 
-    return axios({
+    // 根据参数构造axios
+    var req = axios({
         url,
         method,
         headers,
@@ -61,9 +79,11 @@ export default function request(config) {
         // 请求出错
         return Promise.reject(err);
     });
+
+    return req;
 }
 
-export const get = (url, data) => request({ url, data });
+export const get = (url, params) => request({ url, params });
 export const post = (url, data) => request({ method: 'POST', url, data });
 export const put = (url, data) => request({ method: 'PUT', url, data });
 export const del = (url, data) => request({ method: 'DELETE', url, data });

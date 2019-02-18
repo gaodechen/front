@@ -21,7 +21,7 @@ const MenuList = (items) => {
 
 class Navigator extends Component {
     render() {
-        const { location, isLoggedIn } = this.props;
+        const { location, isLoggedIn, userInfo } = this.props;
         // 根据登陆状态渲染
         return (
             <Menu mode="horizontal" selectedKeys={[location.pathname]} theme="dark" style={{lineHeight: '64px'}}>
@@ -29,7 +29,7 @@ class Navigator extends Component {
                     // 渲染一级菜单
                     MenuList(mainMenus)
                 }
-                <Menu.SubMenu title={<span><Icon type="user" />用户</span>}>
+                <Menu.SubMenu title={<span><Icon type="user" />{isLoggedIn ? userInfo.username : "用户" }</span>}>
                     {
                         isLoggedIn
                             // 登陆后调用用户菜单

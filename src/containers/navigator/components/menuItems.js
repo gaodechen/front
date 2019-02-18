@@ -13,6 +13,6 @@ export const guestMenus = [
 
 // user可以访问的用户菜单(secondary)
 export const userMenus = [
-    { url: '/friends', name: '好友', iconType: 'team' },
+    { url: '/friends', name: '社区', iconType: 'team' },
     { url: '/logout', name: '注销', iconType: 'logout' },
 ]

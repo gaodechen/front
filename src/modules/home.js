@@ -12,8 +12,8 @@ const action_types = {
 }
 
 const fetch_types = {
-    SUCCEED: true,
-    FAILED: false
+    SUCCEED: 'success',
+    FAILED: 'error'
 }
 
 const initialState = {
@@ -72,6 +72,9 @@ const actions = {
     }),
     userAuth: () => ({
         type: action_types.USER_AUTH
+    }),
+    clearMsg: () => ({
+        type: action_types.SET_MSG, msg: initialState.msg
     })
 }
 
