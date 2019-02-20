@@ -1,6 +1,7 @@
 // Friends Panel Status
 const action_types = {
     GET_LIST: 'list/GET',
+    SET_LIST: 'list/SET',
     ADD_TO_LIST: 'list/ADD',
     DEL_FROM_LIST: 'list/DEL',
 }
@@ -10,8 +11,6 @@ const initialState = {
     followers: []
 }
 
-// action: type, listName, data: {}
-
 // Reducer
 const Reducer = (state = initialState, action = {}) => {
     switch (action.type) {
@@ -19,7 +18,8 @@ const Reducer = (state = initialState, action = {}) => {
             return {
                 ...state,
                 [action.listName]: {
-                    ...action.data
+                    ...state[action.listName],
+                    [action.listName]: action.data
                 }
             }
         default:

@@ -16,8 +16,8 @@ class LoginContainer extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        handleLogin: (email, password, remember) => {
-            dispatch(homeActions.userLogin(email, password, remember))
+        handleLogin: (email, password) => {
+            dispatch(homeActions.userLogin(email, password))
         },
     }
 }

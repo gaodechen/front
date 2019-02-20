@@ -2,17 +2,19 @@ import React, { Component } from 'react'
 import { withRouter, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { BasicLayout } from '../components/Layouts'
+import { AppLayout, BasicLayout } from '../components/Layouts'
 import { LoginForm, RegisterForm, Logout } from '../containers/User'
 import { Friends } from '../containers/Friends'
 import { AuthRoute } from '../containers/AuthRoute'
 import { NotFound } from '../components/NotFound'
 import { Loading } from '../components/Loading'
+import { Composition } from '../containers/Composition'
 import Music from '../containers/Music'
 import { actions as homeActions, fetch_types } from '../modules/home'
 import { showMessage as showMsg } from '../containers/Message'
 
 class Index extends Component {
+    // 维护登陆态
     componentDidMount() {
         const { login, userInfo } = this.props;
         if (login && Object.keys(userInfo).length === 0) {
@@ -20,6 +22,7 @@ class Index extends Component {
         }
     }
 
+    // 全局提示框
     componentWillReceiveProps(nextProps) {
         const { msg, clearMsg } = nextProps;
         if (msg && msg.content) {
@@ -31,12 +34,25 @@ class Index extends Component {
 
     render() {
         const { isFetching } = this.props;
+        const { pathname } = this.props.location;
+        // App Container
+        if (pathname === '/login' || pathname === '/register' || pathname === '/composition') {
+            return (
+                <AppLayout>
+                    <Switch>
+                        <AuthRoute path="/login" check="notLogin" component={LoginForm} />
+                        <AuthRoute path="/register" check="notLogin" component={RegisterForm} />
+                        <AuthRoute path="/logout" check="login" component={Logout} />
+                        <Route path='/composition' component={Composition} />
+                    </Switch>
+                    {isFetching && <Loading />}
+                </AppLayout>
+            )
+        }
+        // Basic Container
         return (
             <BasicLayout>
                 <Switch>
-                    <AuthRoute path="/login" check="notLogin" component={LoginForm} />
-                    <AuthRoute path="/register" check="notLogin" component={RegisterForm} />
-                    <AuthRoute path="/logout" check="login" component={Logout} />
                     <AuthRoute path="/friends" check="login" component={Friends} />
                     <Route path="/music" component={Music} />
                     <Route path="/404" component={NotFound} />

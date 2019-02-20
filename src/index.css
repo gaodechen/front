@@ -16,3 +16,9 @@ code {
 .App {
   text-align: center
 }
+
+/* root container */
+#root {
+  min-height: 100vh;
+  position: relative;
+}

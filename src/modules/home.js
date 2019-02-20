@@ -12,8 +12,8 @@ const action_types = {
 }
 
 const fetch_types = {
-    SUCCEED: 'success',
-    FAILED: 'error'
+    SUCCEED: true,
+    FAILED: false
 }
 
 const initialState = {

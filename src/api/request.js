@@ -1,5 +1,5 @@
 import axios from 'axios';
-import config from '../config'
+import { addr_config as config } from '../config'
 import '../components/Loading'
 
 // 被代理地址

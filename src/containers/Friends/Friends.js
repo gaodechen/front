@@ -1,18 +1,41 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import { Tabs, Icon } from 'antd'
 
-import { List } from '../../components/List'
-import { actions as friendsActions } from '../../modules/friends'
+import UserList from './UserList'
+import { actions as homeActions } from '../../modules/home'
 
-// User Panel
-// Tab: Follows
+const TabPane = Tabs.TabPane;
 
 class WrappedFriends extends Component {
     render() {
         return (
             <div>
-                <List dataSource={this.props.userInfo.following} />
-                <List dataSource={this.props.userInfo.followers} />
+                <Tabs defaultActiveKey="1" size="large" tabPosition="left">
+                    <TabPane
+                        tab={<span><Icon type="form" />我的空间</span>}
+                        key="1"
+                    >
+                    </TabPane>
+                    <TabPane
+                        tab={<span><Icon type="team" />好友动态</span>}
+                        key="2"
+                    >
+                    </TabPane>
+                    <TabPane
+                        tab={<span><Icon type="star" />我的关注</span>}
+                        key="3"
+                    >
+                        <UserList dataSource={this.props.userInfo.following} />
+                    </TabPane>
+                    <TabPane
+                        tab={<span><Icon type="like" />我的粉丝</span>}
+                        key="4"
+                    >
+                        <UserList dataSource={this.props.userInfo.followers} />
+                    </TabPane>
+                </Tabs>
             </div>
         )
     }
@@ -20,17 +43,18 @@ class WrappedFriends extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        userInfo: state.home.userInfo
+        userInfo: state.home.userInfo,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getList: (listName, id) => {
-            dispatch(friendsActions.getList(listName, id))
+        getAuth: () => {
+            dispatch(homeActions.userAuth())
         },
     }
 }
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(WrappedFriends);
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(WrappedFriends)
+);
