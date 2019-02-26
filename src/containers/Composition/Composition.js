@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import { Row, Col } from 'antd'
+import { Row } from 'antd'
 
 import Recorder from './Recorder'
 import Uploader from './Uploader'
-
-import './style.css'
 
 class Composition extends Component {
     render() {

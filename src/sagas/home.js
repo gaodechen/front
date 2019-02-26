@@ -1,8 +1,8 @@
 import { put, take, call } from 'redux-saga/effects'
-import { get, post, del } from '../api/request'
+import { get, post, del } from '../api/request/request'
 
 import { action_types, fetch_types } from '../modules/home'
-import status_code from '../api/status-code';
+import status_code from '../api/request/status-code';
 
 // 异步操作：登陆
 export function* login(email, password) {
@@ -87,13 +87,13 @@ export function* registerFlow() {
 
 export function* logout() {
     let response;
-    yield put({ type: action_types.FETCH_START });
+    // yield put({ type: action_types.FETCH_START });
     try {
         response = yield call(del, '/api/session');
     } catch (err) {
         response = err.response;
     } finally {
-        yield put({ type: action_types.FETCH_END });
+        // yield put({ type: action_types.FETCH_END });
         return response;
     }
 }
@@ -129,10 +129,12 @@ export function* logoutFlow() {
 export function* auth() {
     let response;
     try {
+        yield put({ type: action_types.FETCH_START });
         response = yield call(get, '/api/session');
     } catch (err) {
         response = err.response;
     } finally {
+        yield put({ type: action_types.FETCH_END });
         return response;
     }
 }

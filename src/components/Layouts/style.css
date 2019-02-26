@@ -1,10 +1,45 @@
 .layout-footer {
-    text-align: center;
-    position: absolute;
-    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
+    height: 24px;
+    background-color: #222;
+    color: #999;
+    font-weight: 400;
+    line-height: 35px;
+    margin-top: 16px;
 }
 
 .basic-layout {
     height: 100%;
+}
+
+.content-layout-container {
+    flex: 1 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* min-height: 688px; */
+    height: calc(100vh - 112px);
+}
+
+/* Content With no SiderBar */
+.content-layout-container-full {
+    flex: 1 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* min-height: 688px; */
+    min-height: calc(100vh - 112px);
+}
+
+.content-layout-content {
+    margin: 32px 16px 0 0;
+}
+
+/* with no sider */
+.content-layout-content-full {
+    width: 70%;
+    margin: 0;
 }

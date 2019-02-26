@@ -1,11 +1,11 @@
 // philosophy
 // 尝试把action搞复杂，而不是把state和组件搞复杂
 import { put, take, call } from 'redux-saga/effects'
-import { get, post, del } from '../api/request'
+import { get, post, del } from '../api/request/request'
 
 import { action_types as home_action_types, fetch_types } from '../modules/home'
 import { action_types as friends_action_types } from '../modules/friends'
-import status_code from '../api/status-code'
+import status_code from '../api/request/status-code'
 
 // 异步获取用户的[listName]字段数据
 // listName = "following" || "followers"

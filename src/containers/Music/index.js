@@ -1,12 +1,3 @@
-import React, { Component } from 'react'
-import Pin from './components/Pin'
+import Music from './Music'
 
-class Music extends Component {
-    render() {
-        return (
-            <Pin />
-        )
-    }
-}
-
-export default Music
+export { Music }

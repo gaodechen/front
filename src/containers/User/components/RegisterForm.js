@@ -65,7 +65,7 @@ class RegisterForm extends Component {
         };
 
         return (
-            <Row className="flex-row" type="flex">
+            <Row className="flex-row">
                 <Col {...contentLayout}>
                     <Form onSubmit={this.handleSubmit} className="register-form">
                         <Form.Item {...formItemLayout} label="邮箱">

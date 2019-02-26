@@ -1,3 +1,4 @@
+// HOC: 为组件注入用户登陆态
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 
@@ -7,12 +8,12 @@ import { actions } from '../../modules/home'
 const UserStatusUpdate = WrappedComponent => {
     class HOC extends Component {
         // 渲染之前进行一次登陆态查询更新
-        componentDidMount() {
+        /* componentDidMount() {
             const { login, userInfo } = this.props;
             if (!login || (login && Object.keys(userInfo).length === 0)) {
                 this.props.getAuth();
             }
-        }
+        } */
 
         render() {
             return (

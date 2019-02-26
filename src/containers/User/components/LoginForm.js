@@ -25,7 +25,7 @@ class LoginForm extends Component {
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
-            <Row type="flex" className="flex-row">
+            <Row className="flex-row">
                 <Col {...contentLayout}>
                     <Form onSubmit={this.handleSubmit} className="login-form">
                         <Form.Item>

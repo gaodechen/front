@@ -1,3 +1,4 @@
+// 应用样式的布局容器: 全屏居中
 import React, { Component } from 'react'
 import { Layout } from 'antd'
 

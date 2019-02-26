@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { addr_config as config } from '../config'
-import '../components/Loading'
+import { addr_config as config } from '../../config'
+import '../../components/Loading'
 
 // 被代理地址
 const basicRequestLink = config.FRONT_ADDR

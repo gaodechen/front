@@ -4,7 +4,7 @@ import { Layout } from 'antd'
 import { Navigator } from '../../containers/Navigator'
 import './style.css'
 
-const { Header, Footer, Content } = Layout;
+const { Header, Footer } = Layout;
 
 class BasicLayout extends Component {
     render() {
@@ -14,9 +14,7 @@ class BasicLayout extends Component {
                     <Navigator />
                 </Header>
 
-                <Content className="basic-layout-content">
-                    {this.props.children}
-                </Content>
+                {this.props.children}
 
                 <Footer className="layout-footer">
                     Musicine ©2019 Created by Code & Note

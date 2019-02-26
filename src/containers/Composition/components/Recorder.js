@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Icon, Row, Col } from 'antd'
+import { Button, Icon } from 'antd'
 import { ReactMic } from 'react-mic'
 
 class Recorder extends Component {

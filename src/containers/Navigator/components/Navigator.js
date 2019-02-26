@@ -1,25 +1,27 @@
 import React, { Component } from 'react'
 import { Menu, Icon } from 'antd'
-import { NavLink } from 'react-router-dom'
 import { Row, Col } from 'antd'
 
-import { mainMenus, guestMenus, userMenus } from './MenuItems'
-// import { logo } from '../../../config'
+import { MenuList } from '../../../components/MenuItems'
 
-const MenuItem = (item) => {
-    return (
-        <Menu.Item key={item.url}>
-            <NavLink to={item.url}>
-                <Icon type={item.iconType} />
-                <span>{item.name}</span>
-            </NavLink>
-        </Menu.Item>
-    )
-}
+// 一级导航菜单项
+const mainMenus = [
+    { url: '/music', name: '音乐', iconType: 'star' },
+    { url: '/composition', name: '创作', iconType: 'copy' },
+];
 
-const MenuList = (items) => {
-    return items.map((item) => MenuItem(item))
-}
+// guest可以访问的用户菜单(secondary)
+const guestMenus = [
+    // form是对应需要展示的modal表单名称
+    { url: '/login', name: '登陆', iconType: 'login' },
+    { url: '/register', name: '注册', iconType: 'user-add' }
+]
+
+// user可以访问的用户菜单(secondary)
+const userMenus = [
+    { url: '/center', name: '社区', iconType: 'team' },
+    { url: '/logout', name: '注销', iconType: 'logout' },
+]
 
 class Navigator extends Component {
     render() {
@@ -27,8 +29,7 @@ class Navigator extends Component {
         // 根据登陆状态渲染
         return (
             <Row>
-                <Col xs={{ span: 0 }} sm={{ span: 3 }} />
-                <Col xs={{ span: 24 }} sm={{ span: 20 }} >
+                <Col xs={{ span: 24 }} sm={{ span: 18, offset: 3 }}>
                     <Menu
                         mode="horizontal"
                         selectedKeys={[location.pathname]}

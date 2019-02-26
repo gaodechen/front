@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import { withRouter, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { AppLayout, BasicLayout } from '../components/Layouts'
+import { BasicLayout } from '../components/Layouts'
 import { LoginForm, RegisterForm, Logout } from '../containers/User'
-import { Friends } from '../containers/Friends'
+import { Center } from '../containers/Center'
 import { AuthRoute } from '../containers/AuthRoute'
 import { NotFound } from '../components/NotFound'
 import { Loading } from '../components/Loading'
 import { Composition } from '../containers/Composition'
-import Music from '../containers/Music'
+import { Music } from '../containers/Music'
 import { actions as homeActions, fetch_types } from '../modules/home'
 import { showMessage as showMsg } from '../containers/Message'
 
@@ -34,26 +34,16 @@ class Index extends Component {
 
     render() {
         const { isFetching } = this.props;
-        const { pathname } = this.props.location;
-        // App Container
-        if (pathname === '/login' || pathname === '/register' || pathname === '/composition') {
-            return (
-                <AppLayout>
-                    <Switch>
-                        <AuthRoute path="/login" check="notLogin" component={LoginForm} />
-                        <AuthRoute path="/register" check="notLogin" component={RegisterForm} />
-                        <AuthRoute path="/logout" check="login" component={Logout} />
-                        <Route path='/composition' component={Composition} />
-                    </Switch>
-                    {isFetching && <Loading />}
-                </AppLayout>
-            )
-        }
+
         // Basic Container
         return (
             <BasicLayout>
                 <Switch>
-                    <AuthRoute path="/friends" check="login" component={Friends} />
+                    <AuthRoute path="/login" check="notLogin" component={LoginForm} />
+                    <AuthRoute path="/register" check="notLogin" component={RegisterForm} />
+                    <AuthRoute path="/logout" component={Logout} />
+                    <Route path='/composition' component={Composition} />
+                    <AuthRoute path="/center" component={Center} />
                     <Route path="/music" component={Music} />
                     <Route path="/404" component={NotFound} />
                     <Route path="/" component={Music} />
