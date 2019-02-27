@@ -3,10 +3,12 @@ import { combineReducers } from 'redux'
 import storage from 'redux-persist/lib/storage'
 import { persistReducer } from 'redux-persist'
 
-import home from './home'           // 登陆态/异步状态
-import friends from './friends'     // 用户社交状态
-import recorder from './recorder'   // 录音组件
-import recommend from './recommend'
+import home from './home'               // 登陆态/异步状态
+import friends from './friends'         // 用户社交状态
+import recorder from './recorder'       // 录音组件
+import recommend from './recommend'     // 推送与收藏
+import articles from './articles'       // 文章
+import music from './music'             // 音乐
 
 const rootPersistConfig = {
     key: 'root',
@@ -25,6 +27,8 @@ const Reducer = combineReducers({
     friends,
     recorder,
     recommend,
+    articles,
+    music,
 })
 
 

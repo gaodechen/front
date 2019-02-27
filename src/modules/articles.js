@@ -3,7 +3,7 @@ const action_types = {
     // 获取articles列表
     GET_ARTICLES: 'articles/GET',
     // 将articles存入store
-    SET_ARTICLES: 'artciles/SET',
+    SET_ARTICLES: 'articles/SET',
     // 单篇文章
     GET_ARTICLE: 'article/GET',
     SET_ARTICLE: 'article/SET',

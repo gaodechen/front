@@ -81,7 +81,7 @@ export function* getCollectionsFlow() {
 }
 
 // 为userID收藏musicID
-export function* addCollection(userID, likedID) {
+export function* postCollection(userID, likedID) {
     let response;
     try {
         response = yield call(post, '/api/like', { _id: userID, likedID });
@@ -92,10 +92,10 @@ export function* addCollection(userID, likedID) {
     }
 }
 
-export function* addCollectionFlow() {
+export function* postCollectionFlow() {
     let request = yield take(recommend_action_types.ADD_COLLECTION);
     const { userID, likedID } = request;
-    let response = yield call(addCollectionFlow, userID, likedID);
+    let response = yield call(postCollectionFlow, userID, likedID);
     if (response && response.status === status_code.SUCCEED) {
         yield put({
             type: home_action_types.SET_MSG,

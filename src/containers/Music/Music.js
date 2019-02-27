@@ -12,6 +12,7 @@ class WrappedMusic extends Component {
     componentDidMount() {
         this.props.getIndexSongList();
     }
+
     render() {
         return (
             <ContentLayout sider={false}>
@@ -31,8 +32,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getIndexSongList: () => {
-            dispatch(actions.getRecommend());
+        getIndexSongList: (userID) => {
+            dispatch(actions.getRecommend(userID));
         }
     }
 }

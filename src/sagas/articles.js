@@ -83,7 +83,7 @@ export function* getArticleFlow() {
 }
 
 // 为userID收藏musicID
-export function* addArticle(userID, article) {
+export function* postArticle(userID, article) {
     let response;
     try {
         response = yield call(post, '/api/article', { _id: userID, article });
@@ -94,10 +94,10 @@ export function* addArticle(userID, article) {
     }
 }
 
-export function* addArticleFlow() {
-    let request = yield take(articles_action_types.ADD_COLLECTION);
+export function* postArticleFlow() {
+    let request = yield take(articles_action_types.ADD_ARTICLE);
     const { userID, article } = request;
-    let response = yield call(addArticleFlow, userID, article);
+    let response = yield call(postArticle, userID, article);
     if (response && response.status === status_code.SUCCEED) {
         yield put({
             type: home_action_types.SET_MSG,
@@ -127,7 +127,7 @@ export function* delArticle(articleID) {
 
 export function* deleteArticleFlow() {
     // 监听action，获取action参数
-    let request = yield take(articles_action_types.DEL_COLLECTION);
+    let request = yield take(articles_action_types.DEL_ARTICLE);
     const { id } = request;
     let response = yield call(delArticle, id);
     if (response && response.status === status_code.SUCCEED) {

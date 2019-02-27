@@ -1,4 +1,4 @@
-import logo from '../Music.svg'
+import logo from '../static/Music.svg'
 
 const addr_config = {
     FRONT_ADDR: 'http://localhost:3001/',
