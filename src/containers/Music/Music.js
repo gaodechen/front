@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom'
 import Carousel from '../Carousel'
 import { ContentLayout } from '../../components/Layouts';
 import { SongList } from '../SongList'
+import { actions } from '../../modules/recommend'
 
 class WrappedMusic extends Component {
     componentDidMount() {
@@ -15,7 +16,7 @@ class WrappedMusic extends Component {
         return (
             <ContentLayout sider={false}>
                 <Carousel />
-                <SongList row={2} songList={[]} />
+                <SongList row={2} col={3} songList={this.props.songList} />
             </ContentLayout>
         )
     }
@@ -31,7 +32,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getIndexSongList: () => {
-            dispatch();
+            dispatch(actions.getRecommend());
         }
     }
 }

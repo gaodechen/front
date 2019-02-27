@@ -1,3 +1,4 @@
 import Music from './Music'
+import MusicDetail from './MusicDetail'
 
-export { Music }
+export { Music, MusicDetail }

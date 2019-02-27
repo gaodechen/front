@@ -9,7 +9,7 @@ import { AuthRoute } from '../containers/AuthRoute'
 import { NotFound } from '../components/NotFound'
 import { Loading } from '../components/Loading'
 import { Composition } from '../containers/Composition'
-import { Music } from '../containers/Music'
+import { Music, MusicDetail } from '../containers/Music'
 import { actions as homeActions, fetch_types } from '../modules/home'
 import { showMessage as showMsg } from '../containers/Message'
 
@@ -44,6 +44,7 @@ class Index extends Component {
                     <AuthRoute path="/logout" component={Logout} />
                     <Route path='/composition' component={Composition} />
                     <AuthRoute path="/center" component={Center} />
+                    <Route path="/music/:id" component={MusicDetail} />
                     <Route path="/music" component={Music} />
                     <Route path="/404" component={NotFound} />
                     <Route path="/" component={Music} />
