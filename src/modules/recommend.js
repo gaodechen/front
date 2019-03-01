@@ -13,6 +13,7 @@ const action_types = {
 const rec_types = {
     USER: 'user',
     MUSIC: 'music',
+    ALBUM: 'album',
 }
 
 // 异步获取的推送列表
@@ -55,4 +56,4 @@ const actions = {
 }
 
 export default Reducer
-export { action_types, actions }
+export { action_types, actions, rec_types }

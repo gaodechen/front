@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import { Menu, Icon } from 'antd'
 import { Row, Col } from 'antd'
 
-import { MenuList } from '../../../components/MenuItems'
+import { MenuList, MenuItem } from '../../../components/MenuItems'
 
 // 一级导航菜单项
 const mainMenus = [
     { url: '/music', name: '音乐', iconType: 'star' },
-    { url: '/composition', name: '创作', iconType: 'copy' },
+    { url: '/composition', name: '哼歌编曲', iconType: 'copy' },
+    { url: '/transcription', name: '旋律提取', iconType: 'file-text' },
 ];
 
 // guest可以访问的用户菜单(secondary)
@@ -38,8 +39,15 @@ class Navigator extends Component {
                     >
                         {
                             // 渲染一级菜单
-                            MenuList(mainMenus)
+                            // MenuList(mainMenus)
                         }
+                        {MenuItem(mainMenus[0])}
+                        <Menu.SubMenu
+                            title={<span><Icon type="edit" />创作</span>}
+                        >
+                            {MenuItem(mainMenus[1])}
+                            {MenuItem(mainMenus[2])}
+                        </Menu.SubMenu>
                         <Menu.SubMenu
                             title={<span><Icon type="user" />{isLoggedIn ? userInfo.username : "用户"}</span>}
                         >

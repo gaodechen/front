@@ -8,7 +8,8 @@ const action_types = {
     USER_AUTH: 'user/AUTH',             // 更新前端用户状态
     USER_LOGIN: 'user/LOGIN',
     USER_LOGOUT: 'user/LOGOUT',
-    USER_REGISTER: 'user/REGISTER'
+    USER_REGISTER: 'user/REGISTER',
+    GET_USERINFO: 'userinfo/GET',       // 获取id用户的基本信息
 }
 
 const fetch_types = {
@@ -72,6 +73,9 @@ const actions = {
     }),
     userAuth: () => ({
         type: action_types.USER_AUTH
+    }),
+    getUserInfo: (id) => ({
+        type: action_types.GET_USERINFO, id
     }),
     clearMsg: () => ({
         type: action_types.SET_MSG, msg: initialState.msg

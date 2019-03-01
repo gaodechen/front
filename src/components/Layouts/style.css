@@ -34,10 +34,6 @@
     min-height: calc(100vh - 112px);
 }
 
-.content-layout-content {
-    margin: 32px 16px 0 0;
-}
-
 /* with no sider */
 .content-layout-content-full {
     width: 70%;

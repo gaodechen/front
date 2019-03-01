@@ -1,8 +1,6 @@
 // 音乐详情页面
 import React, { Component } from 'react'
 
-import Pin from '../../SongPin'
-
 class MusicDetail extends Component {
     render() {
         const { musicInfo } = this.props;

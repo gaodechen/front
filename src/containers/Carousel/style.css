@@ -10,6 +10,28 @@
     overflow: hidden;
 }
 
-.ant-carousel .slick-slider h3 {
+.ant-carousel .slick-slider .poster-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-repeat: no-repeat; 
+    background-size: cover;
+}
+
+.ant-carousel .slick-slider .poster-title .title-content {
+    width: 100%;
+    height: 140px;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.4)
+}
+
+.ant-carousel .slick-slider .poster-title h3 {
+    color: #fff;
+    height: 60px;
+    font-size: 2.5em;
+}
+
+.ant-carousel .slick-slider .poster-title h2 {
     color: #fff;
 }
+

@@ -10,13 +10,14 @@ import { actions } from '../../modules/recommend'
 
 class WrappedMusic extends Component {
     componentDidMount() {
-        this.props.getIndexSongList();
+        // 获取首页推送的poster歌单以及单曲
+        this.props.getIndexRecommend();
     }
 
     render() {
         return (
             <ContentLayout sider={false}>
-                <Carousel />
+                <Carousel num={3} carousel={this.props.posters}/>
                 <SongList row={2} col={3} songList={this.props.songList} />
             </ContentLayout>
         )
@@ -32,7 +33,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getIndexSongList: (userID) => {
+        getIndexRecommend: (userID) => {
             dispatch(actions.getRecommend(userID));
         }
     }

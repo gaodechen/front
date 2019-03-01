@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import { Row } from 'antd'
 
-import Recorder from '../Recorder'
+import Uploader from '../Uploader'
 
-class Composition extends Component {
+class Transcription extends Component {
     render() {
         return (
             <Row className="flex-row">
-                <Recorder />
+                <Uploader />
             </Row>
-        )
+        );
     }
 }
 
-export default Composition;
+export default Transcription;

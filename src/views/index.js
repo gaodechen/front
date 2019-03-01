@@ -10,8 +10,13 @@ import { NotFound } from '../components/NotFound'
 import { Loading } from '../components/Loading'
 import { Composition } from '../containers/Composition'
 import { Music, MusicDetail } from '../containers/Music'
-import { actions as homeActions, fetch_types } from '../modules/home'
+import { UserPage } from '../containers/UserPage'
+import { Transcription } from '../containers/Transcription'
+import { Editor } from '../containers/Editor'
+import { Article } from '../containers/Article'
 import { showMessage as showMsg } from '../containers/Message'
+
+import { actions as homeActions, fetch_types } from '../modules/home'
 
 class Index extends Component {
     // 维护登陆态
@@ -42,8 +47,12 @@ class Index extends Component {
                     <AuthRoute path="/login" check="notLogin" component={LoginForm} />
                     <AuthRoute path="/register" check="notLogin" component={RegisterForm} />
                     <AuthRoute path="/logout" component={Logout} />
-                    <Route path='/composition' component={Composition} />
+                    <Route path="/composition" component={Composition} />
+                    <Route path="/transcription" component={Transcription} />
+                    <Route path="/center/:id" component={UserPage} />
                     <AuthRoute path="/center" component={Center} />
+                    <AuthRoute path="/editor" component={Editor} />
+                    <Route path="/articles/:id?" component={Article} />
                     <Route path="/music/:id" component={MusicDetail} />
                     <Route path="/music" component={Music} />
                     <Route path="/404" component={NotFound} />

@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+import { UserPage } from '../UserPage'
 import { ContentLayout } from '../../components/Layouts';
 
 class WrappedCenter extends Component {
     render() {
         return (
             <ContentLayout>
-            Center
+                <UserPage />
             </ContentLayout>
         )
     }
