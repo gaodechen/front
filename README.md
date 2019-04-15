@@ -1,12 +1,3 @@
-# The Great GDC
-
-> continue his magical web work with the little ZX
-
-# TODO
-
-- [ ] Recommendation System
-- [ ] StyleNet
-
 # Resume
 
 ## Ducks项目文件结构
@@ -50,9 +41,12 @@
     public
     src                                     前端源码
         api                                 API接口封装
-            interceptors.js                 请求拦截器
-            request.js                      封装axios请求方法
-            status_code.js                  状态码
+            request                         异步请求API
+                interceptors.js             请求拦截器
+                request.js                  封装axios请求方法
+                status_code.js              状态码
+            models                          浏览器内加载，推断模型
+                models_1
         components                          全局视图组件
         containers                          容器组件们
             AuthRoute                       权限路由
@@ -72,4 +66,4 @@
     index.js                                主入口
     App.js                                  根组件
     config-overrides.js                     webpack配置覆盖
-    package.json                            派克吱点鸡僧
+    package.json                            

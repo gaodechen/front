@@ -11,10 +11,8 @@ class WrappedCarousel extends Component {
         <div key={i}>
           <div
             className="poster-title"
-            style={{ background: 'url(' + this.props.carousel[i].src + ')' }}
           >
             <div className="title-content">
-              <h3>{this.props.carousel[i].description}</h3>
             </div>
             <h2>歌单推荐</h2>
           </div>
