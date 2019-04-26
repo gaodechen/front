@@ -1,23 +1,23 @@
-// HOC: 为组件注入用户登陆态
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 
-import { actions } from '../../modules/home'
+// import { actions } from '../../modules/home'
 
-// 为组件添加登陆态更新维护逻辑的高阶组件
+/**
+ * @description wrapped component with HOC
+ * @param {*} WrappedComponent
+ * @returns
+ */
 const UserStatusUpdate = WrappedComponent => {
+    /**
+     * @description update user status
+     * @class HOC
+     * @extends {Component}
+     */
     class HOC extends Component {
-        // 渲染之前进行一次登陆态查询更新
-        /* componentDidMount() {
-            const { login, userInfo } = this.props;
-            if (!login || (login && Object.keys(userInfo).length === 0)) {
-                this.props.getAuth();
-            }
-        } */
-
         render() {
             return (
-                <WrappedComponent {...this.props}/>
+                <WrappedComponent {...this.props} />
             )
         }
     }
@@ -29,15 +29,16 @@ const UserStatusUpdate = WrappedComponent => {
         }
     }
 
-    const mapDispatchToProps = (dispatch) => {
+    /* const mapDispatchToProps = (dispatch) => {
         return {
             getAuth: () => {
                 dispatch(actions.userAuth())
             }
         }
-    }
+    } */
 
-    return connect(mapStateToProps, mapDispatchToProps)(HOC);
+    return connect(mapStateToProps)(HOC);
+    // return connect(mapStateToProps, mapDispatchToProps)(HOC);
 }
 
 export default UserStatusUpdate;

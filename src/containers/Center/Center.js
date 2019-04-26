@@ -5,6 +5,11 @@ import { withRouter } from 'react-router-dom';
 import { UserPage } from '../UserPage'
 import { ContentLayout } from '../../components/Layouts';
 
+/**
+ * @description User Center
+ * @class WrappedCenter
+ * @extends {Component}
+ */
 class WrappedCenter extends Component {
     render() {
         return (

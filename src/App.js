@@ -1,4 +1,6 @@
-// App Entrance
+/**
+ * @description entrance component App
+ */
 import React, { Component } from 'react';
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
@@ -8,6 +10,13 @@ import { store, persistor } from './store'
 import Index from './views/index'
 
 class App extends Component {
+  /**
+   * @description provider: providing props for components
+   *              persistor: data persistence
+   *              router: router component
+   * @returns component containing wrapped Index component
+   * @memberof App
+   */
   render() {
     return (
       <Provider store={store}>

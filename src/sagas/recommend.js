@@ -25,7 +25,7 @@ export function* getRecommendFlow() {
         let request = yield take(recommend_action_types.GET_RECOMMEND);
         const { id, recType, recNum } = request;
         let response = yield call(getRecommend, id, recType, recNum);
-        if (response && response.status === status_code.SUCCEED) {
+        if (response && response.status === status_code.SUCCESS) {
             // list获取成功
             yield put({
                 type: home_action_types.SET_MSG,
@@ -65,7 +65,7 @@ export function* getCollectionsFlow() {
     let request = yield take(recommend_action_types.GET_COLLECTIONS);
     const { id } = request;
     let response = yield call(getCollections, id);
-    if (response && response.status === status_code.SUCCEED) {
+    if (response && response.status === status_code.SUCCESS) {
         // list获取成功
         yield put({
             type: home_action_types.SET_MSG,
@@ -96,7 +96,7 @@ export function* postCollectionFlow() {
     let request = yield take(recommend_action_types.ADD_COLLECTION);
     const { userID, likedID } = request;
     let response = yield call(postCollectionFlow, userID, likedID);
-    if (response && response.status === status_code.SUCCEED) {
+    if (response && response.status === status_code.SUCCESS) {
         yield put({
             type: home_action_types.SET_MSG,
             msgType: fetch_types.SUCCEED,
@@ -128,7 +128,7 @@ export function* deleteCollectionFlow() {
     let request = yield take(recommend_action_types.DEL_COLLECTION);
     const { id, likedID } = request;
     let response = yield call(delCollection, id, likedID);
-    if (response && response.status === status_code.SUCCEED) {
+    if (response && response.status === status_code.SUCCESS) {
         yield put({
             type: home_action_types.SET_MSG,
             msgType: fetch_types.SUCCEED,

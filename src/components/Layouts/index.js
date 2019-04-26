@@ -1,5 +1,12 @@
-import BasicLayout from './BasicLayout'                 // 基础默认布局
-import AppLayout from './AppLayout'                     // 应用型布局，用于登陆/注册/编曲页面
-import ContentLayout from './ContentLayout'             // 内容型布局，用于个人中心页面
+/**
+ * @description Layouts component
+ *              <AppLayout /> & <ContentLayout /> are layouts for content part
+ *              and these layouts should be written inside wrapped component to satisfy high cohesion
+ *              <BasicLayout /> is used for the full page,
+ *              and should be written in parent component of wrapped component
+ */
+import BasicLayout from './BasicLayout'                 // BasicLayout: layout for the full page
+import AppLayout from './AppLayout'                     // AppLayout: for content needed to be placed in the middle
+import ContentLayout from './ContentLayout'             // ContentLayout: for default content and content needed sidebar
 
 export { BasicLayout, AppLayout, ContentLayout }

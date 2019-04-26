@@ -3,7 +3,16 @@ import { connect } from 'react-redux';
 
 import { actions as homeActions } from '../../modules/home'
 
+/**
+ * @description Logout should be mounted when logging out
+ * @class Logout
+ * @extends {Component}
+ */
 class Logout extends Component {
+    /**
+     * @description send asyn request for logging out operation
+     * @memberof Logout
+     */
     componentDidMount() {
         this.props.handleLogout();
     }

@@ -18,8 +18,16 @@ import { showMessage as showMsg } from '../containers/Message'
 
 import { actions as homeActions, fetch_types } from '../modules/home'
 
+/**
+ * @description component for the entrance of App
+ * @class Index
+ * @extends {Component}
+ */
 class Index extends Component {
-    // 维护登陆态
+    /**
+     * @description update userinfo after session expired
+     * @memberof Index
+     */
     componentDidMount() {
         const { login, userInfo } = this.props;
         if (login && Object.keys(userInfo).length === 0) {
@@ -27,7 +35,11 @@ class Index extends Component {
         }
     }
 
-    // 全局提示框
+    /**
+     * @description show message with dialog, and call clearMsg after confirming
+     * @param {*} nextProps
+     * @memberof Index
+     */
     componentWillReceiveProps(nextProps) {
         const { msg, clearMsg } = nextProps;
         if (msg && msg.content) {
@@ -40,7 +52,7 @@ class Index extends Component {
     render() {
         const { isFetching } = this.props;
 
-        // Basic Container
+        // Basic Container & Router list
         return (
             <BasicLayout>
                 <Switch>
@@ -64,16 +76,24 @@ class Index extends Component {
     }
 }
 
+Index.defaultProps = {
+    isFetching: false,
+}
+
 const mapStateToProps = (state) => {
     return {
+        // maintain user status
         userInfo: state.home.userInfo,
+        // check if user is logged in
         login: state.home.isLoggedIn,
+        // message from request response
         msg: state.home.msg
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        // get userinfo when authority is required when user has not logged in
         getAuth: () => {
             dispatch(homeActions.userAuth())
         },
@@ -83,7 +103,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-// 组件入口注入一次userInfo (componentWillMount)
+// inject props
 export default withRouter(
     connect(mapStateToProps, mapDispatchToProps)(Index)
 )

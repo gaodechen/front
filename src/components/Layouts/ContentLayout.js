@@ -7,6 +7,11 @@ import { MenuList } from '../MenuItems'
 
 const { Sider, Content } = Layout;
 
+/**
+ * @description Layout for content needed sider
+ * @class ContentLayout
+ * @extends {Component}
+ */
 class ContentLayout extends Component {
     render() {
         const { sider = true } = this.props;

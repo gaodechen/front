@@ -8,7 +8,7 @@ const addr_config = {
     // Django Server地址
     ALGO_SERVER_ADDR: 'http://localhost:8123/',
     // FILE Server
-    FILE_SERVER_ADDR: 'http://localhost:8123/',
+    STATIC_SERVER_ADDR: 'http://localhost:3002/',
 }
 
 export { logo, addr_config }

@@ -6,6 +6,12 @@ import './style.css'
 
 const { Header, Footer } = Layout;
 
+/**
+ * @description Basic Layout with navigator & footer fixed
+ *              deliver content with props.children
+ * @class BasicLayout
+ * @extends {Component}
+ */
 class BasicLayout extends Component {
     render() {
         return (

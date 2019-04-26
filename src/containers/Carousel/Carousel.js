@@ -3,6 +3,11 @@ import { Carousel } from 'antd';
 
 import './style.css'
 
+/**
+ * @description carousel component to show posters
+ * @class WrappedCarousel
+ * @extends {Component}
+ */
 class WrappedCarousel extends Component {
   getCarousel = () => {
     let carousels = [];

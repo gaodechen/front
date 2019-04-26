@@ -25,7 +25,7 @@ export function* getArticlesFlow() {
         let request = yield take(articles_action_types.GET_ARTICLES);
         const { userID } = request;
         let response = yield call(getArticles, userID);
-        if (response && response.status === status_code.SUCCEED) {
+        if (response && response.status === status_code.SUCCESS) {
             // list获取成功
             yield put({
                 type: home_action_types.SET_MSG,
@@ -65,7 +65,7 @@ export function* getArticleFlow() {
     let request = yield take(articles_action_types.GET_ARTICLE);
     const { id } = request;
     let response = yield call(getArticle, id);
-    if (response && response.status === status_code.SUCCEED) {
+    if (response && response.status === status_code.SUCCESS) {
         // 获取成功
         yield put({
             type: home_action_types.SET_MSG,
@@ -98,7 +98,7 @@ export function* postArticleFlow() {
     let request = yield take(articles_action_types.ADD_ARTICLE);
     const { userID, article } = request;
     let response = yield call(postArticle, userID, article);
-    if (response && response.status === status_code.SUCCEED) {
+    if (response && response.status === status_code.SUCCESS) {
         yield put({
             type: home_action_types.SET_MSG,
             msgType: fetch_types.SUCCEED,
@@ -130,7 +130,7 @@ export function* deleteArticleFlow() {
     let request = yield take(articles_action_types.DEL_ARTICLE);
     const { id } = request;
     let response = yield call(delArticle, id);
-    if (response && response.status === status_code.SUCCEED) {
+    if (response && response.status === status_code.SUCCESS) {
         yield put({
             type: home_action_types.SET_MSG,
             msgType: fetch_types.SUCCEED,

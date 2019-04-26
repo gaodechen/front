@@ -28,7 +28,7 @@ export function* getFollowFlow() {
         let request = yield take(friends_action_types.GET_LIST);
         const { listName, id } = request;
         let response = yield call(getList, listName, id);
-        if (response && response.status === status_code.SUCCEED) {
+        if (response && response.status === status_code.SUCCESS) {
             // list获取成功
             yield put({
                 type: home_action_types.SET_MSG,
@@ -69,7 +69,7 @@ export function* postFollowFlow() {
     let request = yield take(friends_action_types.ADD_TO_LIST);
     const { listName, id, followID } = request;
     let response = yield call(postFollow, listName, id, followID);
-    if (response && response.status === status_code.SUCCEED) {
+    if (response && response.status === status_code.SUCCESS) {
         // list获取成功
         yield put({
             type: home_action_types.SET_MSG,
@@ -102,7 +102,7 @@ export function* deleteFollowFlow() {
     let request = yield take(friends_action_types.DEL_FROM_LIST);
     const { listName, id, followID } = request;
     let response = yield call(deleteFollow, listName, id, followID);
-    if (response && response.status === status_code.SUCCEED) {
+    if (response && response.status === status_code.SUCCESS) {
         yield put({
             type: home_action_types.SET_MSG,
             msgType: fetch_types.SUCCEED,

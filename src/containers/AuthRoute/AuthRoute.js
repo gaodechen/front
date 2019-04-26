@@ -1,4 +1,8 @@
-// 为路由添加路由权限保护的高阶组件
+/**
+ * @description route component for user authority
+ * @class WrappedAuthRoute
+ * @extends {Component}
+ */
 import React, { Component } from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -7,26 +11,33 @@ import { withUser } from '../User'
 
 class WrappedAuthRoute extends Component {
     render() {
-        // check：Auth需要的状态
-        // check="login"：登陆状态才能渲染组件，否则跳转
-        // const { pathname } = this.props.location;
-        const { check = "login", login, redirectUrl = "/", component: Component, props, ...rest } = this.props;
-        // 检查check是否为真
+        /**
+         *  @params props.login: whether user has logged in
+          * @params props.check: render when props.login meets "check"
+          * @params props.component: the component should be rendered
+         */
+        const { check, login, redirectUrl, component: Component, props, ...rest } = this.props;
+        // condition = true when props.login meets "check" condition
         let condition = (check === "login") ? login : !login;
 
         if (condition) {
-            // 如果为真，渲染组件
+            // render component
             return (
                 <Route {...rest} render={(props) => <Component {...props} />} />
             )
         } else {
-            // 如果为假，跳转到redirectUrl
+            // redirect
             return (
                 <Redirect to={redirectUrl} />
             )
         }
     }
 }
+
+WrappedAuthRoute.defaultProps = {
+    check: "login",
+    redirectUrl: "/",
+};
 
 export default withUser(
     connect()(WrappedAuthRoute)

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Input, Button } from 'antd'
-import BraftEditor from 'braft-editor'
-import 'braft-editor/dist/index.css'
+// import BraftEditor from 'braft-editor'
+// import 'braft-editor/dist/index.css'
 
 import { ContentLayout } from '../../components/Layouts'
 
@@ -20,14 +20,11 @@ const tailFormItemLayout = {
 
 class Editor extends Component {
     componentDidMount() {
-
-        // 异步设置编辑器内容
-        setTimeout(() => {
+        /* setTimeout(() => {
             this.props.form.setFieldsValue({
                 content: BraftEditor.createEditorState('<p>Hello <b>World!</b></p>')
             })
-        }, 1000)
-
+        }, 1000)*/
     }
 
     handleSubmit = (event) => {
@@ -49,7 +46,7 @@ class Editor extends Component {
     render() {
 
         const { getFieldDecorator } = this.props.form
-        const controls = ['bold', 'italic', 'underline', 'text-color', 'separator', 'link', 'separator', 'media']
+        // const controls = ['bold', 'italic', 'underline', 'text-color', 'separator', 'link', 'separator', 'media']
 
         return (
             <ContentLayout sider={false}>
@@ -78,11 +75,11 @@ class Editor extends Component {
                                 }
                             }],
                         })(
-                            <BraftEditor
+                            /* <BraftEditor
                                 className="my-editor"
                                 controls={controls}
                                 placeholder="请输入正文内容"
-                            />
+                            /> */
                         )}
                     </Form.Item>
                     <Form.Item {...tailFormItemLayout}>

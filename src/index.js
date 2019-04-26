@@ -1,6 +1,9 @@
+/**
+ * @description entrance of front end
+ */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+// App is the root component of front end
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 

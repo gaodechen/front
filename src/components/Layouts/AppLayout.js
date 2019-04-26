@@ -7,7 +7,12 @@ import './style.css'
 
 const { Header, Footer } = Layout;
 
-class BasicLayout extends Component {
+/**
+ * @description Layout for content needed to be on the middle of screen
+ * @class AppLayout
+ * @extends {Component}
+ */
+class AppLayout extends Component {
     render() {
         return (
             <Layout className="basic-layout">
@@ -25,4 +30,4 @@ class BasicLayout extends Component {
     }
 }
 
-export default BasicLayout
+export default AppLayout

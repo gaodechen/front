@@ -25,7 +25,7 @@ export function* loginFlow() {
     while (true) {
         let request = yield take(action_types.USER_LOGIN);
         let response = yield call(login, request.email, request.password);
-        if (response && response.status === status_code.SUCCEED) {
+        if (response && response.status === status_code.SUCCESS) {
             // 登陆成功，设置用户信息
             yield put({
                 type: action_types.SET_MSG,
@@ -67,7 +67,7 @@ export function* registerFlow() {
         let request = yield take(action_types.USER_REGISTER);
         let { email, username, password } = request;
         let response = yield call(register, email, username, password);
-        if (response && response.status === status_code.SUCCEED) {
+        if (response && response.status === status_code.SUCCESS) {
             // 注册成功，设置相应信息
             yield put({
                 type: action_types.SET_MSG,
@@ -102,7 +102,7 @@ export function* logoutFlow() {
     while (true) {
         yield take(action_types.USER_LOGOUT);
         let response = yield call(logout);
-        if (response && response.status === status_code.SUCCEED) {
+        if (response && response.status === status_code.SUCCESS) {
             // 注销成功，设置相应信息
             yield put({
                 type: action_types.SET_MSG,
@@ -144,7 +144,7 @@ export function* authFlow() {
         yield take(action_types.USER_AUTH);
         let response = yield call(auth);
         // session拉取成功则用户处于登陆态
-        let isLoggedIn = (response && response.status === status_code.SUCCEED);
+        let isLoggedIn = (response && response.status === status_code.SUCCESS);
         yield put({
             type: action_types.SET_USERINFO,
             userInfo: response.data.data,

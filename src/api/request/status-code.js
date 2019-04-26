@@ -1,5 +1,6 @@
 const status_code = {
-    SUCCEED: 200,
+    SUCCESS: 200,
+    REQUEST_FAILED: 401,
     NOT_FOUND: 404
 }
 
