@@ -1,12 +1,10 @@
 import axios from 'axios';
 import { addr_config as config } from '../../config'
-import '../../components/Loading'
 
-// 被代理地址
-const basicRequestLink = config.FRONT_ADDR
-const basicHost = basicRequestLink;
+// request link: front server address
+const basicHost = config.FORWARDING_HOST;
 
-// 请求拦截器
+// interceptors of reuqest
 axios.interceptors.request.use(
     config => {
         return config;
@@ -16,7 +14,13 @@ axios.interceptors.request.use(
     }
 )
 
-// 响应拦截器
+axios.request().catch((error) => {
+    if(!error.status) {
+        console.log(error)
+    }
+})
+
+// interceptors of response
 axios.interceptors.response.use(
     config => {
         return config;
@@ -26,17 +30,17 @@ axios.interceptors.response.use(
     }
 )
 
-// 删除底部 '/'
+// delete slash of host
 function deleteSlash(host) {
     return host.replace(/\/$/, '');
 }
 
-// 添加头部 '/'
+// add slash to path
 function addSlash(path) {
     return /^\//.test(path) ? path : `/${path}`;
 }
 
-// 解析参数
+// separate params of url
 function separateParams(url) {
     const [path = '', paramsLine = ''] = url.split('?');
 
@@ -50,7 +54,7 @@ function separateParams(url) {
     return { path, params };
 }
 
-// 主要请求方法
+// request methods
 export default function request(config) {
     let {
         method, url, data = {}, host, headers
@@ -64,19 +68,19 @@ export default function request(config) {
         ? `${deleteSlash(host)}${addSlash(path)}`
         : `${deleteSlash(basicHost)}${addSlash(path)}`;
 
-    // 根据参数构造axios
+    // axios object
     var req = axios({
         url,
         method,
         headers,
-        // 带Cookie请求
+        // send requests with cookies
         withCredentials: true,
-        // 跨域
+        // cross domain requests
         crossDomain: true,
         data: method === 'GET' ? undefined : data,
         params: Object.assign(method === 'GET' ? data : {}, params)
     }).catch(err => {
-        // 请求出错
+        // error requests
         return Promise.reject(err);
     });
 

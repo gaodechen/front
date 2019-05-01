@@ -7,7 +7,7 @@ import React, { Component } from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { withUser } from '../User' 
+import withUser from '../UserStatus' 
 
 class WrappedAuthRoute extends Component {
     render() {

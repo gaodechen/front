@@ -6,6 +6,8 @@ import ReactDOM from 'react-dom';
 // App is the root component of front end
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+// Global stylesheet
+import './style.css'
 
 const mountNode = document.getElementById('root')
 ReactDOM.render(<App />, mountNode);

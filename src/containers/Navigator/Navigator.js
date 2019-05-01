@@ -4,11 +4,15 @@ import { withRouter } from 'react-router-dom'
 
 import Navigator from './components'
 
+/**
+ * @description default navigator
+ * @class WrappedNavigator
+ * @extends {Component}
+ */
 class WrappedNavigator extends Component {
     render() {
         const { userInfo, isLoggedIn, location } = this.props;
         return (
-            // 根据用户状态渲染菜单
             <Navigator userInfo={userInfo} isLoggedIn={isLoggedIn} location={location} />
         )
     }

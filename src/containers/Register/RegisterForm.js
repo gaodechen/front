@@ -16,8 +16,8 @@ class RegisterContainer extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        handleRegister: (email, username, password) => {
-            dispatch(homeActions.userRegister(email, username, password))
+        handleRegister: (userInfo) => {
+            dispatch(homeActions.userRegister(userInfo))
         },
     }
 }

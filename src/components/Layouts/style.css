@@ -23,8 +23,8 @@
     height: calc(100vh - 112px);
 }
 
-/* Content With no SiderBar */
-.content-layout-container-full {
+/* Content With no sidebar */
+.content-layout-container-single-col {
     flex: 1 1;
     display: flex;
     flex-direction: column;
@@ -34,7 +34,7 @@
 }
 
 /* with no sider */
-.content-layout-content-full {
+.content-layout-content-single-col {
     width: 70%;
     margin: 0;
 }

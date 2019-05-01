@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@tensorflow/tfjs": "^1.0.4",
     "antd": "^3.13.0",
     "axios": "^0.18.0",
     "babel-plugin-import": "^1.11.0",
@@ -39,7 +38,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "http-proxy-middleware": "^0.19.1",
     "less-loader": "^4.1.0",
     "react-router-dom": "^5.0.0",
     "redux-devtools-extension": "^2.13.8",

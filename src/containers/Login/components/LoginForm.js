@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { Form, Icon, Input, Button, Col, Row } from 'antd';
 import { Link } from 'react-router-dom'
 
-import './style.css'
+import { ContentLayout } from '../../../components/Layouts'
 
 const contentLayout = {
     // < 576
     xs: { span: 24, offset: 0 },
-    sm: { span: 6, offset:  0 }
+    sm: { span: 6, offset: 0 }
 }
 
 // Login Form
@@ -17,7 +17,7 @@ class LoginForm extends Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 const { email, password } = values;
-                this.props.handleLogin(email, password);
+                this.props.handleLogin({ email, password });
             }
         });
     }
@@ -25,7 +25,7 @@ class LoginForm extends Component {
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
-            <Row className="flex-row">
+            <ContentLayout sider={false} app={true}>
                 <Col {...contentLayout}>
                     <Form onSubmit={this.handleSubmit} className="login-form">
                         <Form.Item>
@@ -47,16 +47,16 @@ class LoginForm extends Component {
                             }
                         </Form.Item>
                         <Form.Item>
-                            <Button type="primary" htmlType="submit" className="login-button">
+                            <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
                                 登陆
                     </Button>
-                            <Button type="default" className="go-register-button">
+                            <Button type="default" style={{ width: '100%' }}>
                                 <Link to="/register">立即注册</Link>
                             </Button>
                         </Form.Item>
                     </Form>
                 </Col>
-            </Row>
+            </ContentLayout>
         );
     }
 }

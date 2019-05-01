@@ -3,12 +3,15 @@ import { withRouter, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import { BasicLayout } from '../components/Layouts'
-import { LoginForm, RegisterForm, Logout } from '../containers/User'
+import { LoginForm } from '../containers/Login'
+import { RegisterForm } from '../containers/Register'
+import { Logout } from '../containers/Logout'
+import { UserSetting } from '../containers/UserSetting'
 import { Center } from '../containers/Center'
+import { StyleTransfer } from '../containers/StyleTransfer'
 import { AuthRoute } from '../containers/AuthRoute'
 import { NotFound } from '../components/NotFound'
 import { Loading } from '../components/Loading'
-import { Composition } from '../containers/Composition'
 import { Music, MusicDetail } from '../containers/Music'
 import { UserPage } from '../containers/UserPage'
 import { Transcription } from '../containers/Transcription'
@@ -59,7 +62,8 @@ class Index extends Component {
                     <AuthRoute path="/login" check="notLogin" component={LoginForm} />
                     <AuthRoute path="/register" check="notLogin" component={RegisterForm} />
                     <AuthRoute path="/logout" component={Logout} />
-                    <Route path="/composition" component={Composition} />
+                    <AuthRoute path="/setting" component={UserSetting} />
+                    <Route path="/styleTransfer" component={StyleTransfer} />
                     <Route path="/transcription" component={Transcription} />
                     <Route path="/center/:id" component={UserPage} />
                     <AuthRoute path="/center" component={Center} />

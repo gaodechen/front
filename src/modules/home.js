@@ -1,17 +1,19 @@
-// 用户状态，异步操作状态
-// userInfo用于登陆态
+/**
+ * @description sub reducer maintaining user status and userinfo
+ */
 const action_types = {
-    FETCH_START: 'fetch/START',         // 异步操作开始
-    FETCH_END: 'fetch/END',             // 异步操作结束
-    SET_MSG: 'fetch/SET',               // 设置异步操作返回值
-    SET_USERINFO: 'userInfo/SET',       // 设置本地用户信息
-    USER_AUTH: 'user/AUTH',             // 更新前端用户状态
-    USER_LOGIN: 'user/LOGIN',
-    USER_LOGOUT: 'user/LOGOUT',
-    USER_REGISTER: 'user/REGISTER',
-    GET_USERINFO: 'userinfo/GET',       // 获取id用户的基本信息
+    FETCH_START: 'fetch/START',         // start fetching
+    FETCH_END: 'fetch/END',             // end fetching
+    SET_MSG: 'fetch/SET',               // set return value of asyn
+    SET_USERINFO: 'userInfo/SET',       // set userinfo
+    USER_AUTH: 'user/AUTH',             // update user status
+    USER_LOGIN: 'user/LOGIN',           // login action
+    USER_LOGOUT: 'user/LOGOUT',         // logout action
+    USER_REGISTER: 'user/REGISTER',     // register action
+    USER_UPDATE: 'user/UPDATE',         // update userinfo
 }
 
+// is fetching successful
 const fetch_types = {
     SUCCEED: true,
     FAILED: false
@@ -27,7 +29,6 @@ const initialState = {
     userInfo: {}
 }
 
-// Reducer
 const Reducer = (state = initialState, action = {}) => {
     switch (action.type) {
         case action_types.FETCH_START:
@@ -62,11 +63,11 @@ const Reducer = (state = initialState, action = {}) => {
 
 // Action Creators
 const actions = {
-    userLogin: (email, password, remember) => ({
-        type: action_types.USER_LOGIN, email, password, remember
+    userLogin: (payload) => ({
+        type: action_types.USER_LOGIN, payload
     }),
-    userRegister: (email, username, password) => ({
-        type: action_types.USER_REGISTER, email, username, password
+    userRegister: (payload) => ({
+        type: action_types.USER_REGISTER, payload
     }),
     userLogout: () => ({
         type: action_types.USER_LOGOUT
@@ -76,6 +77,9 @@ const actions = {
     }),
     getUserInfo: (id) => ({
         type: action_types.GET_USERINFO, id
+    }),
+    updateUserInfo: (payload) => ({
+        type: action_types.USER_UPDATE, payload
     }),
     clearMsg: () => ({
         type: action_types.SET_MSG, msg: initialState.msg

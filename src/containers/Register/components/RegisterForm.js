@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
+import { Form, Input, Tooltip, Icon, Button, Col } from 'antd';
 
-import { Form, Input, Tooltip, Icon, Button, Row, Col } from 'antd';
-
-import './style.css'
+import  { ContentLayout } from '../../../components/Layouts'
 
 const contentLayout = {
     // < 576
@@ -19,7 +18,7 @@ class RegisterForm extends Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 const { email, username, password } = values;
-                this.props.handleRegister(email, username, password);
+                this.props.handleRegister({ email, username, password });
             }
         });
     }
@@ -65,7 +64,7 @@ class RegisterForm extends Component {
         };
 
         return (
-            <Row className="flex-row">
+            <ContentLayout sider={false} app={true}>
                 <Col {...contentLayout}>
                     <Form onSubmit={this.handleSubmit} className="register-form">
                         <Form.Item {...formItemLayout} label="邮箱">
@@ -123,7 +122,7 @@ class RegisterForm extends Component {
                         </Form.Item>
                     </Form>
                 </Col>
-            </Row>
+            </ContentLayout>
         );
     }
 }

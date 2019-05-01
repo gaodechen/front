@@ -1,4 +1,3 @@
-const proxy = require('http-proxy-middleware')
 const { override, fixBabelImports, addLessLoader } = require('customize-cra');
 
 const antdOverride = override(
