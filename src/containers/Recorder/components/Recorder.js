@@ -5,6 +5,11 @@ import { ReactMic } from 'react-mic'
 import audioLogo from '../../../static/audio.svg'
 import earphoneLogo from '../../../static/earphone.svg'
 
+/**
+ * @description 
+ * @class Recorder
+ * @extends {Component}
+ */
 class Recorder extends Component {
     state = { finish: false }
 
@@ -17,7 +22,7 @@ class Recorder extends Component {
     }
 
     onStart = () => {
-        console.log('You can tap into the onStart callback');
+        // console.log('You can tap into the onStart callback');
     }
 
     onStop = (blobObject) => {

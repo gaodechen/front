@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import { Upload, message, Button } from 'antd';
-
-import uploadLogo from '../../static/upload.svg'
+import { Upload, message } from 'antd';
 
 /**
  * @description upload files to node server
@@ -40,24 +38,27 @@ class Uploader extends Component {
             headers: {
                 authorization: 'authorization-text',
             },
-            action: '/api/file',
-            accept: "audio/*",
+            action: this.props.action,
+            accept: this.props.accept,
             onChange: this.handleChange,
         };
 
+        // using props.children to customize Uploader component
         return (
-            <span style={{ textAlign: 'center' }}>
-                <Upload {...uploaderProps} fileList={this.props.fileList}>
-                    <Button
-                        shape="circle"
-                        style={{ width: '100px', height: '100px' }}
-                    >
-                        <img src={uploadLogo} alt="Audio" width='50%' />
-                    </Button>
-                </Upload>
-            </span>
+            <Upload {...uploaderProps} fileList={this.props.fileList}>
+                {
+                    React.Children.map(this.props.children, (child, i) => {
+                        return child
+                    })
+                }
+            </Upload>
         )
     }
+}
+
+Uploader.defaultProps = {
+    action: '/api/file',
+    accept: 'audio/*',
 }
 
 export default Uploader;

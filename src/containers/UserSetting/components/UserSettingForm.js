@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Icon, Input, Button, Col, Row, Tooltip } from 'antd';
+import { Form, Icon, Input, Button, Col, Tooltip } from 'antd';
 
 import { ContentLayout } from '../../../components/Layouts'
 
@@ -67,7 +67,7 @@ class UserSettingForm extends Component {
         return (
             <ContentLayout sider={false} app={true}>
                 <Col {...contentLayout}>
-                    <Form onSubmit={this.handleSubmit} className="register-form">
+                    <Form onSubmit={this.handleSubmit} className="form-content-background">
                         <Form.Item {...formItemLayout} label="邮箱">
                             {getFieldDecorator('email', {
                                 rules: [{

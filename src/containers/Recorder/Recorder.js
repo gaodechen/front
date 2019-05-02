@@ -14,7 +14,13 @@ class WrappedRecorder extends Component {
                 blobURL={blobURL}
                 setBlobURL={setBlobURL}
                 setRecording={setRecording}
-            />
+            >
+                {
+                    React.Children.map(this.props.children, (child, i) => {
+                        return child
+                    })
+                }
+            </Recorder>
         );
     }
 }

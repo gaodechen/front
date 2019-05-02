@@ -9,6 +9,11 @@ const contentLayout = {
     sm: { span: 9, offset:  0 }
 }
 
+/**
+ * @description Register form content
+ * @class RegisterForm
+ * @extends {Component}
+ */
 class RegisterForm extends Component {
     // confirm field
     state = { confirmDirty: false };
@@ -48,14 +53,14 @@ class RegisterForm extends Component {
     render() {
         const { getFieldDecorator } = this.props.form;
 
-        // Form.Item布局
+        // Form.Item layouts
         const formItemLayout = {
-            // 标签元素占位
+            // layout for labels
             labelCol: { xs: { span: 24 }, sm: { span: 4 }, },
-            // 输入元素占位
+            // layout for inputs
             wrapperCol: { xs: { span: 24 }, sm: { span: 20 }, },
         };
-        // Form底部按钮
+        // button on bottom
         const tailFormItemLayout = {
             wrapperCol: {
                 xs: { span: 24, offset: 0, },
@@ -66,7 +71,7 @@ class RegisterForm extends Component {
         return (
             <ContentLayout sider={false} app={true}>
                 <Col {...contentLayout}>
-                    <Form onSubmit={this.handleSubmit} className="register-form">
+                    <Form onSubmit={this.handleSubmit} className="form-content-background">
                         <Form.Item {...formItemLayout} label="邮箱">
                             {getFieldDecorator('email', {
                                 rules: [{

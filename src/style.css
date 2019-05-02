@@ -9,3 +9,25 @@
     justify-content: center;
     height: calc(100vh - 112px);
 }
+
+/**
+  * default background style for content part
+  */
+.content-background {
+    padding: 32px;
+    text-align: center;
+    border: 1px dashed #e9e9e9;
+    border-radius: 6px;
+    background-color: #fafafa;
+}
+
+/**
+  * content background style for form
+  */
+.form-content-background {
+    padding: 32px 32px 8px 32px;
+    text-align: center;
+    border: 2px dashed #e9e9e9;
+    border-radius: 6px;
+    background-color: #fafafa;
+}

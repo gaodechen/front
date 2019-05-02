@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 
 /**
- * @description guide users to upload or record audio files
- * @class FileSelecter
+ * @description calling style transfering models
+ * @class MusicGenerator
  * @extends {Component}
  */
-class FileSelecter extends Component {
+class MusicGenerator extends Component {
     render() {
         return (
             <div>
@@ -14,4 +14,4 @@ class FileSelecter extends Component {
     }
 }
 
-export default FileSelecter;
+export default MusicGenerator

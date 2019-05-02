@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Icon, Input, Button, Col, Row } from 'antd';
+import { Form, Icon, Input, Button, Col } from 'antd';
 import { Link } from 'react-router-dom'
 
 import { ContentLayout } from '../../../components/Layouts'
@@ -27,7 +27,7 @@ class LoginForm extends Component {
         return (
             <ContentLayout sider={false} app={true}>
                 <Col {...contentLayout}>
-                    <Form onSubmit={this.handleSubmit} className="login-form">
+                    <Form onSubmit={this.handleSubmit} className="form-content-background">
                         <Form.Item>
                             {
                                 getFieldDecorator('email', {
@@ -49,7 +49,7 @@ class LoginForm extends Component {
                         <Form.Item>
                             <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
                                 登陆
-                    </Button>
+                            </Button>
                             <Button type="default" style={{ width: '100%' }}>
                                 <Link to="/register">立即注册</Link>
                             </Button>

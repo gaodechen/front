@@ -1,4 +1,3 @@
-// Music页面Root组件
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
