@@ -1,15 +1,4 @@
-import fs from 'fs'
 import midiConverter from 'midi-converter'
-
-/**
- * @description read midi from files & covert to json in Node
- * @param {string} midiPath
- * @returns Json
- */
-const ReadMidi = (midiPath) => {
-    let midiFile = fs.readFileSync(midiPath, 'binary');
-    return midiConverter.midiToJson(midiFile);
-}
 
 /**
  * @description convert main track to sequence

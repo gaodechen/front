@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 import { Row, Col } from 'antd'
 
 import { actions } from '../../modules/styleTransfer'
-import { addr_config } from '../../config'
+import { static_addr } from '../../config'
 import StyleCard from './components'
 
-const srcPrefix = addr_config.STATIC_HOST + '/styleThumbnail/';
+const srcPrefix = static_addr.STYLE_THUMBNAIL;
 
 const styles = [
     { description: '巴赫', title: 'Bach',  },
@@ -63,7 +63,7 @@ class StyleSelector extends Component {
                         <Row gutter={16} key={rowId}>
                             {
                                 item.map((col, colId) => {
-                                    let src = srcPrefix + col.title + '.png';
+                                    let src = srcPrefix + '/' + col.title + '.png';
                                     return (
                                         <Col span={6} key={colId} onClick={this.handleClick(col.title)}>
                                             <StyleCard description={col.description} title={col.title} src={src} />

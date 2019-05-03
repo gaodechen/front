@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { addr_config } from '../../../config'
+import { static_addr } from '../../../config'
 import { Upload, Icon, message } from 'antd';
 
 function getBase64(img, callback) {
@@ -53,14 +53,14 @@ class AvatarUploader extends Component {
             </div>
         );
         const avatarName = this.props.avatarName;
-        const imageUrl = addr_config.STATIC_HOST + '/avatar/' + avatarName;
+        const imageUrl = static_addr.AVATAR + '/' + avatarName;
         return (
             <Upload
                 name="avatar"
                 listType="picture-card"
                 className="avatar-uploader"
                 showUploadList={false}
-                action={addr_config.STATIC_HOST + '/avatar'}
+                action={static_addr.STATIC_HOST + '/avatar'}
                 beforeUpload={beforeUpload}
                 onChange={this.handleChange}
             >
