@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { Form, Icon, Input, Button, Col, Tooltip } from 'antd';
 
+import AvatarUploader from './AvatarUploader'
 import { ContentLayout } from '../../../components/Layouts'
 
 const contentLayout = {
     // < 576
     xs: { span: 24, offset: 0 },
-    sm: { span: 9, offset:  0 }
+    sm: { span: 9, offset: 0 }
 }
 
 // User Setting Form
@@ -18,8 +19,8 @@ class UserSettingForm extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                const { email, username, password } = values;
-                this.props.handleRegister({ email, username, password });
+                const { email, username, password, avatar } = values;
+                this.props.updateUserInfo({ email, username, password, avatar });
             }
         });
     }
@@ -56,6 +57,13 @@ class UserSettingForm extends Component {
             // input elements
             wrapperCol: { xs: { span: 24 }, sm: { span: 20 }, },
         };
+        // avatar item layout
+        const avatarFormItemLayout = {
+            wrapperCol: {
+                xs: { offset: 0, },
+                sm: { offset: 17, },
+            },
+        };
         // Button on bottom
         const tailFormItemLayout = {
             wrapperCol: {
@@ -68,6 +76,9 @@ class UserSettingForm extends Component {
             <ContentLayout sider={false} app={true}>
                 <Col {...contentLayout}>
                     <Form onSubmit={this.handleSubmit} className="form-content-background">
+                        <Form.Item { ...avatarFormItemLayout}>
+                            <AvatarUploader avatarName={this.props.userInfo.avatar} userId={this.props.userInfo._id} />
+                        </Form.Item>
                         <Form.Item {...formItemLayout} label="邮箱">
                             {getFieldDecorator('email', {
                                 rules: [{
@@ -79,10 +90,10 @@ class UserSettingForm extends Component {
                                 <Input prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />} />
                             )}
                         </Form.Item>
-                        <Form.Item {...formItemLayout} label="密码">
+                        <Form.Item {...formItemLayout} label="新密码">
                             {getFieldDecorator('password', {
                                 rules: [{
-                                    required: true, message: '请输入密码！',
+                                    message: '请输入密码！',
                                 }, {
                                     validator: this.validateToNextPassword,
                                 }],
@@ -93,7 +104,7 @@ class UserSettingForm extends Component {
                         <Form.Item {...formItemLayout} label="确认密码">
                             {getFieldDecorator('confirm', {
                                 rules: [{
-                                    required: true, message: '请确认您的密码！',
+                                    message: '请确认您的密码！',
                                 }, {
                                     validator: this.compareToFirstPassword,
                                 }],
@@ -106,20 +117,20 @@ class UserSettingForm extends Component {
                             label={(
                                 <span>
                                     用户名&nbsp;
-                            <Tooltip title="输入您用于显示的昵称">
+                                    <Tooltip title="输入您用于显示的昵称">
                                         <Icon type="question-circle-o" />
                                     </Tooltip>
                                 </span>
                             )}
                         >
                             {getFieldDecorator('username', {
-                                rules: [{ required: true, message: '请输入您的用户名!', whitespace: true }],
+                                rules: [{ message: '请输入您的用户名!', whitespace: true }],
                             })(
                                 <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} />
                             )}
                         </Form.Item>
                         <Form.Item {...tailFormItemLayout}>
-                            <Button type="primary" htmlType="submit" block>注册</Button>
+                            <Button type="primary" htmlType="submit" block>提交修改</Button>
                         </Form.Item>
                     </Form>
                 </Col>

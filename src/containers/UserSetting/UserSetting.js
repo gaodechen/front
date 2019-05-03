@@ -32,7 +32,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         updateUserInfo: (userInfo) => {
-            dispatch(actions.userLogin(userInfo))
+            dispatch(actions.updateUserInfo(userInfo))
         },
     }
 }

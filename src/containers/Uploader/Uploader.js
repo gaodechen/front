@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Upload, message } from 'antd';
 
 /**
- * @description upload files to node server
+ * @description upload files to server
  * @class Uploader
  * @extends {Component}
  */
@@ -33,6 +33,7 @@ class Uploader extends Component {
     }
 
     render() {
+        // select files from locale
         const uploaderProps = {
             name: 'file',
             headers: {
@@ -58,7 +59,7 @@ class Uploader extends Component {
 
 Uploader.defaultProps = {
     action: '/api/file',
-    accept: 'audio/*',
+    accept: 'audio/mid, audio/wav, audio/mp3, audio/flac',
 }
 
 export default Uploader;

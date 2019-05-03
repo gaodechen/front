@@ -10,7 +10,6 @@ import { getArticlesFlow, getArticleFlow, postArticleFlow, deleteArticleFlow } f
  */
 export default function* rootSaga() {
     // home sagas
-    console.log(homeSagas)
     yield fork(homeSagas.loginFlow);
     yield fork(homeSagas.registerFlow);
     yield fork(homeSagas.logoutFlow);

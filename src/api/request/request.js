@@ -14,12 +14,6 @@ axios.interceptors.request.use(
     }
 )
 
-axios.request().catch((error) => {
-    if(!error.status) {
-        console.log(error)
-    }
-})
-
 // interceptors of response
 axios.interceptors.response.use(
     config => {

@@ -4,7 +4,7 @@ import { Steps, Button, Icon } from 'antd';
 
 import FileSelector from '../../FileSelector'
 import StyleSelector from '../../StyleSelector'
-import MusicGenerator from './MusicGenerator'
+import MusicGenerator from '../../MusicGenerator'
 import { ContentLayout } from '../../../components/Layouts'
 
 import './style.css'
@@ -33,9 +33,21 @@ const steps = [{
 class StyleTransfer extends Component {
     constructor(props) {
         super(props);
+        const pathname = this.props.history.location.pathname;
+        let currentStep = this.getCurrentStepByLocation(pathname);
         this.state = {
-            current: 0,
+            current: currentStep,
         };
+    }
+
+    getCurrentStepByLocation = (currentPath) => {
+        let currentStep = steps.findIndex((step) => {
+            return step.path === currentPath;
+        })
+        if (currentStep === -1) {
+            currentStep = 0;
+        }
+        return currentStep;
     }
 
     next = () => {

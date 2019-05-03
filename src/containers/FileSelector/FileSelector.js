@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button } from 'antd'
 
-// import { ContentLayout } from '../../components/Layouts'
-import Uploader from '../Uploader'
-import Recorder from '../Recorder'
+import { actions } from '../../modules/styleTransfer'
+import { Selector } from '../Uploader'
+// import Recorder from '../Recorder'
 
 /**
  * @description guide users to upload or record audio files
@@ -15,11 +15,11 @@ class FileSelector extends Component {
     render() {
         return (
             <div>
-                <Uploader>
+                <Selector setAudio={this.props.setAudio}>
                     <Button type='primary' shape='round' size='large' icon='upload'>
                         本地音频
                     </Button>
-                </Uploader>
+                </Selector>
                 <Button shape='round' size='large' icon='notification'>
                     录制音频
                 </Button>
@@ -28,4 +28,12 @@ class FileSelector extends Component {
     }
 }
 
-export default FileSelector;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setAudio: (audio) => {
+            dispatch(actions.setAudio(audio))
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(FileSelector);

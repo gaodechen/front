@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Row, Col } from 'antd'
 
+import { actions } from '../../modules/styleTransfer'
 import { addr_config } from '../../config'
 import StyleCard from './components'
 
@@ -48,19 +50,22 @@ class StyleSelector extends Component {
         return slices;
     }
 
+    handleClick = (colTitle) => () => {
+        this.props.setTargetStyle(colTitle);
+    }
+
     render() {
-        console.log(srcPrefix)
         let slices = this.getSlices(4)
         return (
             <div style={{ background: '#ECECEC', padding: '24px' }}>
-                {slices.map((item) => {
+                {slices.map((item, rowId) => {
                     return (
-                        <Row gutter={16}>
+                        <Row gutter={16} key={rowId}>
                             {
-                                item.map((col) => {
+                                item.map((col, colId) => {
                                     let src = srcPrefix + col.title + '.png';
                                     return (
-                                        <Col span={6}>
+                                        <Col span={6} key={colId} onClick={this.handleClick(col.title)}>
                                             <StyleCard description={col.description} title={col.title} src={src} />
                                         </Col>
                                     )
@@ -74,4 +79,12 @@ class StyleSelector extends Component {
     }
 }
 
-export default StyleSelector
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setTargetStyle: (targetStyle) => {
+            dispatch(actions.setTargetStyle(targetStyle))
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(StyleSelector);

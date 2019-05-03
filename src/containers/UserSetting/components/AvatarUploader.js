@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import { addr_config } from '../../../config'
 import { Upload, Icon, message } from 'antd';
 
 function getBase64(img, callback) {
@@ -9,17 +10,22 @@ function getBase64(img, callback) {
 }
 
 function beforeUpload(file) {
-    const isJPG = file.type === 'image/jpeg';
+    const isJPG = (file.type === 'image/jpeg') || (file.type === 'image/png');
     if (!isJPG) {
-        message.error('You can only upload JPG file!');
+        message.error('图像格式不支持！');
     }
     const isLt2M = file.size / 1024 / 1024 < 2;
     if (!isLt2M) {
-        message.error('Image must smaller than 2MB!');
+        message.error('图像大小不能超过2MB！');
     }
     return isJPG && isLt2M;
 }
 
+/**
+ * @description Upload and show avatar
+ * @class AvatarUploader
+ * @extends {Component}
+ */
 class AvatarUploader extends Component {
     state = {
         loading: false,
@@ -46,18 +52,19 @@ class AvatarUploader extends Component {
                 <div className="ant-upload-text">Upload</div>
             </div>
         );
-        const imageUrl = this.state.imageUrl;
+        const avatarName = this.props.avatarName;
+        const imageUrl = addr_config.STATIC_HOST + '/avatar/' + avatarName;
         return (
             <Upload
                 name="avatar"
                 listType="picture-card"
                 className="avatar-uploader"
                 showUploadList={false}
-                action="//jsonplaceholder.typicode.com/posts/"
+                action={addr_config.STATIC_HOST + '/avatar'}
                 beforeUpload={beforeUpload}
                 onChange={this.handleChange}
             >
-                {imageUrl ? <img src={imageUrl} alt="avatar" /> : uploadButton}
+                {imageUrl ? <img src={imageUrl} alt="avatar" width='128px'/> : uploadButton}
             </Upload>
         );
     }
