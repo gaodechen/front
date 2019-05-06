@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { OpenSheetMusicDisplay as OSMD } from 'opensheetmusicdisplay';
 
 /**
- * @description render sheet music, based on OSMD using SVG
- * @class OpenSheetMusicDisplay
+ * @description render MusicXML notations, based on OSMD using SVG
+ * @class SheetMusicMXL
  * @extends {Component}
  */
-class OpenSheetMusicDisplay extends Component {
+class SheetMusicMXL extends Component {
     constructor(props) {
         super(props);
         this.state = { dataReady: false };
@@ -50,4 +50,4 @@ class OpenSheetMusicDisplay extends Component {
     }
 }
 
-export default OpenSheetMusicDisplay;
+export default SheetMusicMXL;

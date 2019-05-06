@@ -19,7 +19,7 @@ const guestMenus = [
 
 // secondary menu for users logged in
 const userMenus = [
-    { url: '/center', name: '社区', iconType: 'team' },
+    { url: '/center', name: '空间', iconType: 'team' },
     { url: '/setting', name: '设置', iconType: 'setting' },
     { url: '/logout', name: '注销', iconType: 'logout' },
 ]

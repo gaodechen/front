@@ -1,3 +1,4 @@
-import SheetMusic from './SheetMusic'
+import SheetMusicMXL from './SheetMusicMXL'
+import SheetMusicMid from './SheetMusicMid'
 
-export default SheetMusic
+export { SheetMusicMXL, SheetMusicMid }

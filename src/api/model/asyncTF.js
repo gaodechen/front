@@ -10,7 +10,7 @@ import * as tf from '@tensorflow/tfjs'
  * @param {string} MODEL_URL
  * @returns model
  */
-async function async_loadModelFromStorage(modelPath) {
+export async function async_loadModelFromStorage(modelPath) {
     return await tf.loadLayersModel('indexeddb://' + modelPath);
 }
 
@@ -19,7 +19,7 @@ async function async_loadModelFromStorage(modelPath) {
  * @param {*} MODEL_URL
  * @returns
  */
-async function async_loadModelFromUrlAndSave(MODEL_URL, modelPath) {
+export async function async_loadModelFromUrlAndSave(MODEL_URL, modelPath) {
     let model = await tf.loadLayersModel(MODEL_URL);
     model.save('indexeddb://' + modelPath);
     return model;
@@ -31,8 +31,18 @@ async function async_loadModelFromUrlAndSave(MODEL_URL, modelPath) {
  * @param {*} vector
  * @returns
  */
-async function async_tensor3d(subData, vector) {
+export async function async_tensor3d(subData, vector) {
     return await tf.tensor3d(subData, vector)
+}
+
+/**
+ * @description async tensor2d function
+ * @param {*} subData
+ * @param {*} vector
+ * @returns
+ */
+export async function async_tensor2d(subData, vector) {
+    return await tf.tensor2d(subData, vector)
 }
 
 /**
@@ -41,8 +51,6 @@ async function async_tensor3d(subData, vector) {
  * @param {*} inputData
  * @returns
  */
-async function async_predict(Model, inputData) {
+export async function async_predict(Model, inputData) {
     return await Model.predict(inputData)
 }
-
-export { async_loadModelFromStorage, async_loadModelFromUrlAndSave, async_tensor3d, async_predict }

@@ -9,12 +9,14 @@ const addr_config = {
 
 // static folder config
 const static_folder_config = {
+    // static resources (music / pictures) folder
     AVATAR: addr_config.STATIC_HOST + '/avatar',
     THUMBNAIL: addr_config.STATIC_HOST + '/thumbnail',
     STYLE_THUMBNAIL: addr_config.STATIC_HOST + '/styleThumbnail',
     MUSIC: addr_config.STATIC_HOST + '/music',
     // model files
     STYLE_TRANSFER_MODEL: addr_config.STATIC_HOST + '/model/styleTransfer',
+    EMOTION_ANALYSIS_MODEL: addr_config.STATIC_HOST + '/model/emotionAnalysis',
 }
 
 export { logo, addr_config, static_folder_config as static_addr }
