@@ -187,6 +187,24 @@ export function* authFlow() {
     }
 }
 
+/**
+ * @description monitor get userinfo action
+ * @export
+ */
+export function* getUserInfoFlow() {
+    while (true) {
+        yield take(action_types.GET_USERINFO);
+        let response = yield call(auth);
+        // if auth verified, user has logged in
+        let isLoggedIn = (response && response.status === status_code.SUCCESS);
+        // update userinfo in store
+        yield put({
+            type: action_types.SET_USERINFO,
+            userInfo: response.data.data,
+            isLoggedIn
+        });
+    }
+}
 
 /**
  * @description update userInfo

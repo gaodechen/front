@@ -1,3 +1,5 @@
-import Loading from './Loading'
+import Spin from './Spin'
+import Progress from './Progress'
 
-export { Loading }
+export { Spin, Progress }
+export default Spin

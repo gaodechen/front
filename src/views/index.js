@@ -11,10 +11,11 @@ import { Center } from '../containers/Center'
 import { StyleTransfer } from '../containers/StyleTransfer'
 import { AuthRoute } from '../containers/AuthRoute'
 import { NotFound } from '../components/NotFound'
-import { Loading } from '../components/Loading'
+import { Spin } from '../components/Loading'
 import { Music, MusicDetail } from '../containers/Music'
 import { UserPage } from '../containers/UserPage'
 import { Transcription } from '../containers/Transcription'
+import { SheetMusic } from '../containers/SheetMusic'
 import { Editor } from '../containers/Editor'
 import { Article } from '../containers/Article'
 import { showMessage as showMsg } from '../containers/Message'
@@ -64,6 +65,7 @@ class Index extends Component {
                     <AuthRoute path="/logout" component={Logout} />
                     <AuthRoute path="/setting" component={UserSetting} />
                     <Route path="/styleTransfer" component={StyleTransfer} />
+                    <Route path="/sheetMusic/:midiPath" component={SheetMusic} />
                     <Route path="/transcription" component={Transcription} />
                     <Route path="/center/:id" component={UserPage} />
                     <AuthRoute path="/center" component={Center} />
@@ -74,7 +76,7 @@ class Index extends Component {
                     <Route path="/404" component={NotFound} />
                     <Route path="/" component={Music} />
                 </Switch>
-                {isFetching && <Loading />}
+                {isFetching && <Spin />}
             </BasicLayout>
         )
     }

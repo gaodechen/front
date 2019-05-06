@@ -1,3 +1,4 @@
+/* style for footer */
 .layout-footer {
     display: flex;
     justify-content: center;
@@ -14,6 +15,7 @@
     height: 100%;
 }
 
+/* container for content's layout */
 .content-layout-container {
     flex: 1 1;
     display: flex;
@@ -21,6 +23,15 @@
     justify-content: center;
     margin-bottom: 32px;
     height: calc(100vh - 112px);
+}
+
+/* header part containing poster */
+.poster-carousel-header {
+    flex: 1 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 300px;
 }
 
 /* Content With no sidebar */

@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { Recorder } from './components'
-import { actions } from '../../modules/recorder'
+import { actions as recorder_actions } from '../../modules/recorder'
+import { actions as fileSelector_actions } from '../../modules/fileSelector'
 
 class WrappedRecorder extends Component {
     render() {
-        const { isRecording, blobURL, setBlobURL, setRecording } = this.props;
+        const { isRecording, blobURL, setBlobURL, setRecording, callback } = this.props;
 
         return (
             <Recorder
@@ -14,13 +15,8 @@ class WrappedRecorder extends Component {
                 blobURL={blobURL}
                 setBlobURL={setBlobURL}
                 setRecording={setRecording}
-            >
-                {
-                    React.Children.map(this.props.children, (child, i) => {
-                        return child
-                    })
-                }
-            </Recorder>
+                callback={callback}
+            />
         );
     }
 }
@@ -35,11 +31,14 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         setBlobURL: (blobURL) => {
-            dispatch(actions.setBlobURL(blobURL))
+            dispatch(recorder_actions.setBlobURL(blobURL))
         },
         setRecording: (isRecording) => {
-            dispatch(actions.setRecording(isRecording))
-        }
+            dispatch(recorder_actions.setRecording(isRecording))
+        },
+        callback: (blobObject) => {
+            dispatch(fileSelector_actions.setAudio(blobObject))
+        },
     }
 }
 

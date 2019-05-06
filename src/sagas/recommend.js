@@ -5,7 +5,6 @@ import { action_types as home_action_types, fetch_types } from '../modules/home'
 import { action_types as recommend_action_types } from '../modules/recommend'
 import status_code from '../api/request/status-code'
 
-// 获取recType数量为recNum的推送列表
 export function* getRecommend(id, recType, recNum) {
     let response;
     yield put({ type: home_action_types.FETCH_START });
@@ -21,12 +20,10 @@ export function* getRecommend(id, recType, recNum) {
 
 export function* getRecommendFlow() {
     while (true) {
-        // 监听action，获取action参数
         let request = yield take(recommend_action_types.GET_RECOMMEND);
         const { id, recType, recNum } = request;
         let response = yield call(getRecommend, id, recType, recNum);
         if (response && response.status === status_code.SUCCESS) {
-            // list获取成功
             yield put({
                 type: home_action_types.SET_MSG,
                 msgType: fetch_types.SUCCEED,
@@ -46,7 +43,6 @@ export function* getRecommendFlow() {
     }
 }
 
-// 获取id的收藏列表
 export function* getCollections(id) {
     let response;
     yield put({ type: home_action_types.FETCH_START });
@@ -61,12 +57,10 @@ export function* getCollections(id) {
 }
 
 export function* getCollectionsFlow() {
-    // 监听action，获取action参数
     let request = yield take(recommend_action_types.GET_COLLECTIONS);
     const { id } = request;
     let response = yield call(getCollections, id);
     if (response && response.status === status_code.SUCCESS) {
-        // list获取成功
         yield put({
             type: home_action_types.SET_MSG,
             msgType: fetch_types.SUCCEED,
@@ -80,7 +74,6 @@ export function* getCollectionsFlow() {
         });
 }
 
-// 为userID收藏musicID
 export function* postCollection(userID, likedID) {
     let response;
     try {
@@ -111,7 +104,6 @@ export function* postCollectionFlow() {
     }
 }
 
-// 为userID取消收藏musicID
 export function* delCollection(userID, likedID) {
     let response;
     try {
@@ -124,7 +116,6 @@ export function* delCollection(userID, likedID) {
 }
 
 export function* deleteCollectionFlow() {
-    // 监听action，获取action参数
     let request = yield take(recommend_action_types.DEL_COLLECTION);
     const { id, likedID } = request;
     let response = yield call(delCollection, id, likedID);

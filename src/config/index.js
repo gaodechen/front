@@ -8,7 +8,7 @@ const addr_config = {
 }
 
 // static folder config
-const static_addr = {
+const static_folder_config = {
     AVATAR: addr_config.STATIC_HOST + '/avatar',
     THUMBNAIL: addr_config.STATIC_HOST + '/thumbnail',
     STYLE_THUMBNAIL: addr_config.STATIC_HOST + '/styleThumbnail',
@@ -17,4 +17,4 @@ const static_addr = {
     STYLE_TRANSFER_MODEL: addr_config.STATIC_HOST + '/model/styleTransfer',
 }
 
-export { logo, addr_config, static_addr }
+export { logo, addr_config, static_folder_config as static_addr }

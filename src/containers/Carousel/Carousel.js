@@ -11,7 +11,7 @@ import './style.css'
 class WrappedCarousel extends Component {
   getCarousel = () => {
     let carousels = [];
-    for (var i = 0; i < this.props.num; i++) {
+    for (let i = 0; i < this.props.num; i++) {
       carousels.push(
         <div key={i}>
           <div

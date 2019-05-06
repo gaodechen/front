@@ -1,11 +1,12 @@
 /**
- * @description sub reducer maintaining user status and userinfo
+ * @description sub reducer maintaining user status & async opt status
  */
 const action_types = {
     FETCH_START: 'fetch/START',         // start fetching
     FETCH_END: 'fetch/END',             // end fetching
-    SET_MSG: 'fetch/SET',               // set return value of asyn
+    SET_MSG: 'msg/SET',                 // set message to display
     SET_USERINFO: 'userInfo/SET',       // set userinfo
+    GET_USERINFO: 'userInfo/GET',       // get userinfo
     USER_AUTH: 'user/AUTH',             // update user status
     USER_LOGIN: 'user/LOGIN',           // login action
     USER_LOGOUT: 'user/LOGOUT',         // logout action
@@ -15,8 +16,9 @@ const action_types = {
 
 // is fetching successful
 const fetch_types = {
-    SUCCEED: true,
-    FAILED: false
+    NULL: -1,
+    SUCCEED: 0,
+    FAILED: 1,
 }
 
 const initialState = {

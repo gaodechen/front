@@ -10,15 +10,15 @@ function getBase64(img, callback) {
 }
 
 function beforeUpload(file) {
-    const isJPG = (file.type === 'image/jpeg') || (file.type === 'image/png');
-    if (!isJPG) {
+    const isValid = (file.type === 'image/jpeg') || (file.type === 'image/png');
+    if (!isValid) {
         message.error('图像格式不支持！');
     }
     const isLt2M = file.size / 1024 / 1024 < 2;
     if (!isLt2M) {
         message.error('图像大小不能超过2MB！');
     }
-    return isJPG && isLt2M;
+    return isValid && isLt2M;
 }
 
 /**
@@ -49,18 +49,22 @@ class AvatarUploader extends Component {
         const uploadButton = (
             <div>
                 <Icon type={this.state.loading ? 'loading' : 'plus'} />
-                <div className="ant-upload-text">Upload</div>
+                <div className="ant-upload-text">上传</div>
             </div>
         );
-        const avatarName = this.props.avatarName;
-        const imageUrl = static_addr.AVATAR + '/' + avatarName;
+
+        const avatarName = this.props.userInfo.avatar;
+        let imageUrl = this.state.imageUrl;
+        if(!imageUrl)
+            imageUrl = static_addr.AVATAR + '/' + avatarName;
+
         return (
             <Upload
                 name="avatar"
                 listType="picture-card"
                 className="avatar-uploader"
                 showUploadList={false}
-                action={static_addr.STATIC_HOST + '/avatar'}
+                action={static_addr.AVATAR}
                 beforeUpload={beforeUpload}
                 onChange={this.handleChange}
             >

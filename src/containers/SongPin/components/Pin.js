@@ -11,13 +11,11 @@ class Pin extends Component {
     render() {
         return (
             <Card
-                style={{ width: this.props.width }}
                 cover={
                     <img
                         style={{ objectFit: 'cover' }}
                         alt={this.props.pin.alt}
                         src={this.props.pin.coverSrc}
-                        height={this.props.imgHeight}
                     />
                 }
                 actions={[

@@ -28,7 +28,7 @@ class ContentLayout extends Component {
             return (
                 <Layout className="content-layout-container">
                     <Col sm={{ span: 13 }}>
-                        <Content className="content-layout-content">
+                        <Content>
                             {this.props.children}
                         </Content>
                     </Col>

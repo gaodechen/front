@@ -1,60 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { message } from 'antd'
+import { Spin, message } from 'antd'
 
+import { ContentLayout } from '../../components/Layouts'
 import { static_addr } from '../../config'
-import { Loading } from '../../components/Loading'
+import { actions as styleTransfer_actions } from '../../modules/styleTransfer'
+import { fetch_types } from '../../modules/home'
 import Preprocess from '../../api/model/style-transfer/preprocess'
-
-/**
- * @description read midi file from locale
- * @param {File} audio
- * @param {*} callback(result)
- */
-const ReadMidi = (audio, callback) => {
-    let reader = new FileReader();
-
-    reader.onload = (event) => {
-        callback(event.target.result);
-    }
-    if (audio) {
-        reader.readAsBinaryString(audio)
-    }
-}
-
-/**
- * @description inference using TF.js in browser
- * @param {string} MODEL_URL
- * @param {string} style
- * @param {array} data
- * @returns
- */
-/*
-const inference = (MODEL_URL, style, data) => {
-    var output = []
-    for (var i = 0; i < data.length; i++) {
-        let subdata = data[i];
-        tf.loadLayersModel(MODEL_URL)
-            .then((Model) => {
-                const inputData = tf.tensor3d(subdata, [1, 900, 1])
-                return Model.predict(inputData)
-            })
-            .then((outputTensor) => {
-                return outputTensor[3].array()
-            })
-            .then((subOutput) => {
-                output = output.concat(subOutput);
-                if (output.length === data.length) {
-                    let jsonData = JSON.stringify({ 'Array': output, 'Original': data, 'Style': style });
-                    console.log(jsonData);
-                }
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    }
-    return output;
-} */
 
 /**
  * @description using props.targetStyle & props.audio to generate music
@@ -62,6 +14,25 @@ const inference = (MODEL_URL, style, data) => {
  * @extends {Component}
  */
 class MusicGenerator extends Component {
+    /**
+     * @description read midi file from locale
+     * @param {File} audio
+     * @param {*} callback(result)
+     */
+    ReadMidi = (audio, callback) => {
+        let reader = new FileReader();
+
+        reader.onload = (event) => {
+            callback(event.target.result);
+        }
+        if (audio) {
+            reader.readAsBinaryString(audio)
+        }
+    }
+    /**
+     * @description call model inferring or show error messages
+     * @memberof MusicGenerator
+     */
     componentDidMount() {
         const { audio, targetStyle } = this.props;
         if (!audio) {
@@ -69,32 +40,52 @@ class MusicGenerator extends Component {
         } else if (!targetStyle) {
             message.error('未选定风格')
         } else {
-            ReadMidi(audio, (midiFile) => {
+            this.ReadMidi(audio, (midiFile) => {
                 const input = Preprocess(midiFile);
-                console.log(input)
-                const MODEL_URL = static_addr.STYLE_TRANSFER_MODEL + targetStyle;
-                console.log(MODEL_URL)
-                // const output = inference(MODEL_URL, targetStyle, input);
-                // console.log(output)
+                const MODEL_URL = static_addr.STYLE_TRANSFER_MODEL + '/' + targetStyle + '/model.json';
+                this.props.infer({ MODEL_URL, targetStyle, input })
             });
         }
     }
 
     render() {
-        return (
-            <div>
-                {this.props.loading && <Loading />}
-            </div>
-        )
+        const { isFetching } = this.props;
+        if (isFetching === fetch_types.UNDONE) {
+            return (
+                <ContentLayout sider={false} app={true}>
+                    <Spin size="large" />
+                </ContentLayout>
+            )
+        } else if (isFetching === fetch_types.SUCCEES) {
+            return (
+                <ContentLayout sider={false} app={true}>
+                    <span>转换成功！</span>
+                </ContentLayout>
+            )
+        } else if (isFetching === fetch_types.FAILED) {
+            return (
+                <ContentLayout sider={false} app={true}>
+                    <span>无法正确加载模型，转换失败！</span>
+                </ContentLayout>
+            )
+        }
     }
 }
 
 const mapStateToProps = (state) => {
     return {
         targetStyle: state.styleTransfer.targetStyle,
-        audio: state.styleTransfer.audio,
-        loading: state.styleTransfer.loading,
+        audio: state.fileSelector.audio,
+        isFetching: state.home.loading,
     }
 }
 
-export default connect(mapStateToProps)(MusicGenerator)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        infer: (payload) => {
+            dispatch(styleTransfer_actions.infer(payload))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MusicGenerator)

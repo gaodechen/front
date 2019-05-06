@@ -6,7 +6,7 @@ import audioLogo from '../../../static/audio.svg'
 import earphoneLogo from '../../../static/earphone.svg'
 
 /**
- * @description 
+ * @description Recorder component, recording save as Blob object
  * @class Recorder
  * @extends {Component}
  */
@@ -27,6 +27,7 @@ class Recorder extends Component {
 
     onStop = (blobObject) => {
         this.props.setBlobURL(blobObject.blobURL)
+        this.props.callback(blobObject.blobURUL)
     }
 
 
@@ -37,7 +38,7 @@ class Recorder extends Component {
             return (
                 <div>
                     <Row style={{ textAlign: 'center', marginTop: '-20px' }}>
-                        <h3>点击按钮停止录制</h3>
+                        点击按钮停止录制
                         <ReactMic
                             record={isRecording}
                             backgroundColor="#f0f2f5"

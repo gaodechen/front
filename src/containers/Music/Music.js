@@ -14,15 +14,17 @@ import { actions } from '../../modules/recommend'
  */
 class WrappedMusic extends Component {
     componentDidMount() {
-        this.props.getIndexRecommend();
+        this.props.getPosters();
     }
 
     render() {
         return (
-            <ContentLayout sider={false}>
-                <Carousel num={3} carousel={this.props.posters}/>
-                <SongList row={2} col={4} songList={this.props.songList} />
-            </ContentLayout>
+            <div>
+                <ContentLayout sider={false}>
+                    <Carousel num={3} carousel={this.props.posters} />
+                    <SongList row={2} col={4} songList={this.props.songList} />
+                </ContentLayout>
+            </div>
         )
     }
 }
@@ -36,7 +38,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getIndexRecommend: (userID) => {
+        getPosters: (userID) => {
             dispatch(actions.getRecommend(userID));
         }
     }

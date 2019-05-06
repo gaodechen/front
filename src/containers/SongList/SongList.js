@@ -4,22 +4,26 @@ import { connect } from 'react-redux'
 import { Row, Col } from 'antd'
 
 import Pin from '../SongPin'
-import { actions, rec_types } from '../../modules/recommend'
+import { actions } from '../../modules/recommend'
 
-// row / col 推送的行列数，根据24格布局确定span
+/**
+ * @@description display a list of songs
+ * @class SongList
+ * @extends {Component}
+ */
 class SongList extends Component {
     componentDidMount() {
-        this.props.getIndexRecommend();
+        this.props.getRecommend();
     }
 
-    // 获取一行的Pin
+    // display one row for songs
     getRow = (rowNum) => {
         const { col } = this.props;
         let row = [];
         let span = 24 / col;
         for (var i = 0; i < col; i++) {
             row.push(
-                <Col span={span} key={'col' + i}>
+                <Col span={span} key={col * rowNum + i}>
                     <Pin
                         onLike={this.props.onLike}
                         pin={this.props.songList[col * rowNum + i]}
@@ -55,8 +59,6 @@ SongList.defaultProps = {
     col: 3,
     row: 3,
     songList: [
-        {
-        },
     ]
 }
 
@@ -69,16 +71,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // 首页歌曲推荐
-        getIndexRecommend: (userID) => {
-            dispatch(actions.getRecommend(userID));
+        // get reommend songs' list for userId
+        getRecommend: (userId) => {
+            dispatch(actions.getRecommend(userId));
         },
-        // 首页歌单海报推荐
-        getIndexPoster: (userID) => {
-            dispatch(actions.getRecommend(userID, rec_types.ALBUM, 4))
-        },
-        handleLike: (userID, musicID) => {
-            dispatch(actions.addLike(userID, musicID));
+        handleLike: (userId, musicId) => {
+            dispatch(actions.addLike(userId, musicId));
         },
     }
 }

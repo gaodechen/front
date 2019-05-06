@@ -11,6 +11,11 @@ const contentLayout = {
 }
 
 // User Setting Form
+/**
+ * @description user setting form containing avatar uploader & userinfo form
+ * @class UserSettingForm
+ * @extends {Component}
+ */
 class UserSettingForm extends Component {
     // confirm field
     state = { confirmDirty: false };
@@ -19,8 +24,9 @@ class UserSettingForm extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                const { email, username, password, avatar } = values;
-                this.props.updateUserInfo({ email, username, password, avatar });
+                const email = this.props.userInfo.email;
+                const { username, password } = values;
+                this.props.updateUserInfo({ email, username, password });
             }
         });
     }
@@ -61,7 +67,7 @@ class UserSettingForm extends Component {
         const avatarFormItemLayout = {
             wrapperCol: {
                 xs: { offset: 0, },
-                sm: { offset: 17, },
+                sm: { offset: 4, },
             },
         };
         // Button on bottom
@@ -76,19 +82,11 @@ class UserSettingForm extends Component {
             <ContentLayout sider={false} app={true}>
                 <Col {...contentLayout}>
                     <Form onSubmit={this.handleSubmit} className="form-content-background">
-                        <Form.Item { ...avatarFormItemLayout}>
-                            <AvatarUploader avatarName={this.props.userInfo.avatar} userId={this.props.userInfo._id} />
-                        </Form.Item>
-                        <Form.Item {...formItemLayout} label="邮箱">
-                            {getFieldDecorator('email', {
-                                rules: [{
-                                    type: 'email', message: '邮箱无效！',
-                                }, {
-                                    required: true, message: '请输入邮箱！',
-                                }],
-                            })(
-                                <Input prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />} />
-                            )}
+                        <Form.Item {...avatarFormItemLayout}>
+                            <AvatarUploader
+                                userInfo={this.props.userInfo}
+                                updateUserInfo={this.props.updateUserInfo}
+                            />
                         </Form.Item>
                         <Form.Item {...formItemLayout} label="新密码">
                             {getFieldDecorator('password', {

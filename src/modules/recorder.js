@@ -1,11 +1,15 @@
-// Recorder组件
+/**
+ * @description Recorder component recording status and 
+ */
 const action_types = {
     SET_RECORDING: 'recording/SET',
     SET_BLOBURL: 'blobURL/SET',
 }
 
 const initialState = {
+    // recoding status
     isRecording: false,
+    // save as blob object after recording
     blobURL: '',
 }
 
@@ -29,9 +33,11 @@ const Reducer = (state = initialState, action = {}) => {
 
 // Action Creators
 const actions = {
+    // set blob object after recording
     setBlobURL: (blobURL) => ({
         type: action_types.SET_BLOBURL, blobURL
     }),
+    // set recording status
     setRecording: (isRecording) => ({
         type: action_types.SET_RECORDING, isRecording
     })
