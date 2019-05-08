@@ -11,8 +11,8 @@ import { Center } from '../containers/Center'
 import { StyleTransfer } from '../containers/StyleTransfer'
 import { AuthRoute } from '../containers/AuthRoute'
 import { NotFound } from '../components/NotFound'
+import { Music } from '../containers/Music'
 import { Spin } from '../components/Loading'
-import { Music, MusicDetail } from '../containers/Music'
 import { UserPage } from '../containers/UserPage'
 import { Transcription } from '../containers/Transcription'
 import { SheetMusic } from '../containers/SheetMusic'
@@ -23,7 +23,10 @@ import { showMessage as showMsg } from '../containers/Message'
 import { actions as homeActions, fetch_types } from '../modules/home'
 
 /**
- * @description component for the entrance of App
+ * @description entrance of App
+ *              <Layout>
+ *                  <Route> -> render components
+ *              </Layout>
  * @class Index
  * @extends {Component}
  */
@@ -71,7 +74,6 @@ class Index extends Component {
                     <AuthRoute path="/center" component={Center} />
                     <AuthRoute path="/editor" component={Editor} />
                     <Route path="/articles/:id?" component={Article} />
-                    <Route path="/music/:id" component={MusicDetail} />
                     <Route path="/music" component={Music} />
                     <Route path="/404" component={NotFound} />
                     <Route path="/" component={Music} />

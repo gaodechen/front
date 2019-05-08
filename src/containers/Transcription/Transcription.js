@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { Route, Switch, withRouter } from 'react-router-dom'
-import { Steps, Button, Icon } from 'antd';
+import { Steps, Button, Icon, Spin } from 'antd';
 
 import FileSelector from '../FileSelector'
 import SheetMusic from '../SheetMusic'
-import Progress from '../../components/Loading'
 import { ContentLayout } from '../../components/Layouts'
 import Recorder from '../Recorder'
 
@@ -93,7 +92,13 @@ class Transcription extends Component {
                         <Switch>
                             <Route path='/transcription/fileSelector' component={FileSelector} />
                             <Route path='/transcription/recorder' component={Recorder} />
-                            <Route path='/transcription/spin' component={Progress} />
+                            <Route path='/transcription/spin' render={
+                                () => {
+                                    return (
+                                        <Spin size="large" style={{marginTop: '100px'}}/>
+                                    )
+                                }
+                            } />
                             <Route path='/transcription/sheetMusic' component={SheetMusic} />
                             <Route path='/transcription' component={FileSelector} />
                         </Switch>

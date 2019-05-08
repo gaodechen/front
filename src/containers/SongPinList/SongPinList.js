@@ -13,7 +13,7 @@ import { actions } from '../../modules/recommend'
  */
 class SongList extends Component {
     componentDidMount() {
-        this.props.getRecommend();
+        this.props.getPostersAndRecommend();
     }
 
     // display one row for songs
@@ -56,10 +56,7 @@ class SongList extends Component {
 }
 
 SongList.defaultProps = {
-    col: 3,
-    row: 3,
-    songList: [
-    ]
+    songList: []
 }
 
 const mapStateToProps = (state) => {
@@ -72,7 +69,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         // get reommend songs' list for userId
-        getRecommend: (userId) => {
+        getPostersAndRecommend: (userId) => {
             dispatch(actions.getRecommend(userId));
         },
         handleLike: (userId, musicId) => {

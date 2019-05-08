@@ -4,21 +4,22 @@ import { addr_config } from '../../config'
 
 class SheetMusic extends Component {
     render() {
-            return (
-                <SheetMusicMid abcNotation={
-                    'X:1\nT:Example\nM:4/4\nC:Trad.\nK:G\n|:Gccc dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|'
-                }
-                    parserParams={{}}
-                    engraverParams={{ responsive: 'resize' }}
-                    renderParams={{ viewportHorizontal: true }}
-                />
-            )
+        return (
+            <div>
+                <div style={{ width: '80%', textAlign: 'center', margin: '16px', marginLeft: '90px' }}>
+                    <SheetMusicMid />
+                </div>
+                <img src={this.props.imgPath} />
+            </div>
+        )
     }
 }
 
 SheetMusic.defaultProps = {
-    mxlPath: addr_config.STATIC_HOST + '/temp.mxl',
+    fileType: 'mid',
+    mxlPath: 'http://localhost:3002/static/temp.mxl',
     midPath: addr_config.STATIC_HOST + '/temp.mid',
+    imgPath: 'http://localhost:3002/static/temp.png'
 }
 
 export default SheetMusic;

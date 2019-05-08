@@ -37,11 +37,10 @@ class Recorder extends Component {
         if (this.props.isRecording) {
             return (
                 <div>
-                    <Row style={{ textAlign: 'center', marginTop: '-20px' }}>
-                        点击按钮停止录制
+                    <Row style={{ textAlign: 'center' }}>
                         <ReactMic
                             record={isRecording}
-                            backgroundColor="#f0f2f5"
+                            backgroundColor="#fafafa"
                             visualSetting="sinewave"
                             audioBitsPerSecond={128000}
                             onStop={this.onStop}
@@ -49,7 +48,7 @@ class Recorder extends Component {
                             mimeType="audio/wav"
                         />
                     </Row>
-                    <Row style={{ textAlign: 'center', marginTop: '-20px' }}>
+                    <Row style={{ textAlign: 'center' }}>
                         <Button
                             shape="circle"
                             style={{ width: '100px', height: '100px' }}
@@ -62,17 +61,17 @@ class Recorder extends Component {
             )
         } else {
             return (
-                <Row style={{ textAlign: 'center' }}>
-                    <h3>点击按钮开始录制</h3>
+                <div>
+                    点击按钮开始录制
                     <br />
                     <Button
                         shape="circle"
-                        style={{ width: '100px', height: '100px' }}
+                        style={{ width: '100px', height: '100px', marginTop: '36px' }}
                         onClick={this.startRecording}
                     >
                         <img src={audioLogo} alt="Audio" width='50%' />
                     </Button>
-                </Row>
+                </div>
             );
         }
     }

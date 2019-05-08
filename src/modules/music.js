@@ -1,21 +1,21 @@
-// 文章列表
 const action_types = {
-    // 获取music
     GET_MUSIC: 'music/GET',
+    POST_MUSIC: 'music/POST',
+    DEL_MUSIC: 'music/DEL',
+    UPD_MUSIC: 'music/UPD',
 }
 
 const initialState = {
-    // [musicID]: detail，异步获取音乐的详细信息
 }
 
 // Reducer
 const Reducer = (state = initialState, action = {}) => {
     switch (action.type) {
-        case action_types.SET_ARTCILE:
+        case action_types.SET_MUSIC:
             return {
                 ...state,
-                // 单篇文章的详细信息
-                [action.musicID]: {
+                // music information
+                [action.musicId]: {
                     ...action.music
                 }
             }
@@ -26,9 +26,18 @@ const Reducer = (state = initialState, action = {}) => {
 
 // Action Creators
 const actions = {
-    getMusic: (musicID) => ({
-        type: action_types.GET_MUSIC, id: musicID
+    getMusic: (_id) => ({
+        type: action_types.GET_MUSIC, _id
     }),
+    postMusic: (payload) => ({
+        type: action_types.POST_MUSIC, payload
+    }),
+    deleteMusic: (_id) => ({
+        type: action_types.DEL_MUSIC, _id
+    }),
+    updateMusic: (_id, payload) => ({
+        type: action_types.UPD_MUSIC, _id, payload
+    })
 }
 
 export default Reducer

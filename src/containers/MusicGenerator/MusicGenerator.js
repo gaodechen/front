@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Spin, message } from 'antd'
 
 import { ContentLayout } from '../../components/Layouts'
+import SheetMusic from '../SheetMusic'
 import { static_addr } from '../../config'
 import { actions as styleTransfer_actions } from '../../modules/styleTransfer'
 import { fetch_types } from '../../modules/home'
@@ -10,6 +11,8 @@ import Preprocess from '../../api/model/style-transfer/preprocess'
 
 /**
  * @description using props.targetStyle & props.audio to generate music
+ *              get props from store and dispatch async actions through sagas
+ *              async actions would call TF.js inference
  * @class MusicGenerator
  * @extends {Component}
  */
@@ -52,9 +55,9 @@ class MusicGenerator extends Component {
         const { isFetching } = this.props;
         if (isFetching === fetch_types.UNDONE) {
             return (
-                <ContentLayout sider={false} app={true}>
+                <div style={{marginTop: '150px'}}>
                     <Spin size="large" />
-                </ContentLayout>
+                </div>
             )
         } else if (isFetching === fetch_types.SUCCEES) {
             return (

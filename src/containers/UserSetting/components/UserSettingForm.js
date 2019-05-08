@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Icon, Input, Button, Col, Tooltip } from 'antd';
+import { Form, Icon, Input, Button, Col, Tooltip, Select } from 'antd';
 
 import AvatarUploader from './AvatarUploader'
 import { ContentLayout } from '../../../components/Layouts'
@@ -9,6 +9,8 @@ const contentLayout = {
     xs: { span: 24, offset: 0 },
     sm: { span: 9, offset: 0 }
 }
+
+const Option = Select.Option;
 
 // User Setting Form
 /**
@@ -109,6 +111,9 @@ class UserSettingForm extends Component {
                             })(
                                 <Input type="password" onBlur={this.handleConfirmBlur} prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} />
                             )}
+                        </Form.Item>
+                        <Form.Item {...formItemLayout} label="个人简介">
+                            <Input type="password" prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} />
                         </Form.Item>
                         <Form.Item
                             {...formItemLayout}

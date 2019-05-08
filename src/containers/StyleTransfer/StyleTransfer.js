@@ -12,25 +12,10 @@ import './style.css'
 
 const Step = Steps.Step;
 
-const steps = [{
-    step: 0,
-    title: '选择音频',
-    subTitle: '选择一种方式，把您的旋律灵感告诉我们',
-    path: '/styleTransfer/fileSelector',
-}, {
-    step: 1,
-    title: '选择风格',
-    subTitle: '选择您喜欢的风格，我们将用该风格谱写您的音乐',
-    path: '/styleTransfer/styleSelector'
-}, {
-    step: 2,
-    title: '乐曲生成',
-    subTitle: '人工智能为您编曲',
-    path: '/styleTransfer/musicGenerator'
-}];
-
 /**
  * @description Style Transfer Tools page
+ *              Steps divided and displayed by router:
+ *                    <Route component={Step1} />
  * @class StyleTransfer
  * @extends {Component}
  */
@@ -53,7 +38,7 @@ class StyleTransfer extends Component {
         let currentIndex = steps.findIndex((step) => {
             return step.path === currentPath;
         })
-        if(currentIndex === -1) {
+        if (currentIndex === -1) {
             currentIndex = 0;
         }
         let currentStep = steps[currentIndex].step;
@@ -80,6 +65,16 @@ class StyleTransfer extends Component {
 
     render() {
         const { current } = this.state;
+        /**
+         * <ContentLayout>
+         *      <Step Header />
+         *      <div>
+         *          <Route Step1 />
+         *          <Route Step2 />
+         *      </div>
+         *      <Step Actions />
+         * </ContentLayout>
+         */
         return (
             <ContentLayout sider={false}>
                 <Steps current={current} style={{ marginTop: '48px' }}>
@@ -90,13 +85,13 @@ class StyleTransfer extends Component {
                         <span>{steps[this.state.current].subTitle}</span>
                     </div>
                     <div className="steps-content-content">
-                        <Switch>
-                            <Route path='/styleTransfer/fileSelector' component={FileSelector} />
-                            <Route path='/styleTransfer/recorder' component={Recorder} />
-                            <Route path='/styleTransfer/styleSelector' component={StyleSelector} />
-                            <Route path='/styleTransfer/musicGenerator' component={MusicGenerator} />
-                            <Route path='/styleTransfer' component={FileSelector} />
-                        </Switch>
+                            <Switch>
+                                <Route path='/styleTransfer/fileSelector' component={FileSelector} />
+                                <Route path='/styleTransfer/recorder' component={Recorder} />
+                                <Route path='/styleTransfer/styleSelector' component={StyleSelector} />
+                                <Route path='/styleTransfer/musicGenerator' component={MusicGenerator} />
+                                <Route path='/styleTransfer' component={FileSelector} />
+                            </Switch>
                     </div>
                     <div className="steps-action">
                         <Button.Group>
@@ -131,5 +126,22 @@ class StyleTransfer extends Component {
         );
     }
 }
+
+const steps = [{
+    step: 0,
+    title: '选择音频',
+    subTitle: '选择一种方式，把您的旋律灵感告诉我们',
+    path: '/styleTransfer/fileSelector',
+}, {
+    step: 1,
+    title: '选择风格',
+    subTitle: '选择您喜欢的风格，我们将用该风格谱写您的音乐',
+    path: '/styleTransfer/styleSelector'
+}, {
+    step: 2,
+    title: '乐曲生成',
+    subTitle: '人工智能为您编曲',
+    path: '/styleTransfer/musicGenerator'
+}];
 
 export default withRouter(StyleTransfer);

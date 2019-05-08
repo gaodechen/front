@@ -5,33 +5,45 @@ import { action_types as home_action_types, fetch_types } from '../modules/home'
 import { action_types as articles_action_types } from '../modules/articles'
 import status_code from '../api/request/status-code'
 
-// 获取userID用户的文章列表
-export function* getArticles(userID) {
+/**
+ * @description get articles list of userId
+ * @export
+ * @param {*} userId
+ * @returns
+ */
+export function* getArticles(userId) {
     let response;
     yield put({ type: home_action_types.FETCH_START });
     try {
-        response = yield call(get, '/api/article', { userID });
+        // get /article request
+        response = yield call(get, '/api/article', { userId });
     } catch (err) {
+        // error happens
         response = err.response;
     } finally {
+        // update fetching status
         yield put({ type: home_action_types.FETCH_END });
         return response;
     }
 }
 
+/**
+ * @description monotor getArticles opt
+ * @export
+ */
 export function* getArticlesFlow() {
     while (true) {
-        // 监听action，获取action参数
         let request = yield take(articles_action_types.GET_ARTICLES);
-        const { userID } = request;
-        let response = yield call(getArticles, userID);
+        const { userId } = request;
+        let response = yield call(getArticles, userId);
         if (response && response.status === status_code.SUCCESS) {
-            // list获取成功
+            // set response
             yield put({
                 type: home_action_types.SET_MSG,
                 msgType: fetch_types.SUCCEED,
                 msgContent: response.data.message
             });
+            // set article list to store
             yield put({
                 type: articles_action_types.SET_ARTICLES,
                 recList: response.data.data
@@ -46,7 +58,12 @@ export function* getArticlesFlow() {
     }
 }
 
-// 获取id的收藏列表
+/**
+ * @description get article detail with article id
+ * @export
+ * @param {*} id
+ * @returns
+ */
 export function* getArticle(id) {
     let response;
     yield put({ type: home_action_types.FETCH_START });
@@ -60,8 +77,11 @@ export function* getArticle(id) {
     }
 }
 
+/**
+ * @description monitor getArticle opt
+ * @export
+ */
 export function* getArticleFlow() {
-    // 监听action，获取action参数
     let request = yield take(articles_action_types.GET_ARTICLE);
     const { id } = request;
     let response = yield call(getArticle, id);
@@ -82,11 +102,17 @@ export function* getArticleFlow() {
         });
 }
 
-// 为userID收藏musicID
-export function* postArticle(userID, article) {
+/**
+ * @description post article with userId and article info
+ * @export
+ * @param {*} userId
+ * @param {*} article
+ * @returns
+ */
+export function* postArticle(userId, article) {
     let response;
     try {
-        response = yield call(post, '/api/article', { _id: userID, article });
+        response = yield call(post, '/api/article', { _id: userId, article });
     } catch (err) {
         response = err.response;
     } finally {
@@ -94,10 +120,14 @@ export function* postArticle(userID, article) {
     }
 }
 
+/**
+ * @description monitor post action
+ * @export
+ */
 export function* postArticleFlow() {
     let request = yield take(articles_action_types.ADD_ARTICLE);
-    const { userID, article } = request;
-    let response = yield call(postArticle, userID, article);
+    const { userId, article } = request;
+    let response = yield call(postArticle, userId, article);
     if (response && response.status === status_code.SUCCESS) {
         yield put({
             type: home_action_types.SET_MSG,
@@ -113,11 +143,10 @@ export function* postArticleFlow() {
     }
 }
 
-// 删除id文章
-export function* delArticle(articleID) {
+export function* delArticle(articleId) {
     let response;
     try {
-        response = yield call(del, '/api/article', { _id: articleID });
+        response = yield call(del, '/api/article', { _id: articleId });
     } catch (err) {
         response = err.response;
     } finally {
@@ -126,7 +155,6 @@ export function* delArticle(articleID) {
 }
 
 export function* deleteArticleFlow() {
-    // 监听action，获取action参数
     let request = yield take(articles_action_types.DEL_ARTICLE);
     const { id } = request;
     let response = yield call(delArticle, id);

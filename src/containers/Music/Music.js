@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import { PageHeader } from 'antd'
 
 import Carousel from '../Carousel'
 import { ContentLayout } from '../../components/Layouts';
-import { SongList } from '../SongList'
+import { SongPinList } from '../SongPinList'
 import { actions } from '../../modules/recommend'
 
 /**
@@ -14,7 +15,7 @@ import { actions } from '../../modules/recommend'
  */
 class WrappedMusic extends Component {
     componentDidMount() {
-        this.props.getPosters();
+        // this.props.getPosters();
     }
 
     render() {
@@ -22,12 +23,49 @@ class WrappedMusic extends Component {
             <div>
                 <ContentLayout sider={false}>
                     <Carousel num={3} carousel={this.props.posters} />
-                    <SongList row={2} col={4} songList={this.props.songList} />
+                    <div className="music-page-content">
+                        <SongPinList row={2} col={4} songList={this.props.songList} />
+                        <PageHeader
+                            onBack={() => null}
+                            title="换一批"
+                            subTitle="再来几首！"
+                        />
+                    </div>
                 </ContentLayout>
             </div>
         )
     }
 }
+
+WrappedMusic.defaultProps = {
+    songList: [{
+        title: 'Song 1',
+        src: 'http://127.0.0.1:3002/static/thumbnail/1.jpg',
+    }, {
+        title: 'Song 2',
+        src: 'http://127.0.0.1:3002/static/thumbnail/2.jpg',
+    }, {
+        title: 'Song 3',
+        src: 'http://127.0.0.1:3002/static/thumbnail/3.jpg',
+    }, {
+        title: 'Song 4',
+        src: 'http://127.0.0.1:3002/static/thumbnail/4.jpg',
+    }, {
+        title: 'Song 5',
+        src: 'http://127.0.0.1:3002/static/thumbnail/5.jpg',
+    }, {
+        title: 'Song 6',
+        src: 'http://127.0.0.1:3002/static/thumbnail/6.jpg',
+    }, {
+        title: 'Song 7',
+        src: 'http://127.0.0.1:3002/static/thumbnail/7.jpg',
+    }, {
+        title: 'Song 8',
+        src: 'http://127.0.0.1:3002/static/thumbnail/8.jpg',
+    },
+    ]
+}
+
 
 const mapStateToProps = (state) => {
     return {
@@ -38,8 +76,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getPosters: (userID) => {
-            dispatch(actions.getRecommend(userID));
+        // get posters to display on carousel
+        getPosters: () => {
+            dispatch(actions.getPosters);
+        },
+        // get music recommendatios for userId
+        getRecommend: (userId) => {
+            dispatch(actions.getRecommend);
         }
     }
 }

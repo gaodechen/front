@@ -1,10 +1,9 @@
-// 推送
+/**
+ * Reducer to deal with recommendations & collections
+ */
 const action_types = {
-    // 获取推荐列表
     GET_RECOMMEND: 'rec/GET',
-    // 将推荐列表存放到store
     SET_RECOMMEND: 'rec/SET',
-    // 音乐收藏
     ADD_COLLECTION: 'collection/ADD',
     DEL_COLLECTION: 'collection/DEL',
     GET_COLLECTIONS: 'collection/GET',
@@ -13,16 +12,18 @@ const action_types = {
 const rec_types = {
     USER: 'user',
     MUSIC: 'music',
-    ALBUM: 'album',
+    ARTICLE: 'article',
 }
 
-// 异步获取的推送列表
 const initialState = {
+    // recommendation list of recType
     recList: [],
-    collections: [],
+    // collection list
+    collectionList: [],
+    // similar users list
+    similarUserList: [],
 }
 
-// Reducer
 const Reducer = (state = initialState, action = {}) => {
     switch (action.type) {
         case action_types.SET_RECOMMEND:
@@ -39,20 +40,25 @@ const Reducer = (state = initialState, action = {}) => {
 
 // Action Creators
 const actions = {
-    // 获取recType类型的推送，数量为recNum
-    getRecommend: (id, recType = rec_types.MUSIC, recNum = 6) => ({
-        type: action_types.GET_RECOMMEND, id, recType, recNum
+    getPosters: (payload) => ({
+        type: action_types.GET_POSTERS, payload
     }),
-    // 设置store当中的recList
-    setRecommend: (recList) => ({
-        type: action_types.SET_RECOMMEND, recList
+    // fetch recommendations
+    getRecommend: (_id, payload) => ({
+        type: action_types.GET_RECOMMEND, _id, payload
     }),
-    addLike: (userID, musicID) => ({
-        type: action_types.ADD_COLLECTION, userID, musicID
+    // store reommendation list
+    setRecommend: (payload) => ({
+        type: action_types.SET_RECOMMEND, payload
     }),
-    getLikes: () => ({
-        type: action_types.GET_COLLECTIONS
-    })
+    // update recommender info for real-time recommendations
+    onLike: (payload) => ({
+        type: action_types.ADD_COLLECTION, payload
+    }),
+    // undo "like"
+    onUnLike: (payload) => ({
+        type: action_types.DEL_COLLECTION, payload
+    }),
 }
 
 export default Reducer

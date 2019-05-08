@@ -1,3 +1,4 @@
-import { Pin } from './components'
+import Pin from './Pin'
 
 export default Pin
+export { Pin }

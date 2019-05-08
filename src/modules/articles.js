@@ -1,21 +1,25 @@
-// 文章列表
+/**
+ * Sub Reducer for articles
+ */
 const action_types = {
-    // 获取articles列表
+    // get article list
     GET_ARTICLES: 'articles/GET',
-    // 将articles存入store
+    // set response data
     SET_ARTICLES: 'articles/SET',
-    // 单篇文章
+    // get article info from server
     GET_ARTICLE: 'article/GET',
+    // set article info to store
     SET_ARTICLE: 'article/SET',
-    // 增删文章
+    // post an article
     ADD_ARTICLE: 'article/ADD',
+    // del an article
     DEL_ARTICLE: 'article/DEL',
+    UPD_ARTICLE: 'article/UPD',
 }
 
 const initialState = {
-    // 异步获取的文章列表，包含文章的_id, 摘要，摘要图等基本信息
+    // artciles' list
     articles: [],
-    // [articleID]: detail，异步获取文章的详细信息
 }
 
 // Reducer
@@ -24,7 +28,6 @@ const Reducer = (state = initialState, action = {}) => {
         case action_types.SET_ARTICLES:
             return {
                 ...state,
-                // 文章基本信息列表
                 articles: {
                     ...action.articles,
                 },
@@ -32,7 +35,7 @@ const Reducer = (state = initialState, action = {}) => {
         case action_types.SET_ARTCILE:
             return {
                 ...state,
-                // 单篇文章的详细信息
+                // article detail
                 [action.articleID]: {
                     ...action.article
                 }
@@ -44,7 +47,6 @@ const Reducer = (state = initialState, action = {}) => {
 
 // Action Creators
 const actions = {
-    // 获取userID的文章列表
     getArticles: (userID) => ({
         type: action_types.GET_ARTICLES, id: userID
     }),
