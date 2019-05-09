@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Input, Button } from 'antd'
-// import BraftEditor from 'braft-editor'
-// import 'braft-editor/dist/index.css'
+import BraftEditor from 'braft-editor'
+import 'braft-editor/dist/index.css'
 
 import { ContentLayout } from '../../components/Layouts'
 
@@ -46,10 +46,10 @@ class Editor extends Component {
     render() {
 
         const { getFieldDecorator } = this.props.form
-        // const controls = ['bold', 'italic', 'underline', 'text-color', 'separator', 'link', 'separator', 'media']
+        const controls = ['bold', 'italic', 'underline', 'text-color', 'separator', 'link', 'separator', 'media']
 
         return (
-            <ContentLayout sider={false}>
+            <ContentLayout sider={false} style={{}}>
                 <Form onSubmit={this.handleSubmit} style={{ marginTop: '40px' }}>
                     <Form.Item {...formItemLayout} label="文章标题">
                         {getFieldDecorator('title', {
@@ -75,11 +75,11 @@ class Editor extends Component {
                                 }
                             }],
                         })(
-                            /* <BraftEditor
+                            <BraftEditor
                                 className="my-editor"
                                 controls={controls}
                                 placeholder="请输入正文内容"
-                            /> */
+                            />
                         )}
                     </Form.Item>
                     <Form.Item {...tailFormItemLayout}>

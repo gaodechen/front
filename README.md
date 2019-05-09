@@ -5,6 +5,7 @@
 + 使用持久化状态 & DevTools & sagas等中间件增强Redux
 + 模型推断采用`TensorFlow.js`
 
+```
     public
     src
         api                                 API封装
@@ -45,6 +46,7 @@
     index.js                                主入口
     App.js                                  根组件
     package.json                            npm配置
+```
 
 # Resume
 
@@ -57,7 +59,7 @@
 + 各组件使用index.js统一暴露接口
 
 React/Redux文件结构如下
-
+```
     src
         components                          全局公用视图组件
             component_1
@@ -74,6 +76,7 @@ React/Redux文件结构如下
                 index.js
             container_2
             container_3
+```
 
 ## Lib
 

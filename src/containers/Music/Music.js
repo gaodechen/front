@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { PageHeader } from 'antd'
+import { PageHeader, Icon } from 'antd'
 
 import Carousel from '../Carousel'
 import { ContentLayout } from '../../components/Layouts';
@@ -24,6 +24,10 @@ class WrappedMusic extends Component {
                 <ContentLayout sider={false}>
                     <Carousel num={3} carousel={this.props.posters} />
                     <div className="music-page-content">
+                        <PageHeader
+                            backIcon={<Icon type="star"/>}
+                            title="猜你喜欢"
+                        />
                         <SongPinList row={2} col={4} songList={this.props.songList} />
                         <PageHeader
                             onBack={() => null}
