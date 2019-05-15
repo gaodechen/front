@@ -3,6 +3,7 @@ import * as homeSagas from './home'
 import * as followSagas from './friends'
 import * as articlesSagas from './articles'
 import * as styleTransferSagas from './styleTransfer'
+import * as transcriptionSagas from './transcription'
 
 /**
  * @description root saga of front end
@@ -15,6 +16,7 @@ export default function* rootSaga() {
     yield fork(homeSagas.logoutFlow);
     yield fork(homeSagas.authFlow);
     yield fork(homeSagas.getUserInfoFlow);
+    yield fork(homeSagas.updateFlow);
     // follow sagas
     yield fork(followSagas.getFollowFlow);
     yield fork(followSagas.postFollowFlow);
@@ -26,4 +28,7 @@ export default function* rootSaga() {
     yield fork(articlesSagas.deleteArticleFlow);
     // style transfer sagas
     yield fork(styleTransferSagas.inferenceFlow);
+    yield fork(styleTransferSagas.processFlow);
+    // transcription sagas
+    yield fork(transcriptionSagas.transcriptionFlow)
 }

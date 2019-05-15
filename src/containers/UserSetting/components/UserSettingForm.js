@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Icon, Input, Button, Col, Tooltip, Select } from 'antd';
+import { Form, Icon, Input, Button, Col, Tooltip } from 'antd';
 
 import AvatarUploader from './AvatarUploader'
 import { ContentLayout } from '../../../components/Layouts'
@@ -10,7 +10,27 @@ const contentLayout = {
     sm: { span: 9, offset: 0 }
 }
 
-const Option = Select.Option;
+// Form.Item layout
+const formItemLayout = {
+    // label elements
+    labelCol: { xs: { span: 24 }, sm: { span: 4 }, },
+    // input elements
+    wrapperCol: { xs: { span: 24 }, sm: { span: 20 }, },
+};
+// avatar item layout
+const avatarFormItemLayout = {
+    wrapperCol: {
+        xs: { offset: 0, },
+        sm: { offset: 4, },
+    },
+};
+// Button on bottom
+const tailFormItemLayout = {
+    wrapperCol: {
+        xs: { span: 24, offset: 0, },
+        sm: { span: 20, offset: 4, },
+    },
+};
 
 // User Setting Form
 /**
@@ -26,9 +46,16 @@ class UserSettingForm extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                const email = this.props.userInfo.email;
-                const { username, password } = values;
-                this.props.updateUserInfo({ email, username, password });
+                const { _id } = this.props.userInfo;
+                const { username, password, description } = values;
+                const payload = { _id, description };
+                if(typeof(password) !== "undefined") {
+                    payload.password = password;
+                }
+                if(typeof(username) !== "undefined") {
+                    payload.username = username;
+                }
+                this.props.updateUserInfo(payload)
             }
         });
     }
@@ -55,39 +82,23 @@ class UserSettingForm extends Component {
         callback();
     }
 
+    handleUpload = (e) => {
+        const value = e.target.value;
+        console.log(value)
+    }
+
     render() {
         const { getFieldDecorator } = this.props.form;
-
-        // Form.Item layout
-        const formItemLayout = {
-            // label elements
-            labelCol: { xs: { span: 24 }, sm: { span: 4 }, },
-            // input elements
-            wrapperCol: { xs: { span: 24 }, sm: { span: 20 }, },
-        };
-        // avatar item layout
-        const avatarFormItemLayout = {
-            wrapperCol: {
-                xs: { offset: 0, },
-                sm: { offset: 4, },
-            },
-        };
-        // Button on bottom
-        const tailFormItemLayout = {
-            wrapperCol: {
-                xs: { span: 24, offset: 0, },
-                sm: { span: 20, offset: 4, },
-            },
-        };
+        const { username, description } = this.props.userInfo;
 
         return (
-            <ContentLayout sider={false} app={true}>
+            <ContentLayout sider={false} normalApp>
                 <Col {...contentLayout}>
                     <Form onSubmit={this.handleSubmit} className="form-content-background">
                         <Form.Item {...avatarFormItemLayout}>
                             <AvatarUploader
                                 userInfo={this.props.userInfo}
-                                updateUserInfo={this.props.updateUserInfo}
+                                updateUserInfo={this.handleUpload}
                             />
                         </Form.Item>
                         <Form.Item {...formItemLayout} label="新密码">
@@ -112,8 +123,10 @@ class UserSettingForm extends Component {
                                 <Input type="password" onBlur={this.handleConfirmBlur} prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} />
                             )}
                         </Form.Item>
-                        <Form.Item {...formItemLayout} label="个人简介">
-                            <Input type="password" prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} />
+                        <Form.Item {...formItemLayout} label="个人简介" key={'description' + description}>
+                            {getFieldDecorator('description')(
+                                <Input placeholder={description} prefix={<Icon type="form" style={{ color: 'rgba(0,0,0,.25)' }} />} />
+                            )}
                         </Form.Item>
                         <Form.Item
                             {...formItemLayout}
@@ -125,11 +138,10 @@ class UserSettingForm extends Component {
                                     </Tooltip>
                                 </span>
                             )}
+                            key={'username' + username}
                         >
-                            {getFieldDecorator('username', {
-                                rules: [{ message: '请输入您的用户名!', whitespace: true }],
-                            })(
-                                <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} />
+                            {getFieldDecorator('username')(
+                                <Input placeholder={username} prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} />
                             )}
                         </Form.Item>
                         <Form.Item {...tailFormItemLayout}>

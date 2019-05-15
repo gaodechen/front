@@ -12,17 +12,25 @@ const action_types = {
     USER_LOGOUT: 'user/LOGOUT',         // logout action
     USER_REGISTER: 'user/REGISTER',     // register action
     USER_UPDATE: 'user/UPDATE',         // update userinfo
-}
+    ACTION_UPDATE: 'action/UPDATE',     // resolve or reject action
+};
 
 // is fetching successful
 const fetch_types = {
-    NULL: -1,
-    SUCCEED: 0,
-    FAILED: 1,
-}
+    SUCCEED: 'succeed',
+    FAILED: 'failed',
+};
+
+// life cycle of actions
+const action_status = {
+    PENDING: 'pending',
+    RESOLVED: 'succeed',
+    REJECTED: 'failed',
+};
 
 const initialState = {
     isFetching: false,
+    actionStatus: action_status.PENDING,
     msg: {
         type: undefined,
         content: ''
@@ -37,12 +45,12 @@ const Reducer = (state = initialState, action = {}) => {
             return {
                 ...state,
                 isFetching: true
-            }
+            };
         case action_types.FETCH_END:
             return {
                 ...state,
                 isFetching: false
-            }
+            };
         case action_types.SET_MSG:
             return {
                 ...state,
@@ -51,12 +59,17 @@ const Reducer = (state = initialState, action = {}) => {
                     type: action.msgType,
                     content: action.msgContent
                 }
-            }
+            };
         case action_types.SET_USERINFO:
             return {
                 ...state,
                 userInfo: action.userInfo,
                 isLoggedIn: action.isLoggedIn
+            };
+        case action_types.ACTION_UPDATE:
+            return {
+                ...state,
+                actionStatus: action.actionStatus,
             }
         default:
             return state;
@@ -89,4 +102,4 @@ const actions = {
 }
 
 export default Reducer
-export { action_types, fetch_types, actions }
+export { action_types, fetch_types, actions, action_status }

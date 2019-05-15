@@ -7,6 +7,7 @@ const action_types = {
     ADD_COLLECTION: 'collection/ADD',
     DEL_COLLECTION: 'collection/DEL',
     GET_COLLECTIONS: 'collection/GET',
+    GET_POSTERS: 'posters/GET',
 }
 
 const rec_types = {

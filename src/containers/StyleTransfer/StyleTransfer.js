@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import { Steps, Button, Icon } from 'antd';
 
-import FileSelector from '../FileSelector'
+import FileSelector from './components'
 import StyleSelector from '../StyleSelector'
 import MusicGenerator from '../MusicGenerator'
+import TransferSetting from '../TransferSetting'
 import { ContentLayout } from '../../components/Layouts'
 import Recorder from '../Recorder'
 
@@ -45,6 +47,18 @@ class StyleTransfer extends Component {
         return currentStep;
     }
 
+    isCurrentNextAvailable = () => {
+        const {current} = this.state;
+        if(current === 0) {
+            return this.props.audioAvailable;
+        } else if(current === 1) {
+            return this.props.styleAvailable;
+        } else if(current === 3) {
+            return this.props.audioAvailable && this.props.styleAvailable;
+        }
+        return true;
+    }
+
     /**
      * @description go to next step
      */
@@ -75,6 +89,7 @@ class StyleTransfer extends Component {
          *      <Step Actions />
          * </ContentLayout>
          */
+        const buttonDisabled = !this.isCurrentNextAvailable();
         return (
             <ContentLayout sider={false}>
                 <Steps current={current} style={{ marginTop: '48px' }}>
@@ -89,6 +104,7 @@ class StyleTransfer extends Component {
                                 <Route path='/styleTransfer/fileSelector' component={FileSelector} />
                                 <Route path='/styleTransfer/recorder' component={Recorder} />
                                 <Route path='/styleTransfer/styleSelector' component={StyleSelector} />
+                                <Route path='/styleTransfer/transferSetting' component={TransferSetting} />
                                 <Route path='/styleTransfer/musicGenerator' component={MusicGenerator} />
                                 <Route path='/styleTransfer' component={FileSelector} />
                             </Switch>
@@ -106,7 +122,7 @@ class StyleTransfer extends Component {
                             {
                                 current < steps.length - 1
                                 && (
-                                    <Button size="large" shape="round" type="primary" onClick={this.next}>
+                                    <Button size="large" shape="round" type="primary" onClick={this.next} disabled={buttonDisabled}>
                                         继续<Icon type="right" />
                                     </Button>
                                 )
@@ -114,7 +130,7 @@ class StyleTransfer extends Component {
                             {
                                 current === steps.length - 1
                                 && (
-                                    <Button size="large" shape="round" type="primary" onClick={this.finish}>
+                                    <Button size="large" shape="round" type="primary" onClick={this.finish} disabled={buttonDisabled}>
                                         完成<Icon type="right" />
                                     </Button>
                                 )
@@ -139,9 +155,22 @@ const steps = [{
     path: '/styleTransfer/styleSelector'
 }, {
     step: 2,
+    title: '生成配置',
+    subTitle: '请回答以下问题',
+    path: '/styleTransfer/transferSetting'
+}, {
+    step: 3,
     title: '乐曲生成',
     subTitle: '人工智能为您编曲',
     path: '/styleTransfer/musicGenerator'
 }];
 
-export default withRouter(StyleTransfer);
+const mapStateToProps = (state) => {
+    return {
+        audioAvailable: !!state.fileSelector.audio,
+        styleAvailable: !!state.styleTransfer.targetStyle,
+        style: state.styleTransfer.targetStyle,
+    }
+}
+
+export default withRouter(connect(mapStateToProps)(StyleTransfer));

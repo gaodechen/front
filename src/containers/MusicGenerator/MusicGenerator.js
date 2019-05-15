@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Spin, message } from 'antd'
+import { Spin, Icon, message } from 'antd'
 
-import { ContentLayout } from '../../components/Layouts'
-import SheetMusic from '../SheetMusic'
 import { static_addr } from '../../config'
 import { actions as styleTransfer_actions } from '../../modules/styleTransfer'
-import { fetch_types } from '../../modules/home'
+import { action_status } from '../../modules/home'
 import Preprocess from '../../api/model/style-transfer/preprocess'
 
 /**
@@ -39,39 +37,42 @@ class MusicGenerator extends Component {
     componentDidMount() {
         const { audio, targetStyle } = this.props;
         if (!audio) {
-            message.error('未选择文件')
+            message.error('无效音频！')
         } else if (!targetStyle) {
             message.error('未选定风格')
         } else {
             this.ReadMidi(audio, (midiFile) => {
-                const input = Preprocess(midiFile);
-                const MODEL_URL = static_addr.STYLE_TRANSFER_MODEL + '/' + targetStyle + '/model.json';
-                this.props.infer({ MODEL_URL, targetStyle, input })
+                // const input = Preprocess(midiFile);
+                const input = midiFile;
+                // const MODEL_URL = static_addr.STYLE_TRANSFER_MODEL + '/' + targetStyle + '/model.json';
+                const { noteRange, transferAmplitude, isPiano } = this.props;
+                // this.props.infer({ MODEL_URL, targetStyle, input, noteRange, transferAmplitude, isPiano})
+                this.props.process({ input, targetStyle, noteRange, transferAmplitude, isPiano})
             });
         }
     }
 
     render() {
-        const { isFetching } = this.props;
-        if (isFetching === fetch_types.UNDONE) {
+        const {actionStatus} = this.props;
+        if (actionStatus === action_status.PENDING) {
             return (
-                <div style={{marginTop: '150px'}}>
-                    <Spin size="large" />
+                <div style={{height: '248px', paddingTop: '10%'}}>
+                    <Spin size="large"/>
                 </div>
             )
-        } else if (isFetching === fetch_types.SUCCEES) {
+        }
+        if (actionStatus === action_status.RESOLVED) {
             return (
-                <ContentLayout sider={false} app={true}>
-                    <span>转换成功！</span>
-                </ContentLayout>
-            )
-        } else if (isFetching === fetch_types.FAILED) {
-            return (
-                <ContentLayout sider={false} app={true}>
-                    <span>无法正确加载模型，转换失败！</span>
-                </ContentLayout>
+                <div style={{height: '248px', paddingTop: '10%'}}>
+                    <span><Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" style={{fontSize: '24px'}}/> 转换成功！</span>
+                </div>
             )
         }
+        return (
+            <div style={{height: '248px', paddingTop: '10%'}}>
+                <span><Icon type="close-circle" theme="twoTone" twoToneColor="#eb2f96" style={{fontSize: '24px'}}/> 模型调用失败！</span>
+            </div>
+        )
     }
 }
 
@@ -79,7 +80,10 @@ const mapStateToProps = (state) => {
     return {
         targetStyle: state.styleTransfer.targetStyle,
         audio: state.fileSelector.audio,
-        isFetching: state.home.loading,
+        actionStatus: state.home.actionStatus,
+        transferAmplitude: state.styleTransfer.transferAmplitude,
+        noteRange: state.styleTransfer.noteRange,
+        isPiano: state.styleTransfer.isPiano,
     }
 }
 
@@ -87,6 +91,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         infer: (payload) => {
             dispatch(styleTransfer_actions.infer(payload))
+        },
+        process: (payload) => {
+            dispatch(styleTransfer_actions.process(payload))
         }
     }
 }

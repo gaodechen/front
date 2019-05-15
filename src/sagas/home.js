@@ -239,11 +239,11 @@ export function* updateFlow() {
                 msgType: fetch_types.SUCCEED,
                 msgContent: response.data.message
             });
-            // update userinfo when logging in successfully
+            // update userinfo in store
             yield put({
                 type: action_types.SET_USERINFO,
                 userInfo: response.data.data,
-                isLoggedIn: true
+                isLoggedIn: true,
             });
         } else {
             // set error message

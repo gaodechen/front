@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { Button } from 'antd'
 import { withRouter } from 'react-router-dom'
 
-import { actions } from '../../modules/fileSelector'
-import { Selector } from '../Uploader'
+import { actions } from '../../../modules/fileSelector'
+import { Selector } from '../../Uploader'
 
 /**
  * @description guide users to upload or record audio files
@@ -13,7 +13,7 @@ import { Selector } from '../Uploader'
  */
 class FileSelector extends Component {
     handleRecordingClick = () => {
-        this.props.history.push('/styleTransfer/recorder');
+        this.props.history.push('/transcription/recorder');
     }
 
     render() {

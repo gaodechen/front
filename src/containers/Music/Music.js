@@ -15,7 +15,7 @@ import { actions } from '../../modules/recommend'
  */
 class WrappedMusic extends Component {
     componentDidMount() {
-        // this.props.getPosters();
+        this.props.getPosters();
     }
 
     render() {
@@ -41,36 +41,6 @@ class WrappedMusic extends Component {
     }
 }
 
-WrappedMusic.defaultProps = {
-    songList: [{
-        title: 'Song 1',
-        src: 'http://127.0.0.1:3002/static/thumbnail/1.jpg',
-    }, {
-        title: 'Song 2',
-        src: 'http://127.0.0.1:3002/static/thumbnail/2.jpg',
-    }, {
-        title: 'Song 3',
-        src: 'http://127.0.0.1:3002/static/thumbnail/3.jpg',
-    }, {
-        title: 'Song 4',
-        src: 'http://127.0.0.1:3002/static/thumbnail/4.jpg',
-    }, {
-        title: 'Song 5',
-        src: 'http://127.0.0.1:3002/static/thumbnail/5.jpg',
-    }, {
-        title: 'Song 6',
-        src: 'http://127.0.0.1:3002/static/thumbnail/6.jpg',
-    }, {
-        title: 'Song 7',
-        src: 'http://127.0.0.1:3002/static/thumbnail/7.jpg',
-    }, {
-        title: 'Song 8',
-        src: 'http://127.0.0.1:3002/static/thumbnail/8.jpg',
-    },
-    ]
-}
-
-
 const mapStateToProps = (state) => {
     return {
         userInfo: state.home.userInfo,
@@ -82,11 +52,11 @@ const mapDispatchToProps = (dispatch) => {
     return {
         // get posters to display on carousel
         getPosters: () => {
-            dispatch(actions.getPosters);
+            dispatch(actions.getPosters());
         },
         // get music recommendatios for userId
         getRecommend: (userId) => {
-            dispatch(actions.getRecommend);
+            dispatch(actions.getRecommend(userId));
         }
     }
 }

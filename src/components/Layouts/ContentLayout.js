@@ -22,8 +22,8 @@ class ContentLayout extends Component {
      * 3. single col content & from top to bottom displaying
      */
     render() {
-        const { sider, app } = this.props;
-        if (sider === true) {
+        const { sider, pageApp, normalApp } = this.props;
+        if (sider) {
             const { menuItems } = this.props;
             return (
                 <Layout className="content-layout-container">
@@ -32,7 +32,7 @@ class ContentLayout extends Component {
                             {this.props.children}
                         </Content>
                     </Col>
-                    <Sider className="content-layout-sider" style={{ marginLeft: '32px' }}>
+                    <Sider className="content-layout-sider" style={{ marginLeft: '32px' }} >
                         <Menu
                             mode="inline"
                             defaultSelectedKeys={['1']}
@@ -43,21 +43,28 @@ class ContentLayout extends Component {
                     </Sider>
                 </Layout>
             );
-        } else if (app === false) {
+        }
+        if (pageApp) {
             return (
-                <Layout className="content-layout-container-single-col">
-                    <Content className="content-layout-content-single-col">
-                        {this.props.children}
-                    </Content>
-                </Layout>
-            )
-        } else {
-            return (
-                <Row className="flex-row">
+                <Row className="full-page-app">
                     {this.props.children}
                 </Row>
             )
         }
+        if (normalApp) {
+            return (
+                <Row className="normal-app">
+                    {this.props.children}
+                </Row>
+            )
+        }
+        return (
+            <Layout className="content-layout-container-single-col">
+                <Content className="content-layout-content-single-col">
+                    {this.props.children}
+                </Content>
+            </Layout>
+        )
     }
 }
 
@@ -65,12 +72,9 @@ ContentLayout.defaultProps = {
     sider: true,
     app: false,
     menuItems: [
-        { key: '0', iconType: 'edit', name: '文章创作', url: '/editor' },
-        { key: '1', iconType: 'solution', name: '我的空间', url: '/space' },
-        { key: '2', iconType: 'team', name: '好友动态', url: '/status' },
-        { key: '3', iconType: 'eye', name: '我的关注', url: '/following' },
-        { key: '4', iconType: 'star', name: '我的粉丝', url: '/followers' },
-        { key: '5', iconType: 'eye', name: '我的收藏', url: '/collections' },
+        { key: '0', iconType: 'edit', name: 'Introduction', url: '/editor' },
+        { key: '1', iconType: 'solution', name: 'Another Introduction', url: '/space' },
+        { key: '2', iconType: 'team', name: 'Album List', url: '/status' },
     ],
 }
 

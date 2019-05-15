@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Route, Switch, withRouter } from 'react-router-dom'
-import { Steps, Button, Icon, Spin } from 'antd';
+import { Steps, Button, Icon } from 'antd';
 
-import FileSelector from '../FileSelector'
+import { FileSelector } from './components'
 import SheetMusic from '../SheetMusic'
+import Spin from './components'
 import { ContentLayout } from '../../components/Layouts'
 import Recorder from '../Recorder'
 
@@ -59,6 +61,17 @@ class Transcription extends Component {
         return currentStep;
     }
 
+    isCurrentNextAvailable = () => {
+        let current = this.state.current;
+        if (current === 0) {
+            return this.props.audioAvailable;
+        }
+        if (current === 1) {
+            return this.props.xmlAvailable;
+        }
+        return this.props.audioAvailable && this.props.xmlAvailable;
+    }
+
     /**
      * @description go to next step after clicking button
      */
@@ -79,6 +92,7 @@ class Transcription extends Component {
 
     render() {
         const { current } = this.state;
+        const buttonAvailable = this.isCurrentNextAvailable();
         return (
             <ContentLayout sider={false}>
                 <Steps current={current} style={{ marginTop: '48px' }}>
@@ -92,13 +106,7 @@ class Transcription extends Component {
                         <Switch>
                             <Route path='/transcription/fileSelector' component={FileSelector} />
                             <Route path='/transcription/recorder' component={Recorder} />
-                            <Route path='/transcription/spin' render={
-                                () => {
-                                    return (
-                                        <Spin size="large" style={{marginTop: '100px'}}/>
-                                    )
-                                }
-                            } />
+                            <Route path='/transcription/spin' component={Spin} />
                             <Route path='/transcription/sheetMusic' component={SheetMusic} />
                             <Route path='/transcription' component={FileSelector} />
                         </Switch>
@@ -116,7 +124,7 @@ class Transcription extends Component {
                             {
                                 current < steps.length - 1
                                 && (
-                                    <Button size="large" shape="round" type="primary" onClick={this.next}>
+                                    <Button size="large" shape="round" type="primary" onClick={this.next} disabled={!buttonAvailable}>
                                         继续<Icon type="right" />
                                     </Button>
                                 )
@@ -124,7 +132,7 @@ class Transcription extends Component {
                             {
                                 current === steps.length - 1
                                 && (
-                                    <Button size="large" shape="round" type="primary" onClick={this.finish}>
+                                    <Button size="large" shape="round" type="primary" onClick={this.finish} disabled={!buttonAvailable}>
                                         完成<Icon type="right" />
                                     </Button>
                                 )
@@ -137,4 +145,11 @@ class Transcription extends Component {
     }
 }
 
-export default withRouter(Transcription);
+const mapStateToProps = (state) => {
+    return {
+        audioAvailable: !!state.fileSelector.audio,
+        xmlAvaiilable: !!state.transcription.musicXml,
+    }
+}
+
+export default connect(mapStateToProps)(withRouter(Transcription));

@@ -25,7 +25,7 @@ class LoginForm extends Component {
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
-            <ContentLayout sider={false} app={true}>
+            <ContentLayout sider={false} pageApp>
                 <Col {...contentLayout}>
                     <Form onSubmit={this.handleSubmit} className="form-content-background">
                         <Form.Item>

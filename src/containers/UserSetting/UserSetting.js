@@ -13,7 +13,7 @@ import { actions } from '../../modules/home'
 class WrappedUserSetting extends Component {
     render() {
         return (
-            <ContentLayout sider={false} app={true}>
+            <ContentLayout sider={false} pageApp>
                 <UserSettingForm
                     userInfo={this.props.userInfo}
                     updateUserInfo={this.props.updateUserInfo}

@@ -13,7 +13,7 @@ import { ContentLayout } from '../../components/Layouts';
 class WrappedCenter extends Component {
     render() {
         return (
-            <ContentLayout sider={false} app={false}>
+            <ContentLayout sider={false}>
                 <UserPage />
             </ContentLayout>
         )

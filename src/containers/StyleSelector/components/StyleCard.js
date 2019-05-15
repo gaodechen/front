@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card } from 'antd'
+import { Card, message } from 'antd'
 
 import './style.css'
 
@@ -9,6 +9,10 @@ import './style.css'
  * @extends {Component}
  */
 class StyleCard extends Component {
+    handleClick = () => {
+        message.success('您选择的风格是：' + this.props.title);
+    }
+
     render() {
         const { Meta } = Card;
         const { title, description, src, alt } = this.props;
@@ -16,7 +20,7 @@ class StyleCard extends Component {
             <Card
                 hoverable
                 cover={<img alt={alt} src={src} />}
-                onClick={this.props.setTargetStyle}
+                onClick={this.handleClick}
             >
                 <Meta
                     title={title}

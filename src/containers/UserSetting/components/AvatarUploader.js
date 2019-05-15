@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
+import { Upload, Icon, message } from 'antd';
 
 import { static_addr } from '../../../config'
-import { Upload, Icon, message } from 'antd';
 
 function getBase64(img, callback) {
     const reader = new FileReader();

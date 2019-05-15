@@ -12,6 +12,7 @@ import music from './music'                     // music
 import uploader from './uploader'               // uploader
 import styleTransfer from './styleTransfer'     // music transfer
 import fileSelector from './fileSelector'       // file selector
+import transcription from './transcription'      // music transcription
 
 // reducer with persist config
 const rootPersistConfig = {
@@ -38,6 +39,7 @@ const Reducer = combineReducers({
     uploader,
     styleTransfer,
     fileSelector,
+    transcription,
 })
 
 

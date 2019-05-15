@@ -9,14 +9,14 @@ import StyleCard from './components'
 const srcPrefix = static_addr.STYLE_THUMBNAIL;
 
 const styles = [
-    { description: '巴赫', title: 'Bach',  },
-    { description: '贝多芬', title: 'Beethoven',  },
-    { description: '德彪西', title: 'Debussy',  },
-    { description: '久石让', title: 'Hisaishi',  },
-    { description: '莫扎特', title: 'Mozart',  },
-    { description: '钢琴男孩', title: 'Pianoboy',  },
-    { description: '舒伯特', title: 'Schubert',  },
-    { description: 'V.K', title: 'V.K',  },
+    { description: '巴赫', title: 'Bach', },
+    { description: '贝多芬', title: 'Beethoven', },
+    { description: '德彪西', title: 'Debussy', },
+    { description: '久石让', title: 'Hisaishi', },
+    { description: '莫扎特', title: 'Mozart', },
+    { description: '钢琴男孩', title: 'Pianoboy', },
+    { description: '舒伯特', title: 'Schubert', },
+    { description: 'V.K', title: 'V.K', },
 ]
 
 /**
@@ -55,7 +55,7 @@ class StyleSelector extends Component {
     }
 
     render() {
-        let slices = this.getSlices(4)
+        let slices = this.getSlices(4);
         return (
             <div style={{ background: '#ECECEC', padding: '24px' }}>
                 {slices.map((item, rowId) => {
@@ -66,7 +66,11 @@ class StyleSelector extends Component {
                                     let src = srcPrefix + '/' + col.title + '.png';
                                     return (
                                         <Col span={6} key={colId} onClick={this.handleClick(col.title)}>
-                                            <StyleCard description={col.description} title={col.title} src={src} />
+                                            <StyleCard
+                                                description={col.description}
+                                                title={col.title}
+                                                src={src}
+                                            />
                                         </Col>
                                     )
                                 })

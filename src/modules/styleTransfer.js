@@ -4,10 +4,15 @@
 const action_types = {
     SET_STYLE: 'style/SET',         // set the target style
     INFER: 'model/INFER',           // start inferring in browser
+    PROCESS: 'model/PROCESS',       // whole process on server
+    SET_ARGS: 'args/SET',           // set transfer arguments
 }
 
 const initialState = {
     targetStyle: null,
+    transferAmplitude: 0,
+    noteRange: [36, 84],
+    isPiano: true,
 }
 
 const Reducer = (state = initialState, action = {}) => {
@@ -16,6 +21,11 @@ const Reducer = (state = initialState, action = {}) => {
             return {
                 ...state,
                 targetStyle: action.targetStyle,
+            }
+        case action_types.SET_ARGS:
+            return {
+                ...state,
+                ...action.payload,
             }
         default:
             return state;
@@ -37,7 +47,13 @@ const actions = {
      */
     infer: (payload) => ({
         type: action_types.INFER, payload
-    })
+    }),
+    process: (payload) => ({
+        type: action_types.PROCESS, payload
+    }),
+    setTransferArgs: (payload) => ({
+        type: action_types.SET_ARGS, payload
+    }),
 }
 
 export default Reducer
