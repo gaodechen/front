@@ -84,7 +84,6 @@ class UserSettingForm extends Component {
 
     handleUpload = (e) => {
         const value = e.target.value;
-        console.log(value)
     }
 
     render() {

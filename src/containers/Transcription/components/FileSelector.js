@@ -36,8 +36,8 @@ class FileSelector extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setAudio: (audio) => {
-            dispatch(actions.setAudio(audio))
+        setAudio: (audio, source = 'file') => {
+            dispatch(actions.setAudio(audio, source))
         }
     }
 }

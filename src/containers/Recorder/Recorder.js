@@ -7,7 +7,7 @@ import { actions as fileSelector_actions } from '../../modules/fileSelector'
 
 class WrappedRecorder extends Component {
     render() {
-        const { isRecording, blobURL, setBlobURL, setRecording, callback } = this.props;
+        const { isRecording, blobURL, setBlobURL, setRecording, setAudio } = this.props;
 
         return (
             <Recorder
@@ -15,7 +15,7 @@ class WrappedRecorder extends Component {
                 blobURL={blobURL}
                 setBlobURL={setBlobURL}
                 setRecording={setRecording}
-                callback={callback}
+                setAudio={setAudio}
             />
         );
     }
@@ -36,8 +36,8 @@ const mapDispatchToProps = (dispatch) => {
         setRecording: (isRecording) => {
             dispatch(recorder_actions.setRecording(isRecording))
         },
-        callback: (blobObject) => {
-            dispatch(fileSelector_actions.setAudio(blobObject))
+        setAudio: (blobObject, source) => {
+            dispatch(fileSelector_actions.setAudio(blobObject, source))
         },
     }
 }

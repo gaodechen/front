@@ -4,6 +4,7 @@ import * as followSagas from './friends'
 import * as articlesSagas from './articles'
 import * as styleTransferSagas from './styleTransfer'
 import * as transcriptionSagas from './transcription'
+import * as recommendSagas from './recommend'
 
 /**
  * @description root saga of front end
@@ -31,4 +32,7 @@ export default function* rootSaga() {
     yield fork(styleTransferSagas.processFlow);
     // transcription sagas
     yield fork(transcriptionSagas.transcriptionFlow)
+    yield fork(transcriptionSagas.midi2xmlFlow)
+    // recommendation sagas
+    yield fork(recommendSagas.getRecommendFlow)
 }

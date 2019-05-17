@@ -1,4 +1,3 @@
-// 歌单页面
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col } from 'antd'
@@ -12,10 +11,6 @@ import { actions } from '../../modules/recommend'
  * @extends {Component}
  */
 class SongList extends Component {
-    componentDidMount() {
-        this.props.getPostersAndRecommend();
-    }
-
     // display one row for songs
     getRow = (rowNum) => {
         const { col } = this.props;
@@ -26,7 +21,7 @@ class SongList extends Component {
                 <Col span={span} key={col * rowNum + i}>
                     <Pin
                         onLike={this.props.onLike}
-                        pin={this.props.songList[col * rowNum + i]}
+                        audio={this.props.songList[col * rowNum + i]}
                     />
                 </Col>
             );
@@ -55,10 +50,6 @@ class SongList extends Component {
     }
 }
 
-SongList.defaultProps = {
-    songList: []
-}
-
 const mapStateToProps = (state) => {
     return {
         userInfo: state.home.userInfo,
@@ -69,9 +60,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         // get reommend songs' list for userId
-        getPostersAndRecommend: (userId) => {
-            dispatch(actions.getRecommend(userId));
-        },
         handleLike: (userId, musicId) => {
             dispatch(actions.addLike(userId, musicId));
         },

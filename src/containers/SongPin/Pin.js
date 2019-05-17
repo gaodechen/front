@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Icon, Card } from 'antd'
 
+import Player from 'react-aplayer'
+
 const Meta = Card.Meta;
 
 /**
@@ -15,41 +17,23 @@ class Pin extends Component {
         this.props.onLike(this.props.userId, this.props.musicID)
     }
 
+    onInit = ap => {
+        this.ap = ap;
+    }
+
+    onPlay = () => {
+        this.ap.seek(this.props.audio.refBegin);
+    }
+
     render() {
         return (
-            <Card
-                cover={
-                    <img
-                        style={{ objectFit: 'cover' }}
-                        alt={this.props.pin.alt}
-                        src={this.props.pin.src}
-                        height='256px'
-                    />
-                }
-                hoverable={true}
-                actions={[
-                    <Icon type="play-circle" />,
-                    <Icon type="star" onClick={this.props.onLike} />
-                ]}
-                size="small"
-                style={{width: '230px'}}
-            >
-                <Meta
-                    title={this.props.pin.title}
-                    description={this.props.pin.description}
-                />
-            </Card>
+            <Player
+                onInit={this.onInit}
+                onPlay={this.onPlay}
+                audio={{ ...this.props.audio }}
+            />
         )
     }
-}
-
-Pin.defaultProps = {
-    pin: {
-        alt: 'cover',
-        src: 'http://127.0.0.1:3002/static/thumbnail/default_thumbnail.png',
-    },
-    width: 256,
-    imgHeight: 256,
 }
 
 export default Pin

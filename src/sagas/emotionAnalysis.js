@@ -14,7 +14,7 @@ import { static_addr } from '../config'
 function* infer(payload) {
     const { MODEL_URL, input } = payload;
     let output = [];
-    const urlPrefixLength = static_addr.EMOTION_ANALYSIS_MODEL.length + 1; 
+    const urlPrefixLength = static_addr.EMOTION_ANALYSIS_MODEL.length;
     const modelPath = MODEL_URL.substring(urlPrefixLength);
 
     let Model = yield call(async_loadModelFromUrlAndSave, MODEL_URL, modelPath)

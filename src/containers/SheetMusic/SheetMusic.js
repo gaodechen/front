@@ -1,21 +1,35 @@
 import React, { Component } from 'react'
-import { SheetMusicMid, SheetMusicMXL } from './components'
+import { connect } from 'react-redux'
+import { message } from 'antd'
+
+import { SheetMusicMXL } from './components'
 
 class SheetMusic extends Component {
+    componentDidMount() {
+        if(this.props.mxlPath) {
+            message.success('正在渲染乐谱...')
+        } else {
+            message.error('乐谱无效')
+        }
+    }
     render() {
-        return (
-            <div>
-                <div style={{ width: '80%', textAlign: 'center', margin: '16px', marginLeft: '90px' }}>
-                    <SheetMusicMid />
+        if(this.props.mxlPath) {
+            return (
+                <div style={{width: '80%', textAlign: 'center', marginLeft: '90px'}}>
+                    <SheetMusicMXL file={this.props.mxlPath}/>
                 </div>
-                <SheetMusicMXL src={this.props.mxlPath} />
-            </div>
-        )
+            )
+        }
+        return null;
     }
 }
 
-SheetMusic.defaultProps = {
-    fileType: 'mid',
+const mapStateToProps = (state) => {
+    return {
+        mxlPath: state.transcription.musicXml,
+        // mxlPath: 'http://47.99.83.172/files/download?name=xml/2019-05-15 18:05:08.217234.xml',
+        // mxlPath: 'http://localhost:3002/static/temp.xml',
+    }
 }
 
-export default SheetMusic;
+export default connect(mapStateToProps)(SheetMusic);

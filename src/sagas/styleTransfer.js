@@ -15,7 +15,7 @@ import { static_addr } from '../config'
 function* infer(payload) {
     const { MODEL_URL, input, targetStyle } = payload;
     let output = [];
-    const urlPrefixLength = static_addr.STYLE_TRANSFER_MODEL.length + 1;
+    const urlPrefixLength = static_addr.STYLE_TRANSFER_MODEL.length;
     const modelPath = MODEL_URL.substring(urlPrefixLength);
 
     let Model = yield call(async_loadModelFromUrlAndSave, MODEL_URL, modelPath)
@@ -32,10 +32,15 @@ function* infer(payload) {
     return jsonData;
 }
 
+function* saveModel(payload) {
+    const { targetStyle } = payload;
+    yield call(async_loadModelFromUrlAndSave, 'http://localhost:3002/static/model/styleTransfer/' + targetStyle + '/model.json', targetStyle)
+}
+
 function* process(args) {
-    const { filename, noteRange, isPiano: mild, transferAmplitude: control } = args;
-    const payload = {filename, minmain: noteRange[0], maxmain: noteRange[1], control};
-    payload.mild = mild ? 'Y' : 'N';
+    const { file, noteRange, isPiano: mild, transferAmplitude: control, targetStyle } = args;
+    const payload = { file, minmain: noteRange[0], maxmain: noteRange[1], control, targetStyle };
+    payload.mild = mild ? 'N' : 'Y';
     let response;
     // start fetching and set fetching status
     yield put({ type: home_action_types.FETCH_START });
@@ -47,18 +52,6 @@ function* process(args) {
     } finally {
         // update fetching status
         yield put({ type: home_action_types.FETCH_END });
-        return response;
-    }
-    return ;
-}
-
-export function* upload(file) {
-    let response;
-    try {
-        response = yield call(post, '/agr/upload', {file});
-    } catch (error) {
-        response = error.response;
-    } finally {
         return response;
     }
 }
@@ -88,7 +81,7 @@ export function* inferenceFlow() {
                 type: home_action_types.ACTION_UPDATE,
                 actionStatus: action_status.RESOLVED,
             })
-            const outputUrl = yield call(process, request.payload);
+            const response = yield call(process, request.payload);
         } catch (error) {
             yield put({
                 type: home_action_types.SET_MSG,
@@ -108,17 +101,16 @@ export function* inferenceFlow() {
  * @description processFlow
  */
 export function* processFlow() {
-    while(true) {
+    while (true) {
         let request = yield take(action_types.PROCESS);
         yield put({
             type: home_action_types.ACTION_UPDATE,
             actionStatus: action_status.PENDING,
         });
         try {
-            // upload files
-            console.log(request.payload)
-            const filepath = yield call(upload, request.payload.input);
-            const outputUrl = yield call(process, {...request.payload, filepath});
+            yield call(saveModel, request.payload);
+            console.log(request.payload);
+            const response = yield call(process, { ...request.payload });
             // update message
             yield put({
                 type: home_action_types.SET_MSG,
@@ -129,6 +121,10 @@ export function* processFlow() {
             yield put({
                 type: home_action_types.ACTION_UPDATE,
                 actionStatus: action_status.RESOLVED,
+            })
+            yield put({
+                type: action_types.SET_MIDI,
+                midi: response.data,
             })
         } catch (error) {
             yield put({

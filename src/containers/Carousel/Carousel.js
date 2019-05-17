@@ -15,13 +15,12 @@ class WrappedCarousel extends Component {
       carousels.push(
         <div key={i}>
           <div
-            className="poster-title"
-            style={{ background: 'url(' + this.props.carousel[i].src + ')' }}
+            className="carousel-poster"
+            style={{
+              backgroundImage: 'url(' + this.props.carousel[i].src + ')',
+              height: 'calc(100vh - 64px)'
+            }}
           >
-            <div className="title-content">
-              <h3>{this.props.carousel[i].description}</h3>
-            </div>
-            <h2>歌单推荐</h2>
           </div>
         </div>
       );
@@ -39,16 +38,16 @@ class WrappedCarousel extends Component {
 }
 
 WrappedCarousel.defaultProps = {
-    carousel: [{
-        description: 'Album 1',
-        src: 'http://127.0.0.1:3002/static/poster/1.jpg',
-    }, {
-        description: 'Album 2',
-        src: 'http://127.0.0.1:3002/static/poster/2.jpg',
-    }, {
-        description: 'Album 3',
-        src: 'http://127.0.0.1:3002/static/poster/3.jpg',
-    }],
+  carousel: [{
+    description: 'Album 1',
+    src: 'http://127.0.0.1:3002/static/poster/2.jpg',
+  }, {
+    description: 'Album 2',
+    src: 'http://127.0.0.1:3002/static/poster/2.jpg',
+  }, {
+    description: 'Album 3',
+    src: 'http://127.0.0.1:3002/static/poster/2.jpg',
+  }],
 }
 
 export default WrappedCarousel;

@@ -31,7 +31,7 @@ class Recorder extends Component {
     onStop = (blobObject) => {
         message.success('录音成功！');
         this.props.setBlobURL(blobObject.blobURL)
-        this.props.callback(blobObject.blob)
+        this.props.setAudio(blobObject.blob, 'webm')
     }
 
 
@@ -50,7 +50,7 @@ class Recorder extends Component {
                         onData={this.onData}
                         onStop={this.onStop}
                         strokeColor="#000000"
-                        mimeType="audio/wav"
+                        mimeType="audio/mp3"
                     />
                 </Row>
                 {

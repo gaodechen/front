@@ -14,7 +14,7 @@ class Selector extends Component {
     customRequest = (option) => {
         let file = option.file;
         if (file) {
-            this.props.setAudio(file);
+            this.props.setAudio(file, 'file');
             message.success('文件选择成功');
         } else {
             message.error('文件选择失败');

@@ -33,6 +33,7 @@ class TransferSetting extends Component {
                         <Slider
                             defaultValue={this.props.transferAmplitude}
                             onAfterChange={this.onTransferAmplitudeAfterChange}
+                            min={1}
                             max={200}
                         />
                     </Col>

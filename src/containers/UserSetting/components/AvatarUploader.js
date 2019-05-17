@@ -56,7 +56,7 @@ class AvatarUploader extends Component {
         const avatarName = this.props.userInfo.avatar;
         let imageUrl = this.state.imageUrl;
         if(!imageUrl)
-            imageUrl = static_addr.AVATAR + '/' + avatarName;
+            imageUrl = static_addr.AVATAR + avatarName;
 
         return (
             <Upload

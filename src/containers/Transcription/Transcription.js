@@ -4,10 +4,12 @@ import { Route, Switch, withRouter } from 'react-router-dom'
 import { Steps, Button, Icon } from 'antd';
 
 import { FileSelector } from './components'
-import SheetMusic from '../SheetMusic'
-import Spin from './components'
+import { Player } from './components'
 import { ContentLayout } from '../../components/Layouts'
+import Spin from './components'
 import Recorder from '../Recorder'
+import { actions as fileSelector_actions } from '../../modules/fileSelector'
+import { actions as transcription_actions } from '../../modules/transcription'
 
 import './style.css'
 
@@ -24,8 +26,8 @@ const steps = [{
 }, {
     step: 2,
     title: '查看结果',
-    subTitle: '已经为您生成乐谱',
-    path: '/transcription/sheetMusic'
+    subTitle: '已经为您生成MIDI',
+    path: '/transcription/player'
 }];
 
 const Step = Steps.Step;
@@ -38,11 +40,10 @@ const Step = Steps.Step;
 class Transcription extends Component {
     constructor(props) {
         super(props);
-        const pathname = this.props.history.location.pathname;
-        let currentStep = this.getCurrentStepByLocation(pathname);
         this.state = {
-            current: currentStep,
+            current: 0,
         };
+        this.props.reset();
     }
 
     /**
@@ -57,8 +58,7 @@ class Transcription extends Component {
         if(currentIndex === -1) {
             currentIndex = 0;
         }
-        let currentStep = steps[currentIndex].step;
-        return currentStep;
+        return steps[currentIndex].step;
     }
 
     isCurrentNextAvailable = () => {
@@ -67,31 +67,43 @@ class Transcription extends Component {
             return this.props.audioAvailable;
         }
         if (current === 1) {
-            return this.props.xmlAvailable;
+            return this.props.midiAvailable;
         }
-        return this.props.audioAvailable && this.props.xmlAvailable;
+        return this.props.audioAvailable && this.props.midiAvailable;
     }
 
     /**
      * @description go to next step after clicking button
      */
     next = () => {
-        const current = this.state.current + 1;
+        let current = this.state.current + 1;
+        if(current >= steps.length) current = 0;
         this.props.history.push(steps[current].path)
         this.setState({ current });
+    }
+
+    /**
+     * @description reset
+     */
+    finish = () => {
+        this.setState({current: 0});
+        this.props.history.push(steps[0].path);
+        this.props.reset();
     }
 
     /**
      * @description go to prev step after clicking button
      */
     prev = () => {
-        const current = this.state.current - 1;
+        let current = this.state.current - 1;
+        if (current < 0) current = 0;
         this.props.history.push(steps[current].path)
         this.setState({ current });
     }
 
     render() {
-        const { current } = this.state;
+        const { pathname } = this.props.history.location;
+        const current = this.getCurrentStepByLocation(pathname);
         const buttonAvailable = this.isCurrentNextAvailable();
         return (
             <ContentLayout sider={false}>
@@ -107,7 +119,7 @@ class Transcription extends Component {
                             <Route path='/transcription/fileSelector' component={FileSelector} />
                             <Route path='/transcription/recorder' component={Recorder} />
                             <Route path='/transcription/spin' component={Spin} />
-                            <Route path='/transcription/sheetMusic' component={SheetMusic} />
+                            <Route path='/transcription/player' component={Player} />
                             <Route path='/transcription' component={FileSelector} />
                         </Switch>
                     </div>
@@ -148,8 +160,18 @@ class Transcription extends Component {
 const mapStateToProps = (state) => {
     return {
         audioAvailable: !!state.fileSelector.audio,
-        xmlAvaiilable: !!state.transcription.musicXml,
+        midiAvailable: !!state.transcription.musicMidi,
     }
 }
 
-export default connect(mapStateToProps)(withRouter(Transcription));
+const mapDispatchToProps = (dispatch) => {
+    return {
+        reset: () => {
+            dispatch(fileSelector_actions.setAudio(null, null));
+            dispatch(transcription_actions.setMidi(null));
+            dispatch(transcription_actions.setXml(null));
+        },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Transcription));

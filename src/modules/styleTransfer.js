@@ -6,13 +6,15 @@ const action_types = {
     INFER: 'model/INFER',           // start inferring in browser
     PROCESS: 'model/PROCESS',       // whole process on server
     SET_ARGS: 'args/SET',           // set transfer arguments
+    SET_MIDI: 'transferMidi/SET',   // set the result of transfer
 }
 
 const initialState = {
     targetStyle: null,
-    transferAmplitude: 0,
+    transferAmplitude: 1,
     noteRange: [36, 84],
     isPiano: true,
+    midi: null,
 }
 
 const Reducer = (state = initialState, action = {}) => {
@@ -26,6 +28,11 @@ const Reducer = (state = initialState, action = {}) => {
             return {
                 ...state,
                 ...action.payload,
+            }
+        case action_types.SET_MIDI:
+            return {
+                ...state,
+                midi: action.midi,
             }
         default:
             return state;

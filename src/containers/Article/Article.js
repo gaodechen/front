@@ -6,7 +6,7 @@ class Article extends Component {
     render() {
         return (
             <ContentLayout>
-                {this.props.article.content}
+                {this.props.article}
             </ContentLayout>
         )
     }

@@ -28,18 +28,16 @@ const Reducer = (state = initialState, action = {}) => {
         case action_types.SET_ARTICLES:
             return {
                 ...state,
-                articles: {
-                    ...action.articles,
-                },
-            }
-        case action_types.SET_ARTCILE:
+                articles: action.articles,
+            };
+        case action_types.SET_ARTICLE:
             return {
                 ...state,
                 // article detail
-                [action.articleID]: {
+                [action.articleId]: {
                     ...action.article
                 }
-            }
+            };
         default:
             return state;
     }
@@ -47,22 +45,13 @@ const Reducer = (state = initialState, action = {}) => {
 
 // Action Creators
 const actions = {
-    getArticles: (userID) => ({
-        type: action_types.GET_ARTICLES, id: userID
+    getArticles: (authorId) => ({
+        type: action_types.GET_ARTICLES, authorId
     }),
-    setArticles: (articles) => ({
-        type: action_types.SET_ARTICLES, articles
-    }),
-    getArticle: (articleID) => ({
-        type: action_types.GET_ARTICLES, id: articleID
-    }),
-    addArticle: (userID, article) => ({
-        type: action_types.ADD_ARTICLE, id: userID, article
-    }),
-    delArticle: (userID, articleID) => ({
-        type: action_types.DEL_ARTICLE, id: userID, articleID
+    getArticle: (articleId) => ({
+        type: action_types.GET_ARTICLE, articleId
     })
-}
+};
 
 export default Reducer
 export { action_types, actions }

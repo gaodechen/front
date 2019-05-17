@@ -6,9 +6,11 @@ import { MenuList, MenuItem } from '../../../components/MenuItems'
 
 // first class menu
 const mainMenus = [
-    { url: '/music', name: '音乐', iconType: 'star' },
-    { url: '/styleTransfer', name: '哼歌编曲', iconType: 'copy' },
-    { url: '/transcription', name: '旋律提取', iconType: 'file-text' },
+    { url: '/', name: '首页', iconType: 'star' },
+    { url: '/styleTransfer/fileSelector', name: '风格迁移', iconType: 'copy' },
+    { url: '/transcription/fileSelector', name: '旋律提取', iconType: 'file-text' },
+    { url: '/midi2sheet/fileSelector', name: '乐谱生成', iconType: 'snippets' },
+    { url: '/about', name: '关于', iconType: 'bulb' }
 ];
 
 // secondary menu for guest
@@ -38,8 +40,8 @@ class Navigator extends Component {
                 <Col xs={{ span: 24 }} sm={{ span: 18, offset: 3 }}>
                     <Menu
                         mode="horizontal"
-                        selectedKeys={[location.pathname]}
                         theme="dark"
+                        selectedKeys={[location.pathname]}
                         style={{ lineHeight: '64px' }}
                     >
                         {MenuItem(mainMenus[0])}
@@ -48,7 +50,9 @@ class Navigator extends Component {
                         >
                             {MenuItem(mainMenus[1])}
                             {MenuItem(mainMenus[2])}
+                            {MenuItem(mainMenus[3])}
                         </Menu.SubMenu>
+                        {MenuItem(mainMenus[4])}
                         <Menu.SubMenu
                             title={<span><Icon type="user" />{isLoggedIn ? userInfo.username : "用户"}</span>}
                         >

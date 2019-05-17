@@ -5,11 +5,11 @@ import { action_types as home_action_types, fetch_types } from '../modules/home'
 import { action_types as recommend_action_types } from '../modules/recommend'
 import status_code from '../api/request/status-code'
 
-export function* getRecommend(id, recType, recNum) {
+export function* getRecommend(payload) {
     let response;
     yield put({ type: home_action_types.FETCH_START });
     try {
-        response = yield call(get, '/api/recommend', { _id: id, recType, recNum });
+        response = yield call(get, '/api/recommend', { ...payload });
     } catch (err) {
         response = err.response;
     } finally {
@@ -21,8 +21,8 @@ export function* getRecommend(id, recType, recNum) {
 export function* getRecommendFlow() {
     while (true) {
         let request = yield take(recommend_action_types.GET_RECOMMEND);
-        const { id, recType, recNum } = request;
-        let response = yield call(getRecommend, id, recType, recNum);
+        const { payload } = request;
+        let response = yield call(getRecommend, payload);
         if (response && response.status === status_code.SUCCESS) {
             yield put({
                 type: home_action_types.SET_MSG,
@@ -74,10 +74,10 @@ export function* getCollectionsFlow() {
         });
 }
 
-export function* postCollection(userID, likedID) {
+export function* postCollection(userId, likedId) {
     let response;
     try {
-        response = yield call(post, '/api/like', { _id: userID, likedID });
+        response = yield call(post, '/api/like', { _id: userId, likedId });
     } catch (err) {
         response = err.response;
     } finally {
@@ -87,8 +87,8 @@ export function* postCollection(userID, likedID) {
 
 export function* postCollectionFlow() {
     let request = yield take(recommend_action_types.ADD_COLLECTION);
-    const { userID, likedID } = request;
-    let response = yield call(postCollectionFlow, userID, likedID);
+    const { userId, likedId } = request;
+    let response = yield call(postCollectionFlow, userId, likedId);
     if (response && response.status === status_code.SUCCESS) {
         yield put({
             type: home_action_types.SET_MSG,
@@ -104,10 +104,10 @@ export function* postCollectionFlow() {
     }
 }
 
-export function* delCollection(userID, likedID) {
+export function* delCollection(userId, likedId) {
     let response;
     try {
-        response = yield call(del, '/api/like', { _id: userID, likedID });
+        response = yield call(del, '/api/like', { _id: userId, likedId });
     } catch (err) {
         response = err.response;
     } finally {
@@ -117,8 +117,8 @@ export function* delCollection(userID, likedID) {
 
 export function* deleteCollectionFlow() {
     let request = yield take(recommend_action_types.DEL_COLLECTION);
-    const { id, likedID } = request;
-    let response = yield call(delCollection, id, likedID);
+    const { id, likedId } = request;
+    let response = yield call(delCollection, id, likedId);
     if (response && response.status === status_code.SUCCESS) {
         yield put({
             type: home_action_types.SET_MSG,

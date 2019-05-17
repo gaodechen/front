@@ -7,8 +7,11 @@ import { LoginForm } from '../containers/Login'
 import { RegisterForm } from '../containers/Register'
 import { Logout } from '../containers/Logout'
 import { UserSetting } from '../containers/UserSetting'
+import { AlbumPage } from '../containers/AlbumPage'
+import { MusicPage } from '../containers/MusicPage'
 import { Center } from '../containers/Center'
 import { StyleTransfer } from '../containers/StyleTransfer'
+import { Midi2Sheet } from '../containers/Midi2Sheet'
 import { AuthRoute } from '../containers/AuthRoute'
 import { NotFound } from '../components/NotFound'
 import { Music } from '../containers/Music'
@@ -70,11 +73,13 @@ class Index extends Component {
                     <Route path="/styleTransfer" component={StyleTransfer} />
                     <Route path="/sheetMusic/:midiPath" component={SheetMusic} />
                     <Route path="/transcription" component={Transcription} />
+                    <Route path="/album" component={AlbumPage} />
+                    <Route path="/midi2sheet" component={Midi2Sheet} />
                     <Route path="/center/:id" component={UserPage} />
                     <AuthRoute path="/center" component={Center} />
                     <AuthRoute path="/editor" component={Editor} />
                     <Route path="/articles/:id?" component={Article} />
-                    <Route path="/music" component={Music} />
+                    <Route path="/music" component={MusicPage} />
                     <Route path="/404" component={NotFound} />
                     <Route path="/" component={Music} />
                 </Switch>

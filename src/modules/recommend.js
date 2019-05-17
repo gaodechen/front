@@ -45,8 +45,8 @@ const actions = {
         type: action_types.GET_POSTERS, payload
     }),
     // fetch recommendations
-    getRecommend: (_id, payload) => ({
-        type: action_types.GET_RECOMMEND, _id, payload
+    getRecommend: (payload) => ({
+        type: action_types.GET_RECOMMEND, payload
     }),
     // store reommendation list
     setRecommend: (payload) => ({

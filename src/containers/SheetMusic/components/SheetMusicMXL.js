@@ -45,8 +45,4 @@ class OpenSheetMusicDisplay extends Component {
     }
 }
 
-OpenSheetMusicDisplay.defaultProps = {
-    file: './temp.mxl'
-}
-
 export default OpenSheetMusicDisplay;

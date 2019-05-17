@@ -12,23 +12,14 @@ import { Selector } from '../../Uploader'
  * @extends {Component}
  */
 class FileSelector extends Component {
-    handleRecordingClick = () => {
-        this.props.history.push('/styleTransfer/recorder');
-    }
-
     render() {
         return (
-            <div style={{ height: '248px', paddingTop: '60px' }}>
+            <div style={{ height: '248px', paddingTop: '104px' }}>
                 <Selector setAudio={this.props.setAudio}>
                     <Button type='primary' shape='round' size='large' icon='upload'>
                         本地音频
                     </Button>
                 </Selector>
-                <br />
-                <br />
-                <Button shape='round' size='large' icon='notification' onClick={this.handleRecordingClick}>
-                    录制音频
-                </Button>
             </div>
         )
     }
@@ -36,8 +27,8 @@ class FileSelector extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setAudio: (audio) => {
-            dispatch(actions.setAudio(audio))
+        setAudio: (audio, source = 'file') => {
+            dispatch(actions.setAudio(audio, source))
         }
     }
 }

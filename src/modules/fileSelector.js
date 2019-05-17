@@ -15,6 +15,7 @@ const Reducer = (state = initialState, action = {}) => {
             return {
                 ...state,
                 audio: action.audio,
+                source: action.source,
             }
         default:
             return state;
@@ -27,9 +28,11 @@ const actions = {
      * @description set audio as File object or Blob object
      * @param {*} audio
      */
-    setAudio: (audio) => ({
-        type: action_types.SET_AUDIO, audio
-    }),
+    setAudio: (audio, source) => {
+        return {
+            type: action_types.SET_AUDIO, audio, source
+        }
+    },
 }
 
 export default Reducer
